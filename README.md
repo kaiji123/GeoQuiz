@@ -1,6 +1,4 @@
 # Team Project '22
 
-### Ideas
-
-### Kanban Board
-[Trello](https://trello.com/invite/b/ybe47q1J/e71c88ad0799eae8101eff295a06b7a2/team-project-kanban)
+## Kanban Board
+- [Trello](https://trello.com/invite/teamprojectworkspace/f39bd5e5427e2bda311ed9d2abcd0741)
