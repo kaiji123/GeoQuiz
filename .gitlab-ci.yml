@@ -1,4 +1,4 @@
-image : node:8.00
+image : node:4.2.2
 
 build :
   stage: build 
