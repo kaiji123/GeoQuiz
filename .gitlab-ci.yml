@@ -1,11 +1,17 @@
 image : node:4.2.2
 
+stages :
+  - build
+  - test
 build :
   stage: build 
-  script : npm start 
+  script :
+    - npm install 
+    - npm start 
 
 test:
   stage: test
-  script: echo "wqewq"
+  script: 
+    - echo "wqewq"
 
 
