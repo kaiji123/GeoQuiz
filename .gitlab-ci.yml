@@ -1,21 +1,22 @@
 image : node:alpine
+
 stages :
+  - build
   - test
+
+build :
+  stage: build 
+  script :
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key: $NODE_MODULES
+    paths: 
+      - .npm/
+
 
 test:
   stage: test
   script: 
-    - echo "wqewq"
+    - npm test
 
-deploy:
-  before_script:
-    - 'command -v ssh -agent >/dev/null || ( apk add --update openssh )’
-    - eval $(ssh -agent -s)
-    - mkdir -p ~/. ssh
-    - chmod 700 ~/. ssh
-    - echo "$SSH_PRIVATE_KEY" | tr -d ’\r’ > ~/.ssh/id_rsa
-    - chmod 600 ~/. ssh/id_rsa
-    - ssh -add
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS apt install -y
-    node
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 8080
+
