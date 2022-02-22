@@ -1,6 +1,8 @@
 extends layout
 block content
         link(rel='stylesheet' href='/stylesheets/login.css')
+        script(src='https://apis.google.com/js/platform.js')
+        
         .login
             h1='The best way to get familiar with your area'
             p='To get started, login or play as a guest'
@@ -8,3 +10,5 @@ block content
         .login
             .social-login 
                 h2='Login'
+                .g-signin2(data-onsuccess="onSignIn")
+

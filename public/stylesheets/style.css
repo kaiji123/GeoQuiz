@@ -40,13 +40,16 @@ p{
 
 /*Header style*/
 .header{
+  display: flex;
+  flex-direction: row;
   height: 75px;
 }
 
 .header:after{
   content: "";
   background: white;
-  position:absolute;
+  position:fixed;
+  top: 75px;
 
   width: 95%;
   margin-left: 2.5%;
@@ -56,12 +59,24 @@ p{
 
 .logo{
   height: 75px;
+  width: fit-content;
   margin-left: 2.5%;
 }
 
 .logo img{
   max-height: 100%;
   max-width: 100%;
+}
+
+.signin{
+  font-size: 15px;
+
+  margin: 20px 0;
+  margin-left: auto;
+  margin-right: 2.5%;
+
+  padding: 5px 20px;
+
 }
 
 /*Main page class*/
