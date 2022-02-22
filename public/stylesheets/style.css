@@ -1,8 +1,40 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+:root{
+  --background-color: #ffdc9f;
+  --default-font: 'Permanent Marker', cursive;
 }
 
-a {
-  color: #00B7FF;
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin: 0px;
+ 
+  font-family: var(--default-font);
+  background-color: var(--background-color);
+}
+
+button{
+  padding: 20px 40px;
+  font-size:1.2em;
+  font-family: var(--default-font);
+  border-radius: 3px;
+  border: 2px solid black;
+  filter: drop-shadow(2px 2px 2px black);
+  transition: 0.3s;
+}
+
+button:hover{
+  background-color: grey;
+  cursor: pointer;
+}
+
+.header{
+  height: 75px;
+  flex-grow: 1;
+  border-bottom: 2px solid black;
+}
+
+.page{
+  display: flex;
 }
