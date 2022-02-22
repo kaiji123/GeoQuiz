@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "echo \"No tests to run.\"",
     "start": "node ./bin/www"
   },
   "dependencies": {

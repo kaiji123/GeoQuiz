@@ -1,17 +1,22 @@
 image : node:alpine
+
 stages :
   - build
   - test
-build :
 
+build :
   stage: build 
   script :
-    - npm install 
-    - npm start 
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key: $NODE_MODULES
+    paths: 
+      - .npm/
+
 
 test:
   stage: test
   script: 
-    - echo "wqewq"
+    - npm test
 
 
