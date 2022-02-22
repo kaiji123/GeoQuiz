@@ -1,23 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 :root{
   --background-color: #ffdc9f;
-  --default-font: 'Permanent Marker', cursive;
+  --default-font: 'Prata', serif;
+  --button-font: 'Prata', serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
+
   padding: 0px;
   margin: 0px;
- 
+
+  height: 100vh;
   font-family: var(--default-font);
   background-color: var(--background-color);
 }
 
 button{
   padding: 20px 40px;
-  font-size:1.2em;
+  font-size:1.25em;
   font-family: var(--default-font);
+  font-weight: bold;
   border-radius: 3px;
   border: 2px solid black;
   filter: drop-shadow(2px 2px 2px black);
@@ -29,12 +34,51 @@ button:hover{
   cursor: pointer;
 }
 
-.header{
-  height: 75px;
-  flex-grow: 1;
-  border-bottom: 2px solid black;
+p{
+  font-size: 20px;
 }
 
+/*Header style*/
+.header{
+  height: 75px;
+}
+
+.header:after{
+  content: "";
+  background: white;
+  position:absolute;
+
+  width: 95%;
+  margin-left: 2.5%;
+  height: 1px;
+
+}
+
+.logo{
+  height: 75px;
+  margin-left: 2.5%;
+}
+
+.logo img{
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/*Main page class*/
 .page{
   display: flex;
+  flex-grow: 1;
+}
+
+/*Footer style*/
+.footer{
+  height: 75px;
+  margin-left: 2.5%;
+}
+
+.footer a{
+  line-height: 75px;
+  text-decoration: none;
+  color: black;
+  margin-right: 20px;
 }
