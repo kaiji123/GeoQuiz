@@ -8,13 +8,11 @@ var router = express.Router();
 
 
 
-const API_KEY = ""
 const options = {
   provider: 'google',
-
   // Optional depending on the providers
 
-  apiKey: API_KEY, // for Mapquest, OpenCage, Google Premier
+  apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
   formatter: null // 'gpx', 'string', ...
 };
 
