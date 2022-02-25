@@ -4,7 +4,11 @@ const NodeGeocoder = require('node-geocoder');
 const navigator = new Navigator();
 var router = express.Router();
 
-const API_KEY = "AIzaSyDDsgTeob3znloELiDV-r1rFQl3vsq2ap0"
+
+
+
+
+const API_KEY = ""
 const options = {
   provider: 'google',
 
