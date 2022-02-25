@@ -1,6 +1,34 @@
 extends layout
 
 block content
-  h1#location='You are doing a quiz for:'
-  
+  link(rel='stylesheet' href='/stylesheets/index.css')
+  script.
+    //alert("working")
+  .container 
+
+    .located
+       
+      
+      h1='You are doing a quiz for:'
+      h1=location
+
+    .content 
+      .table 
+        table(style='width:20%', border='1')
+          tr
+            th Rank
+            th Name
+            th Total point
+          each val, index in [['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two']]
+            th= val[0]
+            th=val[1]
+            th=val[2]
+            tr
+
+      .start
+        button.start-quiz(onclick='window.location.href="/quiz"')='Start the quiz'
+        
+        
+        
+
 

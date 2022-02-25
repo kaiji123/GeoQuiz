@@ -1,0 +1,40 @@
+.container{
+    background-color: green;
+    width: 100%;
+}
+.content{
+    width: 100%;
+    background-color: red;
+    display: inline-block;
+    
+}
+.start{
+
+    text-align: end;
+    position: relative;
+    bottom: 80px;
+    right :20%;
+
+    
+    
+}
+
+.table{
+    position: relative;
+    top : 50px;
+    
+
+    
+}
+
+.located{
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    right : 500px;
+}
+  
+  
+
+  
