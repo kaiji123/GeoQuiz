@@ -2,6 +2,39 @@ extends layout
 block content
         link(rel='stylesheet' href='/stylesheets/login.css')
         script(src='https://apis.google.com/js/platform.js')
+        <meta >
+        meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
+        script.
+           function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+              
+                const params = {
+                    email:profile.getEmail() ,
+                    username:profile.getName(),
+
+                }
+                console.log(params)
+
+                const http = new XMLHttpRequest()
+                http.open('POST', 'http://localhost:3000')
+                http.setRequestHeader('Content-type', 'application/json')   
+                http.onload= function(){
+                    if (http.responseText == "success"){
+                        alert("success")
+                        sessionStorage.setItem("user", params.username);
+                        window.location.href = "/"
+
+                    }
+                }
+        
+                http.send(JSON.stringify(params)) // Make sure to stringify
+                
+            
+             
+            }
+
+        
+                    
         
         .login
             h1='The best way to get familiar with your area'
@@ -11,4 +44,6 @@ block content
             .social-login 
                 h2='Login'
                 .g-signin2(data-onsuccess="onSignIn")
+
+
 

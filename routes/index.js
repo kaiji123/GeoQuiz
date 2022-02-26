@@ -5,8 +5,7 @@ const navigator = new Navigator();
 var router = express.Router();
 
 
-
-
+var user =""
 
 const options = {
   provider: 'google',
@@ -31,12 +30,22 @@ router.get('/', function(req, res, next) {
     else console.log(success);
     async function getResponse() {
       const response = await geocoder.reverse({ lat: success.latitude, lon: success.longitude });
-      res.render('index', { title: 'GeoQuiz', location:response[0].city });
+      res.render('index', { title: 'GeoQuiz', location:response[0].city, username: user });
     }
     
     getResponse()
   });
 });
+
+router.post('/', function(req, res, next) {
+  user  = req.body.username
+  res.send("success")
+});
+
+
+
+
+
 
 
 

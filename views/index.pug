@@ -4,6 +4,7 @@ block content
   link(rel='stylesheet' href='/stylesheets/index.css')
   script.
     //alert("working")
+    alert(sessionStorage.getItem("user"))
   .container 
 
     .located
@@ -11,6 +12,7 @@ block content
       
       h1='You are doing a quiz for:'
       h1=location
+      h1= username
 
     .content 
       .table 
