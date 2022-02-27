@@ -1,10 +1,10 @@
 .container{
-    background-color: green;
+    
     width: 100%;
 }
 .content{
     width: 100%;
-    background-color: red;
+  
     display: inline-block;
     
 }
