@@ -1,10 +1,22 @@
 function onSignIn(googleUser) {
-  console.log('anything');
-  console.log(document.cookie);
-  console.log('signin ok');
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    var profile = googleUser.getBasicProfile();
+  
+    const params = {
+        email:profile.getEmail() ,
+        username:profile.getName(),
+
+    }
+    console.log(params)
+
+    const http = new XMLHttpRequest()
+    http.open('POST', 'http://localhost:3000')
+    http.setRequestHeader('Content-type', 'application/json')   
+    http.onload= function(){
+        if (http.responseText == "success"){
+            sessionStorage.setItem("user", params.username);
+            //window.location.href = "/"
+        }
+    }
+
+    http.send(JSON.stringify(params)) // Make sure to stringify          
 }
