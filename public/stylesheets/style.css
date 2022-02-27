@@ -44,6 +44,10 @@ p{
   flex-direction: row;
   height: 75px;
 }
+.usernameText {
+  padding-right: 25px;
+  padding-top: 25px;
+}
 
 .header:after{
   content: "";

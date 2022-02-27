@@ -1,9 +1,9 @@
-extends layout
-
+extends signlayout
 block content
   link(rel='stylesheet' href='/stylesheets/index.css')
   script.
     //alert("working")
+    alert(sessionStorage.getItem("user"))
   .container 
 
     .located
@@ -11,10 +11,11 @@ block content
       
       h1='You are doing a quiz for:'
       h1=location
+      h1= username
 
     .content 
       .table 
-        table(style='width:20%', border='1')
+        table(style='width:30%', border='1')
           tr
             th Rank
             th Name
