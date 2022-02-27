@@ -2,6 +2,7 @@ extends layout
 block content
   link(rel='stylesheet' href='/stylesheets/index.css')
   script(src='/scripts/get-location.js')
+  script(src='/scripts/main-page.js')
   script.
     //alert("working")
     //alert(sessionStorage.getItem("user"))
@@ -9,8 +10,8 @@ block content
 
     .located
       h1='You are doing a quiz for:'
-      h1=location
-      h1= username
+      h1= location
+      h1#username
 
     .content 
       .table 
@@ -18,7 +19,7 @@ block content
           tr
             th Rank
             th Name
-            th Total point
+            th Total Points
           each val, index in [['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two']]
             th= val[0]
             th=val[1]
