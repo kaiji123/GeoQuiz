@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { Navigator } = require("node-navigator");
 const NodeGeocoder = require('node-geocoder');
-const navigator = new Navigator();
 
 const options = {
   provider: 'google',
@@ -15,12 +13,16 @@ const options = {
 
 const geocoder = NodeGeocoder(options);
 
-//get client location
-router.get('/location', function(req, res, next) {
-
+//returns an address from given coordinates
+router.post('/location', function(req, res, next) {
+    //TODO: get address using maps api
+    res.send(req.body);
 });
 
 router.post('/login', function(req, res, next) {
     user = req.body.username
     res.send("success")
-  });
+});
+
+
+module.exports = router;

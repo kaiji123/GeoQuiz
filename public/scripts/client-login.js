@@ -1,3 +1,4 @@
+//called by google signin api
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log(profile);
@@ -7,7 +8,7 @@ function onSignIn(googleUser) {
 
     }
     console.log(params)
-
+    
     const http = new XMLHttpRequest()
     http.open('POST', 'http://localhost:3000')
     http.setRequestHeader('Content-type', 'application/json')   
