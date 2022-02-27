@@ -1,6 +1,6 @@
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-  
+    console.log(profile);
     const params = {
         email:profile.getEmail() ,
         username:profile.getName(),

@@ -1,9 +1,10 @@
 extends signlayout
 block content
   link(rel='stylesheet' href='/stylesheets/index.css')
+  script(src='/scripts/get-location.js')
   script.
     //alert("working")
-    alert(sessionStorage.getItem("user"))
+    //alert(sessionStorage.getItem("user"))
   .container 
 
     .located
