@@ -1,17 +1,14 @@
-extends signlayout
+extends layout
 block content
   link(rel='stylesheet' href='/stylesheets/index.css')
   script(src='/scripts/get-location.js')
   script(src='/scripts/main-page.js')
-  script.
-    //alert("working")
-    //alert(sessionStorage.getItem("user"))
+  
   .container 
 
     .located
-      h1='You are doing a quiz for:'
-      h1= location
-      h1#username
+      h1#username='Welcome, '
+      h1#location='You\'re doing a quiz for: '
 
     .content 
       .table 
