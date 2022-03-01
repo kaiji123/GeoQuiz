@@ -5,4 +5,6 @@ function onSignIn(googleUser) {
     //check if the user exists in our database
     sessionStorage.setItem("id", profile.getId());
     sessionStorage.setItem("user", profile.getName());
+
+    //window.location.href = '/index'
 }
