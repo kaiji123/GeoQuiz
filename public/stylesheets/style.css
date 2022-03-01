@@ -52,18 +52,19 @@ p{
 .header:after{
   content: "";
   background: white;
-  position:fixed;
+  position:relative;
   top: 75px;
 
-  width: 95%;
-  margin-left: 2.5%;
+  width: 110%;
+  margin-right: 15%;
   height: 1px;
 
 }
 
 .logo{
   height: 75px;
-  width: fit-content;
+  width: 300px;
+ position: fixed;
   margin-left: 2.5%;
 }
 
@@ -74,9 +75,9 @@ p{
 
 .signin{
   font-size: 15px;
-
+  position: fixed;
   margin: 20px 0;
-  margin-left: auto;
+  margin-left: 90%;
   margin-right: 2.5%;
 
   padding: 5px 20px;
@@ -102,18 +103,3 @@ p{
   margin-right: 20px;
 }
 
-scalingButton{
-  padding: 5px 10px;
-  font-size:1.75em;
-  font-family: var(--default-font);
-  font-weight: bold;
-  border-radius: 3px;
-  border: 2px solid black;
-  filter: drop-shadow(2px 2px 2px black);
-  transition: 0.3s;
-}
-
-scalingButton:hover{
-  background-color: grey;
-  cursor: pointer;
-}

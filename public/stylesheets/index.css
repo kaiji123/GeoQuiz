@@ -9,9 +9,9 @@
     
 }
 .start{
-
+    margin-bottom: 15%;
     text-align: end;
-    position: relative;
+    position: fixed;
     bottom: 80px;
     right :20%;
 
@@ -20,7 +20,9 @@
 }
 
 .table{
-    position: relative;
+    position: fixed;
+    margin-top: 15em;
+    width: 80%;
     top : 50px;
     padding-left: 100px; 
     
@@ -31,14 +33,36 @@
     align-items: center;
     justify-items: center;
     text-align: center;
+
     right : 500px;
 }
   
 .scaling{
     text-align: end;
-    position: relative;
+    position: fixed;
+    margin: 150px;
+    margin-right: 0%;
+    margin-bottom: 5%;
     bottom: 0px;
     right :20%;
 }
+
+scalingButton{ 
+    background-color: white;
+    padding: 5px 10px;
+    font-size:1em;
+    margin-top: 600px;
+    font-weight: bold;
+    border-radius: 3px;
+    border: 2px solid black;
+    filter: drop-shadow(2px 2px 2px black);
+    transition: 0.3s;
+  }
+  
+  scalingButton:hover{
+    background-color: grey;
+    cursor: pointer;
+  }
+  
 
   
