@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var database = require("./database.js")
 
 const NodeGeocoder = require('node-geocoder');
+const res = require('express/lib/response');
 
 const options = {
   provider: 'google',
@@ -20,6 +22,11 @@ router.post('/location', async (req, res) => {
     console.log(location);
     res.send(location[0]);
 
+});
+
+//select a user id from the database and return it
+router.get('/selectuid', function(req, res){
+  res.send(database.selectUID());
 });
 
 async function locFromCoords(coords){
