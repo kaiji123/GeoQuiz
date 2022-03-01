@@ -101,3 +101,19 @@ p{
   color: black;
   margin-right: 20px;
 }
+
+scalingButton{
+  padding: 5px 10px;
+  font-size:1.75em;
+  font-family: var(--default-font);
+  font-weight: bold;
+  border-radius: 3px;
+  border: 2px solid black;
+  filter: drop-shadow(2px 2px 2px black);
+  transition: 0.3s;
+}
+
+scalingButton:hover{
+  background-color: grey;
+  cursor: pointer;
+}

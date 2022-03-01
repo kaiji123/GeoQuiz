@@ -34,6 +34,11 @@
     right : 500px;
 }
   
-  
+.scaling{
+    text-align: end;
+    position: relative;
+    bottom: 0px;
+    right :20%;
+}
 
   
