@@ -1,4 +1,12 @@
+var mysql      = require('mysql');
 
+var connection = mysql.createConnection({
+  host     : 'db-mysql-lon1-92192-do-user-10957123-0.b.db.ondigitalocean.com',
+  port     : '25060',
+  user     : 'doadmin',
+  password : 'MBAeLg2tttYUGn2Z',
+  database : 'defaultdb'
+});
  
 module.exports = {
   selectUID: function(){
@@ -29,3 +37,5 @@ module.exports = {
   
   }
 }
+
+exports.selectUID = selectUID;
