@@ -41,7 +41,5 @@ deploy:
     url: https://example.com
   script:
     - bash deploy/deploy.sh
-  only:
-    - master
 
 
