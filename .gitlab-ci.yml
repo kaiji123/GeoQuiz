@@ -18,6 +18,12 @@ test:
   script: 
     - npm test
 
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key: $NODE_MODULES
+    paths: 
+      - .npm/
+
 
 deploy:
   stage: deploy
