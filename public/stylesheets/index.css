@@ -21,7 +21,7 @@
 
 .table{
     position: fixed;
-    margin-top: 15em;
+    margin-top: 15%;
     width: 80%;
     top : 50px;
     padding-left: 100px; 
@@ -50,7 +50,7 @@
 scalingButton{ 
     background-color: white;
     padding: 5px 10px;
-    font-size:1em;
+    
     margin-top: 600px;
     font-weight: bold;
     border-radius: 3px;

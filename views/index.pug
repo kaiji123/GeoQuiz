@@ -1,5 +1,6 @@
 extends layout
 block content
+  link(rel='stylesheet', href='/stylesheets/style.css')
   link(rel='stylesheet' href='/stylesheets/index.css')
   script(src='/scripts/get-location.js')
   script(src='/scripts/main-page.js')
@@ -27,9 +28,9 @@ block content
         button.start-quiz(onclick='window.location.href="/quiz"')='Start the quiz'
         
       .scaling
-        scalingButton(onclick='body.style.zoom="100%"')='Default' 
-        scalingButton(onclick='body.style.zoom="125%"')='Medium'
-        scalingButton(onclick='body.style.zoom="150%"')='Large'
+        scalingButton(onclick='body.style.fontSize = "1.0em"')='Normal' 
+        scalingButton(onclick='body.style.fontSize = "1.2em"')='Medium'
+        scalingButton(onclick='body.style.fontSize = "1.5em"')='Large'
         
         
 
