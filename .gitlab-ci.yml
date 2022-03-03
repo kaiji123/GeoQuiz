@@ -31,7 +31,6 @@ deploy:
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS apt install -y tomcat9
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 8080
   script :
-    - cd $CI_PROJECT_DIR
-    - pm2 start app.js
+    - ssh root@$SERVER_IP '/home/team22-21; pm2 reload all'
 
 
