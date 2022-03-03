@@ -31,6 +31,6 @@ deploy:
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS apt install -y tomcat9
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 8080
   script :
-    - ssh root@$SERVER_IPADDRESS 'cd /home/team22-21; pm2 start app.js'
+    - ssh root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 start app.js'
 
 
