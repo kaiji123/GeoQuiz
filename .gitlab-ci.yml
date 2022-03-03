@@ -8,24 +8,31 @@ stages :
 build :
   stage: build 
   script :
-    - cd $CI_PROJECT_DIR
     - npm install
-    - npm install pm2 -g
-
 
 
 test:
   stage: test
   script: 
-    - cd $CI_PROJECT_DIR
+    - echo $CI_PROJECT_DIR
     - npm test
 
 
 deploy:
   stage : deploy
-  script:
-    - cd $CI_PROJECT_DIR
-    - npm -i pm2
-    - pm2 start npm -- start
+  before_script :
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+
+    - ssh-add
+  script :
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 start npm -- start'
+    - scp -o StrictHostKeyChecking=no -r $CI_PROJECT_DIR root@$SERVER_IPADDRES:/home/gitlab-runner/build
+  
+
 
 
