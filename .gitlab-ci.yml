@@ -8,9 +8,11 @@ stages :
 build :
   stage: build 
   script :
+    - cd /home/team22-21
     - npm install
   artifacts:
     paths:
+      /home/team22-21/node_modules
 
 
 test:
@@ -23,5 +25,7 @@ deploy:
   stage : deploy
   script:
     - cd /home/team22-21
+    - npm -i pm2 -g
+    - pm2 start npm -- start
 
 
