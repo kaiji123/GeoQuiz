@@ -28,9 +28,6 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
 
     - ssh-add
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS apt install -y tomcat9
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 8080
   script :
-    - ssh root@$SERVER_IPADDRESS 'cd /home/team22-21; pm2 start app.js'
-
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 reload app.js -- --port 3000'
 
