@@ -12,7 +12,7 @@ build :
     - npm install
   artifacts:
     paths:
-      /home/team22-21/node_modules
+      - /home/team22-21/node_modules
 
 
 test:
