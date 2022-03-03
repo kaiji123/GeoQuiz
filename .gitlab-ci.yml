@@ -8,11 +8,10 @@ stages :
 build :
   stage: build 
   script :
-    - cd /home/team22-21
+    - cd /home
+    - ls -lah
     - npm install
-  artifacts:
-    paths:
-      - /home/team22-21/node_modules
+
 
 
 test:
@@ -24,7 +23,8 @@ test:
 deploy:
   stage : deploy
   script:
-    - cd /home/team22-21
+    - cd /home
+    - ls
     - npm -i pm2 -g
     - pm2 start npm -- start
 
