@@ -8,7 +8,7 @@ stages :
 build :
   stage: build 
   script :
-    - cd ~
+    - cd /home
     - ls -lah
     - npm install
 
