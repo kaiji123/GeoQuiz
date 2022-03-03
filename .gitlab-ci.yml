@@ -29,5 +29,5 @@ deploy:
 
     - ssh-add
   script :
-    - ssh root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 reload app.js -- --port 3000'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 reload app.js -- --port 3000'
 
