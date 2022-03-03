@@ -8,7 +8,7 @@ stages :
 build :
   stage: build 
   script :
-    - cd /home/node
+    - cd /home/gitlab-runner
     - ls -lah
     - npm install
 
