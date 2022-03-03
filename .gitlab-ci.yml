@@ -8,7 +8,7 @@ stages :
 build :
   stage: build 
   script :
-    - cd /home
+    - cd ~
     - ls -lah
     - npm install
 
@@ -23,7 +23,7 @@ test:
 deploy:
   stage : deploy
   script:
-    - cd /home
+    - cd ~
     - ls
     - npm -i pm2 -g
     - pm2 start npm -- start
