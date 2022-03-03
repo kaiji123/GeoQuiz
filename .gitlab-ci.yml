@@ -10,7 +10,6 @@ build :
   script :
     - cd $CI_PROJECT_DIR
     - npm install
-    - pm2 stop npm
   artifacts:
     paths:
       - $CI_PROJECT_DIR/node_modules
@@ -36,5 +35,5 @@ deploy:
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
   script :
     - cd $CI_PROJECT_DIR
-    - pm2 stop npm -- start
+    - pm2 reload npm -- start
 
