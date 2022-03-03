@@ -30,5 +30,5 @@ deploy:
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
   script :
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 start npm --start'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 start npm -- start'
 
