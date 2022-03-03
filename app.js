@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+
 //one router per page
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -43,6 +45,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+app.listen(3000, () => console.log(`Example app listening on port ${port}!`));
 
 module.exports = app;
 
