@@ -31,7 +31,6 @@ deploy:
     - ssh-add
   script :
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;npm install dotenv;pm2 start npm -- start'
-    - scp -o StrictHostKeyChecking=no -r $CI_PROJECT_DIR root@$SERVER_IPADDRES:/home/gitlab-runner/build
   
 
 
