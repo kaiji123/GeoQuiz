@@ -21,7 +21,7 @@ build :
 
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all'   
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 stop all'   
     - npm i 
   artifacts:
     paths:
