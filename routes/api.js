@@ -28,7 +28,7 @@ router.get('/adduser', function(req, res){
 });
 
 router.get('/users', function(req,res){
-  res.send(database.getUsers(req.body.username));
+  res.send(database.getUsers());
 })
 
 //uses node geocoder to return location data from a set of coords
