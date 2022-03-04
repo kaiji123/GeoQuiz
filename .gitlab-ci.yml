@@ -4,18 +4,29 @@ stages :
   - build
   - test
   - deploy
-
+cache:
+  key: npm
+  policy: pull-push
+  paths:
+    - .npm/
 build :
   stage: build 
+<<<<<<< HEAD
   script :
     - npm install
+=======
+  script:
+    - npm i 
+  artifacts:
+    paths:
+      - node_modules/
+>>>>>>> 9eaec8429eb437bfca07813b3bbd9a2b062d5696
 
 
 test:
   stage: test
-
-
   script: 
+    - echo $CI_PROJECT_DIR
     - npm test
 
     - npm ci --cache .npm --prefer-offline
@@ -26,21 +37,30 @@ test:
 
 
 deploy:
-  stage: deploy
-  before_script:
-    - apt-get update -qq
-    - apt-get install -qq git
-    - "which ssh-agent || ( apt-get install -qq openssh-client )"
+  stage : deploy
+  before_script :
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
 
+    - ssh-add
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
+  script :
+    - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
+
+
+<<<<<<< HEAD
   
   environment:
     name: production
     url: https://example.com
   script:
     - bash deploy/deploy.sh
+=======
+>>>>>>> 9eaec8429eb437bfca07813b3bbd9a2b062d5696
 
 

@@ -18,32 +18,40 @@ const geocoder = NodeGeocoder(options);
 //returns an address from given coordinates
 router.post('/location', async (req, res) => {
     var coords = req.body;
-    var location = await locFromCoords(coords);
-    //console.log(location);
-    res.send(location[0]);
+    locFromCoords(coords).then((loc) => res.send(loc[0]));
 });
 
-//select a user id from the database and return it
-router.get('/selectuid', function(req, res){
-  res.send(database.selectUID());
+//add a user to the database
+router.get('/adduser', function(req, res){
+  res.send(database.addUser(1, 'laila'));
 });
 
 //uses node geocoder to return location data from a set of coords
-async function locFromCoords(coords){
-  const loc = await geocoder.reverse(coords);
-  return loc;
+const locFromCoords = (coords) =>{
+  return new Promise((resolve, reject) =>{
+    geocoder.reverse(coords).then((loc) => resolve(loc))
+  })
+}
+
+//converts specific coordinates into overall place coordinates
+const generaliseCoords = (coords) =>{
+  return new Promise((resolve, reject) =>{
+    const loc = geocoder.reverse(coords);
+    const generalCoords = geocoder.geocode(loc);
+  
+    return generalCoords;
+  })
 }
 
 //will generate a quiz given a location
 router.post('/quiz', async(req, res) =>{  
   //send the client coordinates to the quiz generator
+  //var coords = await generaliseCoords(req.body);
+  //console.log(coords);
   var coords = req.body;
-  
-  quizgen.generateQuiz(coords).then(data => {
-    console.log(data);
-    //send back the quiz JSON
-    res.send(data);  
-  });
+
+  quizgen.generateQuiz(coords).then((data) => res.send(data));
+
 });
 
 module.exports = router;
