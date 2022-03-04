@@ -11,16 +11,11 @@ cache:
     - .npm/
 build :
   stage: build 
-<<<<<<< HEAD
-  script :
-    - npm install
-=======
   script:
     - npm i 
   artifacts:
     paths:
       - node_modules/
->>>>>>> 9eaec8429eb437bfca07813b3bbd9a2b062d5696
 
 
 test:
@@ -53,14 +48,5 @@ deploy:
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
 
 
-<<<<<<< HEAD
-  
-  environment:
-    name: production
-    url: https://example.com
-  script:
-    - bash deploy/deploy.sh
-=======
->>>>>>> 9eaec8429eb437bfca07813b3bbd9a2b062d5696
 
 
