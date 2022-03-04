@@ -21,9 +21,9 @@ router.post('/location', async (req, res) => {
     locFromCoords(coords).then((loc) => res.send(loc[0]));
 });
 
-//select a user id from the database and return it
-router.get('/selectuid', function(req, res){
-  res.send(database.selectUID());
+//add a user to the database
+router.get('/adduser', function(req, res){
+  res.send(database.addUser(1, 'laila'));
 });
 
 //uses node geocoder to return location data from a set of coords

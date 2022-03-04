@@ -22,7 +22,7 @@
     "node-geocoder": "^4.0.0",
     "node-navigator": "^1.0.1",
     "pm2": "^5.2.0",
-    "pug": "2.0.0-beta11",
+    "pug": "^3.0.2",
     "webpack": "^5.69.1"
   },
   "devDependencies": {
