@@ -12,9 +12,7 @@ cache:
 build :
   stage: build 
   script:
-      - npm help config
-      - npm i pnpm
-      - pnpm i 
+      - npm i 
 
 
 test:
