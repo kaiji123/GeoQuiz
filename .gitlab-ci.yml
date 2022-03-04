@@ -11,8 +11,6 @@ cache:
     - .npm/
 build :
   stage: build 
-  before_script:
-    - pm2 delete all
   script:
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;pm2 delete all'
     - npm i 
