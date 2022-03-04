@@ -23,8 +23,13 @@ router.post('/location', async (req, res) => {
 
 //add a user to the database
 router.get('/adduser', function(req, res){
+  //we might need to change the /adduser to /user and use post method for api convention
   res.send(database.addUser(1, 'laila'));
 });
+
+router.get('/users', function(req,res){
+  res.send(database.getUsers(req.body.username));
+})
 
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
