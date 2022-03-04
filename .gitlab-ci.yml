@@ -34,12 +34,6 @@ test:
     - echo $CI_PROJECT_DIR
     - npm test
 
-    - npm ci --cache .npm --prefer-offline
-  cache:
-    key: $NODE_MODULES
-    paths: 
-      - .npm/
-
 
 deploy:
   stage : deploy
