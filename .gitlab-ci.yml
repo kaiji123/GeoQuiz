@@ -37,6 +37,8 @@ deploy:
   script :
   
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/team22-21;pm2 delete all;npm install dotenv;pm2 start npm -- start'
+    - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/
+    
 
 
 
