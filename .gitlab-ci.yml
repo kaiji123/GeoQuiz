@@ -46,7 +46,7 @@ deploy:
     - chmod 700 ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
+    - scp -r /builds/mod-team-project-2021/team22-21 -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
 
 
