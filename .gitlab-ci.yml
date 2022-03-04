@@ -8,12 +8,15 @@ stages :
 build :
   stage: build 
   script :
+    - cd $CI_PROJECT_DIR
     - npm install
 
 
 test:
   stage: test
   script: 
+    - cd $CI_PROJECT_DIR
+    - echo $CI_PROJECT_DIR
     - npm test
 
 
