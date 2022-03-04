@@ -11,18 +11,7 @@ cache:
     - .npm/
 build :
   stage: build 
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
-    - eval $(ssh-agent -s)
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
   script:
-
-
-    - ssh-add
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000  
     - npm i 
   artifacts:
     paths:
@@ -35,18 +24,27 @@ test:
     - echo $CI_PROJECT_DIR
     - npm test
 
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key: $NODE_MODULES
+    paths: 
+      - .npm/
+
 
 deploy:
   stage : deploy
-   
-  script :
+  before_script :
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - scp -r /builds/mod-team-project-2021/team22-21 -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS:/home/project
+
+    - ssh-add
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
+  script :
+    - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
 
 
