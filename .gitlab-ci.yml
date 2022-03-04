@@ -13,6 +13,9 @@ build :
   stage: build 
   script:
     - npm i 
+  artifact:
+    paths:
+      - node_modules/
 
 
 test:
