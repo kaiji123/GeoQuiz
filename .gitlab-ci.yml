@@ -1,19 +1,18 @@
 image : node:alpine
 
-
-
 stages :
   - build
   - test
   - deploy
-
+cache:
+  key: npm
+  policy: pull-push
+  paths:
+    - .npm/
 build :
   stage: build 
-  cache:
-    paths :
-      - node_modules/
-  script :
-    - npm install
+  script:
+      - npm ci --cache .npm --prefer-offline
 
 
 test:
