@@ -20,8 +20,7 @@ build :
     - chmod 600 ~/.ssh/id_rsa
 
     - ssh-add
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 stop all'   
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000  
     - npm i 
   artifacts:
     paths:
