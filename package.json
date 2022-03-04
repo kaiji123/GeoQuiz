@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"No tests to run.\"",
     "start": "node ./bin/www",
-    "stop": "killall -SIGINT this-name-can-be-as-long-as-it-needs-to-be",
+    "stop": "killall -SIGINT this-name-can-be-as-long-as-it-needs-to-be || true",
     "build": "webpack"
   },
   "dependencies": {
