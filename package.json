@@ -21,16 +21,11 @@
     "mysql2": "^2.3.3",
     "node-geocoder": "^4.0.0",
     "node-navigator": "^1.0.1",
-<<<<<<< HEAD
-    "pug": "2.0.0-beta11",
-    "query-string": "^7.1.1"
-=======
     "pm2": "^5.2.0",
     "pug": "^3.0.2",
     "webpack": "^5.69.1"
   },
   "devDependencies": {
     "webpack-cli": "^4.9.2"
->>>>>>> 9eaec8429eb437bfca07813b3bbd9a2b062d5696
   }
 }
