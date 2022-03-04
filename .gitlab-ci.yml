@@ -12,7 +12,8 @@ cache:
 build :
   stage: build 
   script:
-      - cd /home/team22-21
+      - npm i pnpm
+      - pnpm i 
 
 
 test:
