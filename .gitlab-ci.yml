@@ -11,8 +11,10 @@ cache:
     - .npm/
 build :
   stage: build 
+  before_script:
+    - pm2 delete all
   script:
-      - npm i 
+    - npm i 
 
 
 test:
