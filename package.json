@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"No tests to run.\"",
     "start": "node ./bin/www",
-    "stop": "pkill --signal SIGINT myApp",
+    "stop": "killall -SIGINT this-name-can-be-as-long-as-it-needs-to-be",
     "build": "webpack"
   },
   "dependencies": {
