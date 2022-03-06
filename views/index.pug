@@ -12,17 +12,8 @@ block content
       h1#location='You\'re doing a quiz for: '
 
     .content 
-      .table 
-        table(style='width:30%', border='1')
-          tr
-            th Rank
-            th Name
-            th Total Points
-          each val, index in [['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two'],['zero', 'one', 'two']]
-            th= val[0]
-            th=val[1]
-            th=val[2]
-            tr
+      #top
+      
 
       .start
         button.start-quiz(onclick='window.location.href="/quiz"')='Start the quiz'

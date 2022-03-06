@@ -5,6 +5,7 @@ var quizgen = require('../quiz-generator.js')
 
 const NodeGeocoder = require('node-geocoder');
 const res = require('express/lib/response');
+const { json } = require('express/lib/response');
 
 //node geocoder configuration
 const options = {
@@ -30,6 +31,14 @@ router.get('/adduser', function(req, res){
 router.get('/users', function(req,res){
   res.send(database.getUsers());
 })
+
+
+router.get('/top5', database.getTop5
+)
+
+
+
+
 
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{

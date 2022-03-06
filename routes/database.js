@@ -1,3 +1,5 @@
+const res = require('express/lib/response');
+
 //selects the given users score
 module.exports = {
 
@@ -89,7 +91,7 @@ module.exports = {
   },
 
   // this is get top 5 users ranking in the world function 
-  getTop5: function(){
+  getTop5: function(req,res){
     var mysql      = require('mysql2');
     var fs = require('fs')
     var connection = mysql.createConnection({
@@ -103,17 +105,19 @@ module.exports = {
       }
     });
 
-
+    
   
 
-    connection.connect(function(err) {
+    connection.connect(async function(err) {
       if (err) throw err;
-      connection.query("SELECT users.name,scores.score from scores inner join users on scores.id = users.id order by scores.score desc", function (err, result, fields) {
+      connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
+        res.send(result)
         
+     
         connection.end();
-        return result;
+        return result
       });
     });
   }
