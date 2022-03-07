@@ -99,10 +99,7 @@ module.exports = {
       port     : '25060',
       user     : 'doadmin',
       password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb',
-      ssl      : {
-        ca : fs.readFileSync('./ca-certificate.crt')
-      }
+      database: 'defaultdb'
     });
 
     

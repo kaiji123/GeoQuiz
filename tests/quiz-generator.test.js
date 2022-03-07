@@ -7,7 +7,7 @@ const expect = chai.expect;
 
 
 describe('pick', () => {
-    it('api/top5 get error', done => {
+    it('pickRandom test', done => {
         s = quiz.pickRandom([1,2,3])
         expect([1,2,3]).to.include(s)
         done();

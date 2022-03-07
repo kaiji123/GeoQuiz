@@ -6,16 +6,15 @@ const should = chai.should();
 const expect = chai.expect;
 // starwars mocks
 describe('GET /api/top5', () => {
-    it('api/top5 get error', function (done) {
+    it('api/top5 test', done => {
       chai
         .request(app)
         .get('/api/top5')
         .end((err, res) => {
-          res.should.have.status(200);
           expect(res.body).to.be.an('array')
           expect(res.body[0]).to.have.all.keys('name', 'scores')
           expect(res.body[0].name).to.be.a('string')
           done();
-        });
+        })
     });
 });
