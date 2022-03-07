@@ -19,19 +19,3 @@ describe('GET /api/top5', () => {
         });
     });
 });
-
-// post location test
-describe('GET /api/location', () => {
-    it('api/location post error', done => {
-      chai
-        .request(app)
-        .post('/api/location')
-        .send("-34.397,50.644")
-        .end((err, res) => {
-          res.should.have.status(200)
-          console.log(res.body)
-          expect(res.body).to.be.an("Object")
-          done();
-        });
-    });
-});

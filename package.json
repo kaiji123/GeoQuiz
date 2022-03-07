@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha tests/api.test.js",
+    "test": "mocha tests/*.js",
     "start": "node app.js",
     "stop": "killall -SIGINT this-name-can-be-as-long-as-it-needs-to-be || true",
     "build": "webpack"

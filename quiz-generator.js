@@ -83,3 +83,4 @@ function questionJson(q, a,  meta, type){
 }
 
 exports.generateQuiz = generateQuiz
+exports.pickRandom = pickRandom
