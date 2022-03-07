@@ -1,5 +1,9 @@
 #quiz{
-    margin-left: 15vw;
+    margin-left:9vh;
+    text-align: center;
+    
+    
+    display: inline;
 }
 
 #quiz button{
