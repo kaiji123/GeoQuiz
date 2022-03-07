@@ -6,7 +6,8 @@ const should = chai.should();
 const expect = chai.expect;
 // starwars mocks
 describe('GET /api/top5', () => {
-    it('api/top5 get error', done => {
+    it('api/top5 get error', function (done) {
+      this.timeout(10000);
       chai
         .request(app)
         .get('/api/top5')
