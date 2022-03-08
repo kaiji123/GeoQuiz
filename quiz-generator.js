@@ -15,6 +15,10 @@ function generateQuiz(coords, radius=10000, type='cafe'){
         '&type=' + type + 
         '&key=' + API_KEY
 
+    //allowed question fields for later on (name is required but not a question)
+    let fields = arrayToCsv(allowedData) + ',name'
+    
+
     //query the google api to get a list of nearby places
     let mainPromise = axios.get(url).then((res) =>{
         var places =  res.data.results
@@ -30,11 +34,15 @@ function generateQuiz(coords, radius=10000, type='cafe'){
             places.splice(index, 1)
 
             //get finer detail about chosen place
-            let url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeId + '&key=' + API_KEY
+            let url = 'https://maps.googleapis.com/maps/api/place/details/json' + 
+            '?placeid=' + placeId + 
+            '&fields=' + fields +
+            '&key=' + API_KEY
 
+            //make a new promise to process the above query
             let questionPromise = axios.get(url).then((details) => {
                 let placeDetails = details.data.result
-
+                console.log(placeDetails)
                 //okay up to here
 
                 let placeName = placeDetails.name
@@ -43,7 +51,7 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 
                 //if the place is missing data, pick something else
                 while(placeDetails[data] == null){
-                    console.log(data + ' not found')
+                    console.log(data + ' not found for current place')
                     data = pickRandom(allowedData)
                 }
                 
@@ -90,24 +98,6 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 }
 
 
-//picks a random element from an array, as well as it's index
-function pickRandom(array){
-    var index = Math.floor(Math.random() * array.length)
-    return array[index]
-}
-
-//returns a json question give question, answer and question type
-//meta will hold any extra information that goes with the question
-function questionJson(q, a, w, meta, type){
-    return {
-        "question": q,
-        "answer": a,
-        "wrong": w,
-        "metadata": meta,
-        "type": type
-    }
-}
-
 //get an image from google's api
 function getImage(ref){
     //construct API query string
@@ -124,6 +114,24 @@ function getImage(ref){
     }).catch((err) => {
         console.log('Error loading image!');  
     })
+}
+
+//returns a json question give question, answer and question type
+//meta will hold any extra information that goes with the question
+function questionJson(q, a, w, meta, type){
+    return {
+        "question": q,
+        "answer": a,
+        "wrong": w,
+        "metadata": meta,
+        "type": type
+    }
+}
+
+//picks a random element from an array, as well as it's index
+function pickRandom(array){
+    var index = Math.floor(Math.random() * array.length)
+    return array[index]
 }
 
 //generate three random ratings
@@ -151,6 +159,15 @@ function randomPlaces(sample){
     return randPlaces
 }
 
-//getImage('Aap_uEBbUsls1tpfNvRWLnMDoL1w3-BXRK-MLBuDXXX7vq-P_xfTm-F15K8NiSein2Q2vnxlF7RY20K9Ar_-JllQ0Q-IMINFkNkPw94s1vasfi1_i7v-TMn-S0CSTFhpdPojfyw6v7S8KuJnmL8m93PzpWy9YjR1SMby3iLjbW4griv0wO-j');
+function arrayToCsv(array){
+    csv = '';
+    for(i = 0; i < array.length; i++){
+        csv += array[i]
+        csv += (i == array.length - 1) ? '' : ','
+    }
+    return csv
+}
+
+
 exports.generateQuiz = generateQuiz
 exports.pickRandom = pickRandom
