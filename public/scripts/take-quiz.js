@@ -7,17 +7,17 @@ function genQuizHtml(quiz){
     quizLength = quiz.length;
     questionHtml = [];
     quiz.forEach((q) =>{
-        console.log(q.metadata);
         html  = '<h1>' + q.question + '</h1>';
 
         if(q.type == 'text'){
             html += '<h3>"' + q.metadata + '"</h3>';
         }
         else if(q.type == 'img'){
-            html += '<img id="google-image" src="data:image/png;base64,' + q.metadata + '"></img><br>'
+            var bytearray = q.metadata;
+            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '"></img><br>'
         }
         html += '<button onclick="nextQuestion()">' + q.answer + '</button><br>';
-        html += '<button>wrong</button><br><button>wrong</button><br><button>wrong</button><br>'
+        html += '<button>'+q.wrong[0]+'</button><br><button>'+q.wrong[1]+'</button><br><button>'+q.wrong[2]+'</button><br>'
 
         questionHtml.push(html);
     })

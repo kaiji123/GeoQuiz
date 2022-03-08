@@ -4,7 +4,7 @@ function generateQuiz(coords){
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         body: JSON.stringify(coords),
     })
-    .then(res => res.json());
+    .then((res) => res.json());
 }
 
 
@@ -15,7 +15,13 @@ $(function(){
         var data = navigator.geolocation.getCurrentPosition((position) => {
             //get lat and lon coords
             var coords = {lat: position.coords.latitude, lon:position.coords.longitude};
-            generateQuiz(coords).then((data) => genQuizHtml(data));
+            generateQuiz(coords).then((data) => {
+                if(data == []){
+                    console.log('failed to load quiz');
+                }else{
+                    genQuizHtml(data);
+                }
+            });
         });
     }else{
         console.log('ERROR: Location services not available.');
