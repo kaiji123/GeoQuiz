@@ -12,7 +12,7 @@ var loginRouter = require('./routes/login');
 var quizRouter  = require('./routes/quiz.js');
 
 var apiRouter   = require('./routes/api.js');
-var termsRouter = require('./routes/terms-of-use.js');
+
 
 var app = express();
 
@@ -30,7 +30,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/quiz', quizRouter);
 app.use('/api', apiRouter);
-app.use('/terms-of-use', termsRouter);
+
 
 
 port = 80
