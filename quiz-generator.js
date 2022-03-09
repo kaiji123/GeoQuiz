@@ -1,7 +1,7 @@
 const axios = require('axios')
 const API_KEY = 'AIzaSyCt8c60BgMHIYVIByfQ30rlAzuZMDGKy4Q'
 
-const allowedData = ["rating", "formatted_address", "photos", "reviews"]
+const allowedData = ["rating", "vicinity", "photos", "reviews"]
 
 
 //generate a quiz object with random questions
@@ -42,8 +42,6 @@ function generateQuiz(coords, radius=10000, type='cafe'){
             //make a new promise to process the above query
             let questionPromise = axios.get(url).then((details) => {
                 let placeDetails = details.data.result
-                console.log(placeDetails)
-                //okay up to here
 
                 let placeName = placeDetails.name
                 let data = pickRandom(allowedData)
@@ -60,7 +58,8 @@ function generateQuiz(coords, radius=10000, type='cafe'){
                     wrong = randomRatings();
                     question = questionJson(`What is ${placeName}'s rating on Google?`, placeDetails[data], wrong, null, null)
                 }
-                else if(data == 'formatted_address'){
+                else if(data == 'vicinity'){
+                    wrong = randomAddresses(places)
                     question = questionJson(`What is ${placeName}'s address?`, placeDetails[data], wrong, null, null)
 
                 }
@@ -148,7 +147,7 @@ function randomRatings(){
 
 //genearte three random place names
 function randomPlaces(sample){
-    //pick some places w/out replacement
+    //pick some places and get their names
     let randPlaces = [];
     for(x = 0; x < 3; x++){
         let place = pickRandom(sample);
@@ -157,6 +156,19 @@ function randomPlaces(sample){
         randPlaces.push(name);
     }
     return randPlaces
+}
+
+//generate three random addresses
+function randomAddresses(sample){
+    //pick some places
+    let randAddr = [];
+    for(x = 0; x < 3; x++){
+        let place = pickRandom(sample);
+
+        let addr = place.vicinity
+        randAddr.push(addr);
+    }
+    return randAddr
 }
 
 function arrayToCsv(array){
