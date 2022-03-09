@@ -5,20 +5,23 @@
 .content{
     width: 100%;
   
-    display: inline-block;
+   
     
 }
 .start{
-    margin-bottom: 15%;
+    margin-bottom: 5%;
     text-align: end;
-    position: fixed;
+    position: relative;
     bottom: 80px;
     right :20%;
+
+}
+.start-quiz{
+    margin-top: 4%;
 }
 
 table{
-    position: fixed;
-    margin-top: 15%;
+    position: relative;
     width: 80%;
     top : 50px;
     left: 60px
@@ -29,25 +32,18 @@ table{
     align-items: center;
     justify-items: center;
     text-align: center;
-
-    right : 500px;
+    position: relative;
 }
   
 .scaling{
     text-align: end;
-    position: fixed;
-    margin: 150px;
-    margin-right: 0%;
-    margin-bottom: 5%;
-    bottom: 0px;
+    position: relative;
     right :20%;
 }
 
 scalingButton{ 
     background-color: white;
     padding: 5px 10px;
-    
-    margin-top: 600px;
     font-weight: bold;
     border-radius: 3px;
     border: 2px solid black;

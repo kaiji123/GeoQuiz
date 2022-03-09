@@ -1,0 +1,72 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="google-signin-client_id" content="90750308076-96ae6pca4ddf3l0f5pbviuvvj9ibr394.apps.googleusercontent.com")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/terms-of-use.css')
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous")
+  body
+    .header 
+      .logo
+        img(src='/images/logo.png')
+      button.signin(onclick='window.location.href="/login"')='Sign in'
+      
+    
+    .page
+      block content
+    
+    .container 
+    
+      h1 GDPR privacy policy 
+      p This privacy policy will explain how our organisation uses the personal data we collect from you when you use our website. 
+        h2 What data do we collect?
+        p. 
+          GeoQuiz collects the following data: Personal identifying information (Name, email address), Geographical location 
+        h2 How do we collect your data? 
+        p. 
+          You directly provide GeoQuiz with most of the data we collect. We collect data and process data when you: Sign into an integrated account , 
+          Allow the use of location services, Use or view our website via your browser's cookies, Complete a quiz 
+        h2 How will we use your data? 
+        p.
+          GeoQuiz collects your data so that we can: Give you quizzes relevant to your area, Insert your performance into the leader boards, 
+          To personalize your account, with your name
+        h2 How do we store your data? 
+        p. 
+          GeoQuiz securely stores your data on a DigitalOcean server with ssl authentication 
+          We will keep your user data for 6 months after your last use.  Once this time period has expired, we will delete your data by removing it from our database. 
+        h2 What are your data Protection rights? 
+        p. 
+          GeoQuiz would like to make sure you are fully aware of your data protection rights, which you can find <a href="https://ico.org.uk/global/privacy-notice/your-data-protection-rights/">here</a> . 
+          If you make a request, we have one month to respond to you.
+          If you would like to exercise any of these rights, please contact us at our email: LRW080@student.bham.ac.uk.
+        h2 How do we use cookies? 
+        p. 
+          When you visit our website, we may collect information from you automatically through cookies or similar technology, these are used for: Keeping you signed in, Understanding how you use our website 
+          , Geographical location to show relevant quizzes 
+        h2 What types of cookies do we use? 
+        p. 
+          There are a number of different types of cookies, however, our website uses: Strictly necessary cookies — These cookies are essential for you to browse the website and use its features, such as
+         accessing secure areas of the site.  GeoQuiz uses first-party session cookies; these cookies are temporary and expire once you close your session ends. Preferences cookies — Also known 
+         as “functionality cookies,” these cookies allow GeoQuiz to remember choices you have made in the past, like what font size you prefer, or what your username and password are so you can automatically
+          log in. 
+        h2 How to manage cookies 
+        p You can set your browser not to accept cookies, but our website will not function as a result 
+        h2 Changes to our privacy policy 
+        p. 
+          GeoQuiz keeps its privacy policy under regular review and places any updates on this web page. This privacy policy was last updated on 7th March 2022
+        h2 How to Contact Us: 
+        p. 
+          If you have any questions about GeoQuiz's privacy policy, the data we hold on you, or you would like to exercise one of your data protection rights, please do not hesitate to contact us. 
+          Email us at: LRW080@student.bham.ac.uk 
+        h2 How to contact the appropriate authority 
+        p.
+          Should you wish to report a complaint or if you feel that GeoQuiz has not addressed your concern in a satisfactory manner, you may contact the 
+          <a href="https://ico.org.uk/make-a-complaint/cookies/">Information Commissioner's office</a>. 
+
+    .footer 
+      a(href='/terms-of-use')='Terms of Use'
+      a(href='/support')='Support'
+      a(href='/about')='About'

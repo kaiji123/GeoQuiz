@@ -6,10 +6,11 @@ const should = chai.should();
 const expect = chai.expect;
 
 
-describe('pick', () => {
+describe('quiz-generator.pickRandom', () => {
     it('api/top5 get error', done => {
         s = quiz.pickRandom([1,2,3])
         expect([1,2,3]).to.include(s)
         done();
     });
 });
+

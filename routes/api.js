@@ -36,10 +36,6 @@ router.get('/users', function(req,res){
 router.get('/top5', database.getTop5
 )
 
-
-
-
-
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
   return new Promise((resolve, reject) =>{
@@ -47,13 +43,17 @@ const locFromCoords = (coords) =>{
   })
 }
 
-//converts specific coordinates into overall place coordinates
-const generaliseCoords = (coords) =>{
+//this won't work sadly
+function generaliseCoords(coords){
   return new Promise((resolve, reject) =>{
-    const loc = geocoder.reverse(coords);
-    const generalCoords = geocoder.geocode(loc);
-  
-    return generalCoords;
+    generalCoords = geocoder.reverse(coords).then((loc) => {
+        geocoder.geocode(loc[0].city + 'city centre')
+      }).then((newCoords) => {
+        console.log(newCoords);
+        return newCoords; 
+      });
+
+    resolve(generalCoords)
   })
 }
 
@@ -64,7 +64,9 @@ router.post('/quiz', async(req, res) =>{
   //console.log(coords);
   var coords = req.body;
 
-  quizgen.generateQuiz(coords).then((data) => res.send(data));
+  quizgen.generateQuiz(coords).then((data) => {
+    res.send(data)
+  });
 
 });
 

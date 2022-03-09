@@ -1,0 +1,11 @@
+#quiz{
+    margin-left:9vh;
+    text-align: center;
+    
+    
+    display: inline;
+}
+
+#quiz button{
+    margin-bottom: 10px;
+}

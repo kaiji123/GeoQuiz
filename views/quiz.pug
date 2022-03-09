@@ -1,4 +1,10 @@
 extends layout
 block content
-    script(src='/scripts/client-quiz.js')
+    link(rel='stylesheet' href='/stylesheets/quiz.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/scripts/take-quiz.js')
+    script(src='/scripts/client-get-quiz.js')
+
+    #quiz 
+        h1='Loading your quiz...'
 

@@ -99,17 +99,13 @@ module.exports = {
       port     : '25060',
       user     : 'doadmin',
       password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb',
-      ssl      : {
-        ca : fs.readFileSync('./ca-certificate.crt')
-      }
+      database: 'defaultdb'
     });
 
     
   
 
-    connection.connect(async function(err) {
-      if (err) throw err;
+
       connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
@@ -119,7 +115,6 @@ module.exports = {
         connection.end();
         return result
       });
-    });
   }
 }
 
