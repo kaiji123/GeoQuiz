@@ -7,17 +7,32 @@ function genQuizHtml(quiz){
     quizLength = quiz.length;
     questionHtml = [];
     quiz.forEach((q) =>{
-        console.log(q.metadata);
         html  = '<h1>' + q.question + '</h1>';
 
         if(q.type == 'text'){
             html += '<h3>"' + q.metadata + '"</h3>';
         }
         else if(q.type == 'img'){
-            html += '<img id="google-image" src="data:image/png;base64,' + q.metadata + '"></img><br>'
+            var bytearray = q.metadata;
+            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '"></img><br>'
         }
-        html += '<button onclick="nextQuestion()">' + q.answer + '</button><br>';
-        html += '<button>wrong</button><br><button>wrong</button><br><button>wrong</button><br>'
+
+        //put buttons in a random order
+        var rightPos = Math.floor(Math.random() * 4);
+
+        //keep track of used wrong answers
+        var wi = 0;
+
+        //add each question
+        for(i = 0; i < 4; i++){
+            if(i == rightPos){
+                html += '<button onclick="nextQuestion()">' + q.answer + '</button><br>';
+            }
+            else{
+                html += '<button>'+q.wrong[wi]+'</button><br>'
+                wi++;
+            }
+        }
 
         questionHtml.push(html);
     })

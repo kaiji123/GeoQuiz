@@ -51,6 +51,7 @@ async function showClientLocation(){
             })
             .then(res => res.json())
             .then(data => {
+                    console.log(data);
                     $('#location').append(data.city)
                 }
             );

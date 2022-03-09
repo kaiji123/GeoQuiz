@@ -15,45 +15,74 @@ function generateQuiz(coords, radius=10000, type='cafe'){
         '&type=' + type + 
         '&key=' + API_KEY
 
+    //allowed question fields for later on (name is required but not a question)
+    let fields = arrayToCsv(allowedData) + ',name'
+    
+
     //query the google api to get a list of nearby places
     let mainPromise = axios.get(url).then((res) =>{
         var places =  res.data.results
         var promises = []
         
         for(let i=0; i < 10; i++){
-            //pick a local place at random
-            let place = pickRandom(places)
+            //pick a local place at random without replacement
+            let place = pickRandom(places);
             let placeId = place.place_id
 
-            //get finer detail about it
-            let url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeId + '&key=' + API_KEY
-            let questionPromise = axios.get(url).then((res) => {
-                let placeDetails = res.data.result
+            //remove item from array
+            let index = places.indexOf(place);
+            places.splice(index, 1)
+
+            //get finer detail about chosen place
+            let url = 'https://maps.googleapis.com/maps/api/place/details/json' + 
+            '?placeid=' + placeId + 
+            '&fields=' + fields +
+            '&key=' + API_KEY
+
+            //make a new promise to process the above query
+            let questionPromise = axios.get(url).then((details) => {
+                let placeDetails = details.data.result
+                console.log(placeDetails)
+                //okay up to here
+
                 let placeName = placeDetails.name
                 let data = pickRandom(allowedData)
+                let wrong = ['a', 'b', 'c'];  
 
+                //if the place is missing data, pick something else
+                while(placeDetails[data] == null){
+                    console.log(data + ' not found for current place')
+                    data = pickRandom(allowedData)
+                }
+                
                 //populate the question with the right data
                 if(data == 'rating'){
-                    question = questionJson(`What is ${placeName}'s rating on Google?`, placeDetails[data], null, null)
+                    wrong = randomRatings();
+                    question = questionJson(`What is ${placeName}'s rating on Google?`, placeDetails[data], wrong, null, null)
                 }
                 else if(data == 'formatted_address'){
-                    question = questionJson(`What is ${placeName}'s address?`, placeDetails[data], null, null)
+                    question = questionJson(`What is ${placeName}'s address?`, placeDetails[data], wrong, null, null)
 
                 }
                 else if(data == 'photos'){
+                    wrong = randomPlaces(places);
+
+                    //remove item from array
                     let photoRef = placeDetails.photos[0].photo_reference
                     //gets an image bytearray from google's servers
                     question = getImage(photoRef).then((bytes) =>{
-                        return questionJson(`Name this place:`, placeName, bytes, 'img')
+                        return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
                     })
                 }
                 else if(data =='reviews'){
+                    wrong = randomPlaces(places);
+
                     //pick a review at random
                     let review = pickRandom(placeDetails.reviews).text
-                    question = questionJson('What is this a review for?', placeName, review, 'text')
+                    question = questionJson('What is this a review for?', placeName, wrong, review, 'text')
                 }
                 //generate question based on chosen data item
-                return question;
+                return question;    
             })
             promises.push(questionPromise)
         }
@@ -61,29 +90,13 @@ function generateQuiz(coords, radius=10000, type='cafe'){
         //resolve all promises simultaneously
         return Promise.all(promises);
     }).catch((err) => {
-        return err
+        console.log(err)
+        return [];
     })
 
     return mainPromise
 }
 
-
-//picks a random element from an array
-function pickRandom(array){
-    var index = Math.floor(Math.random() * array.length)
-    return array[index]
-}
-
-//returns a json question give question, answer and question type
-//meta will hold any extra information that goes with the question
-function questionJson(q, a,  meta, type){
-    return {
-        "question": q,
-        "answer": a,
-        "metadata": meta,
-        "type": type
-    }
-}
 
 //get an image from google's api
 function getImage(ref){
@@ -103,6 +116,58 @@ function getImage(ref){
     })
 }
 
-//getImage('Aap_uEBbUsls1tpfNvRWLnMDoL1w3-BXRK-MLBuDXXX7vq-P_xfTm-F15K8NiSein2Q2vnxlF7RY20K9Ar_-JllQ0Q-IMINFkNkPw94s1vasfi1_i7v-TMn-S0CSTFhpdPojfyw6v7S8KuJnmL8m93PzpWy9YjR1SMby3iLjbW4griv0wO-j');
+//returns a json question give question, answer and question type
+//meta will hold any extra information that goes with the question
+function questionJson(q, a, w, meta, type){
+    return {
+        "question": q,
+        "answer": a,
+        "wrong": w,
+        "metadata": meta,
+        "type": type
+    }
+}
+
+//picks a random element from an array, as well as it's index
+function pickRandom(array){
+    var index = Math.floor(Math.random() * array.length)
+    return array[index]
+}
+
+//generate three random ratings
+function randomRatings(){
+    let ratings = []
+    for(x = 0; x < 3; x++){
+        //generate random ratings larger than 2
+        let rnd = (Math.floor(Math.random() * 30) / 10) + 2
+        ratings.push(rnd)
+    }
+
+    return ratings;
+}
+
+//genearte three random place names
+function randomPlaces(sample){
+    //pick some places w/out replacement
+    let randPlaces = [];
+    for(x = 0; x < 3; x++){
+        let place = pickRandom(sample);
+
+        let name = place.name
+        randPlaces.push(name);
+    }
+    return randPlaces
+}
+
+function arrayToCsv(array){
+    csv = '';
+    for(i = 0; i < array.length; i++){
+        csv += array[i]
+        csv += (i == array.length - 1) ? '' : ','
+    }
+    return csv
+}
+
+
 exports.generateQuiz = generateQuiz
 exports.pickRandom = pickRandom
