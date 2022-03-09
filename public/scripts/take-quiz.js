@@ -7,14 +7,14 @@ function genQuizHtml(quiz){
     quizLength = quiz.length;
     questionHtml = [];
     quiz.forEach((q) =>{
-        html  = '<h1>' + q.question + '</h1>';
-
+        html  = '<h1 class="trialQuestion">' + q.question + '</h1>';
+        
         if(q.type == 'text'){
-            html += '<h3>"' + q.metadata + '"</h3>';
+            html += '<h3 class="trialQuestion">"' + q.metadata + '"</h3>';
         }
         else if(q.type == 'img'){
             var bytearray = q.metadata;
-            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '"></img><br>'
+            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '" class="trialQuestion"></img><br>'
         }
 
         //put buttons in a random order
@@ -26,10 +26,10 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button onclick="nextQuestion()">' + q.answer + '</button><br>';
+                html += '<button class="trialQuestion" onclick="nextQuestion()">' + q.answer + '</button>';
             }
             else{
-                html += '<button>'+q.wrong[wi]+'</button><br>'
+                html += '<button class="trialQuestion">'+q.wrong[wi]+'</button>'
                 wi++;
             }
         }

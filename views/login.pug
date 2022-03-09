@@ -9,7 +9,6 @@ block content
         meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
         
         script.
-           
         
         .login
             h1='The best way to get familiar with your area'
@@ -19,4 +18,5 @@ block content
             .social-login 
                 h2='Login'
                 .g-signin2(data-onsuccess="onSignIn", data-width="535", data-height="50", data-longtitle="true", data-theme="dark")
-                .fb-login-button( data-button-type='continue_with', data-use-continue-as='true', data-theme="dark")
+                //- .fb-login-button( data-button-type='continue_with', data-use-continue-as='true', data-theme="dark")
+                

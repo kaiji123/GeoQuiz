@@ -1,11 +1,29 @@
 #quiz{
-    margin-left:9vh;
+    margin-left: 25%;
     text-align: center;
-    
-    
-    display: inline;
+    margin-top: 30px;
+    position: relative;
 }
 
 #quiz button{
-    margin-bottom: 10px;
+    width: 200px;
+    height:max-content;
+    margin-top: 50px;
+    justify-content: center;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+img.trialQuestion{
+    margin-top: 15px;
+    height: 50%;
+}
+h1.trialQuestion{
+    margin-top: 50px;
+    
+}
+
+h3.trialQuestion{
+    margin-top: 50px;
+   
 }
