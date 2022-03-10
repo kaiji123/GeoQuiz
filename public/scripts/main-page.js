@@ -21,6 +21,7 @@ function showTable(){
         })
         .then(res => res.json())
         .then(data => {
+            data = data.top5
             console.log(data)
 
             var content = "<table style='width:30%', border='1'><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"

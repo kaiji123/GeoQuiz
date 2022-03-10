@@ -181,5 +181,6 @@ function arrayToCsv(array){
 }
 
 
-exports.generateQuiz = generateQuiz
-exports.pickRandom = pickRandom
+module.exports ={
+    pickRandom, randomRatings, arrayToCsv
+} 

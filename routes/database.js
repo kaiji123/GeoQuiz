@@ -1,23 +1,24 @@
 const res = require('express/lib/response');
+var mysql      = require('mysql2');
+var fs = require('fs')
+var connection = mysql.createConnection({
+  host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
+  port     : '25060',
+  user     : 'doadmin',
+  password : 'R45mUKjM0QGNmejm',
+  database: 'defaultdb',
+  ssl      : {
+    ca : fs.readFileSync('./ca-certificate.crt')
+  }
+});
 
 //selects the given users score
 module.exports = {
 
   //selecting user points
   selectUsersPoints: function(id){
-    var mysql      = require('mysql2');
-    var fs = require('fs')
-    var connection = mysql.createConnection({
-      host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
-      port     : '25060',
-      user     : 'doadmin',
-      password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb',
-      ssl      : {
-        ca : fs.readFileSync('./ca-certificate.crt')
-      }
-    });
-
+  
+  
     connection.connect(function(err) {
       if (err) throw err;
       connection.query("SELECT scores FROM scores WHERE id =" + id, function (err, result, fields) {
@@ -30,18 +31,7 @@ module.exports = {
   },
   //adds user to the users table
   addUser: function(userid, name){
-    var mysql      = require('mysql2');
-    var fs = require('fs')
-    var connection = mysql.createConnection({
-      host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
-      port     : '25060',
-      user     : 'doadmin',
-      password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb',
-      ssl      : {
-        ca : fs.readFileSync('./ca-certificate.crt')
-      }
-    });
+  
 
 
   
@@ -60,20 +50,7 @@ module.exports = {
 
   //this is get users function to get all users
   getUsers: function(){
-    var mysql      = require('mysql2');
-    var fs = require('fs')
-
-    //make connection to database
-    var connection = mysql.createConnection({
-      host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
-      port     : '25060',
-      user     : 'doadmin',
-      password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb',
-      ssl      : {
-        ca : fs.readFileSync('./ca-certificate.crt')
-      }
-    });
+ 
 
 
   
@@ -94,14 +71,6 @@ module.exports = {
   getTop5: function(req,res){
     var mysql      = require('mysql2');
     var fs = require('fs')
-    var connection = mysql.createConnection({
-      host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
-      port     : '25060',
-      user     : 'doadmin',
-      password : 'R45mUKjM0QGNmejm',
-      database: 'defaultdb'
-    });
-
     
   
 
@@ -109,7 +78,7 @@ module.exports = {
       connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
-        res.send(result)
+        res.send({"top5":result})
         
      
         connection.end();
