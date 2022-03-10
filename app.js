@@ -10,7 +10,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var quizRouter  = require('./routes/quiz.js');
-
+var termsRouter = require('./routes/terms-of-use');
 var apiRouter   = require('./routes/api.js');
 
 
@@ -30,7 +30,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/quiz', quizRouter);
 app.use('/api', apiRouter);
-
+app.use('/terms-of-use', termsRouter);
 
 
 port = 3000
