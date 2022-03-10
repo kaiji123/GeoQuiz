@@ -29,6 +29,13 @@ router.get('/adduser', function(req, res){
   res.send(database.addUser(1, 'laila'));
 });
 
+
+router.post('/users', function(req, res){
+  id = req.body.id
+  usernname = req.body.name
+  res.send(database.addUser(id, usernname))
+})
+
 router.get('/users', function(req,res){
   res.send(database.getUsers());
 })
