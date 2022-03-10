@@ -33,7 +33,7 @@ describe('ratings', () => {
 describe('array to csv', () => {
     it('array to csv test', done => {
         s = quiz.arrayToCsv([1,2,3,4,5]);
-        expect(s).to.be("1,2,3")
+        expect(s).to.equal("1,2,3,4,5")
 
        
         done();
