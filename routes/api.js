@@ -10,8 +10,8 @@ const { json } = require('express/lib/response');
 //node geocoder configuration
 const options = {
   provider: 'google',
-  apiKey: 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84',
-  //apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ', // for Mapquest, OpenCage, Google Premier
+  //apiKey: 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84',
+  apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ', // for Mapquest, OpenCage, Google Premier
   formatter: null // 'gpx', 'string', ...
 };
 

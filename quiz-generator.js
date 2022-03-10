@@ -1,5 +1,6 @@
 const axios = require('axios')
-const API_KEY = 'AIzaSyCt8c60BgMHIYVIByfQ30rlAzuZMDGKy4Q'
+//const API_KEY = 'AIzaSyCt8c60BgMHIYVIByfQ30rlAzuZMDGKy4Q'
+const API_KEY = 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ'
 
 const allowedData = ["rating", "vicinity", "photos", "reviews"]
 
