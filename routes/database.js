@@ -1,13 +1,14 @@
 const res = require('express/lib/response');
 var mysql      = require('mysql2');
+require('dotenv').config()
 function makeConnection(){
    
   var connection = mysql.createConnection({
-    host     : `${process.env.HOSTNAME}`,
-    port     : `${process.env.DBPORT}`,
-    user     : `${process.env.DBUSER}`,
-    password : `${process.env.DBPASSWORD}`,
-    database: `${process.env.DBDATABASE}`
+    host     : process.env.HOSTNAME,
+    port     : process.env.DBPORT,
+    user     : process.env.DBUSER,
+    password : process.env.DBPASSWORD,
+    database: process.env.DBDATABASE
   
   });
   return connection
@@ -18,7 +19,7 @@ module.exports = {
 
   //selecting user points
   selectUsersPoints: function(id){
-  
+    //make connection
     var connection = makeConnection()
     connection.connect(function(err) {
       if (err) throw err;
@@ -36,6 +37,7 @@ module.exports = {
 
     var connection = makeConnection()
   
+    //make connection
 
     connection.connect(function(err) {
       if (err) throw err;
@@ -53,7 +55,7 @@ module.exports = {
   getUsers: function(){
  
 
-
+    //make connection 
     var connection = makeConnection()
 
     connection.connect(function(err) {
