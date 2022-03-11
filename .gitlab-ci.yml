@@ -45,7 +45,7 @@ deploy:
 
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
-    - 'apk update && apk install -y gettext-base'
+    - 'apk add --upgrade gettext'
     - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
