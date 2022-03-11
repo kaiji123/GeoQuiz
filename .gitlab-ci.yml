@@ -12,11 +12,14 @@ cache:
 build :
 
   stage: build 
-  before_script: apt-get install gettext-base
+
   script:
     - npm stop
-   
-    - envsubst <$CI_PROJECT_DIR/deploy/env.template> $CI_PROJECT_DIR/.env
+    - echo HOSTNAME=$HOSTNAME >> .env
+    - echo DBUSER=$DBUSER >> .env
+    - echo DBPASSWORD=$DBPASSWORD >> .env
+    - echo DBPORT=$DBPORT >> .env
+    - echo DBDATABASE=$DBDATABASE >> .env
     - npm i 
   artifacts:
     paths:
