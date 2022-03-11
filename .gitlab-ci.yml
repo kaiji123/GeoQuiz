@@ -10,9 +10,16 @@ cache:
   paths:
     - .npm/
 build :
+
   stage: build 
+
   script:
     - npm stop
+    - echo HOSTNAME=$HOSTNAME >> .env
+    - echo DBUSER=$DBUSER >> .env
+    - echo DBPASSWORD=$DBPASSWORD >> .env
+    - echo DBPORT=$DBPORT >> .env
+    - echo DBDATABASE=$DBDATABASE >> .env
     - npm i 
   artifacts:
     paths:
