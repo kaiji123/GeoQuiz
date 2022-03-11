@@ -8,6 +8,26 @@
    
     
 }
+table{
+    background-color:rgb(153, 204, 255);
+    border-radius: 10px;
+    border: 2px
+}
+tr{
+    border:none
+}
+td{
+    border:none;
+    text-align: center;
+}
+th{
+    background-color: aqua;
+    border:none;
+}
+td:hover{
+    background-color: bisque;
+    color: bisque
+}
 .start{
     margin-bottom: 5%;
     text-align: end;
