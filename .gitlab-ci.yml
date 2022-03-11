@@ -24,13 +24,6 @@ build :
 test:
   stage: test
   script: 
-    - cd $CI_PROJECT_DIR
-    
-    - echo HOSTNAME=$HOSTNAME >> .env
-    - echo DBUSER=$DBUSER >> .env
-    - echo DBPASSWORD=$DBPASSWORD >> .env
-    - echo DBPORT=$DBPORT >> .env
-    - echo DBDATABASE=$DBDATABASE >> .env
     - npm test
   cache:
     key: $NODE_MODULES
