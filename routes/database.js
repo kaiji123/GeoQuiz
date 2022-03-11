@@ -1,21 +1,16 @@
 const res = require('express/lib/response');
 var mysql      = require('mysql2');
-var fs = require('fs')
-
-
 function makeConnection(){
+   
   var connection = mysql.createConnection({
     host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
     port     : '25060',
     user     : 'doadmin',
     password : 'R45mUKjM0QGNmejm',
     database: 'defaultdb',
-    ssl      : {
-      ca : fs.readFileSync('./ca-certificate.crt')
-    }
   });
+  return connection
 }
-
 
 //selects the given users score
 module.exports = {
@@ -23,7 +18,7 @@ module.exports = {
   //selecting user points
   selectUsersPoints: function(id){
   
-    makeConnection()
+    var connection = makeConnection()
     connection.connect(function(err) {
       if (err) throw err;
       connection.query("SELECT scores FROM scores WHERE id =" + id, function (err, result, fields) {
@@ -38,7 +33,7 @@ module.exports = {
   addUser: function(userid, name){
   
 
-    makeConnection()
+    var connection = makeConnection()
   
 
     connection.connect(function(err) {
@@ -58,7 +53,7 @@ module.exports = {
  
 
 
-    makeConnection()
+    var connection = makeConnection()
 
     connection.connect(function(err) {
       if (err) throw err;
@@ -74,9 +69,8 @@ module.exports = {
 
   // this is get top 5 users ranking in the world function 
   getTop5: function(req,res){
-  
-    makeConnection()
-    
+    // use makeConnection to make a connection to database , please assign it to connection variable
+    var connection = makeConnection()
   
 
 
