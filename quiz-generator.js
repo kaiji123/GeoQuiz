@@ -1,17 +1,87 @@
 const axios = require('axios')
-//const API_KEY = 'AIzaSyCt8c60BgMHIYVIByfQ30rlAzuZMDGKy4Q'
-const API_KEY = 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ'
+const fs = require('fs');
+
+const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 const allowedData = ["rating", "vicinity", "photos", "reviews"]
 
+generateQuizCache()
 
-//generate a quiz object with random questions
+//generate a quiz object with random questions, based on cached data (much cheaper)
+function generateQuizCache(){
+    //read in cached api data
+    let fspromise = fs.promises.readFile('./selly.json').then((data) =>{              
+        //read both general data and fine data
+        var places =  JSON.parse(data).general
+        var details = JSON.parse(data).fine
+
+        var quiz = []
+        
+        for(let i=0; i < 10; i++){
+            //pick a local place at random without replacement
+            let place = pickRandom(places);
+            let placeId = place.place_id
+
+            //remove item from array
+            let index = places.indexOf(place);
+            places.splice(index, 1)
+
+            let placeDetails = details[placeId]
+
+            let placeName = placeDetails.name
+            let data = pickRandom(allowedData)
+            let wrong = ['a', 'b', 'c'];  
+
+            //if the place is missing data, pick something else
+            while(placeDetails[data] == null){
+                console.log(data + ' not found for current place')
+                data = pickRandom(allowedData)
+            }
+            
+            let question;
+            //populate the question with the right data
+            if(data == 'rating'){
+                wrong = randomRatings();
+                question = questionJson(`What is ${placeName}'s rating on Google?`, placeDetails[data], wrong, null, null)
+            }
+            else if(data == 'vicinity'){
+                wrong = randomAddresses(places)
+                question = questionJson(`What is ${placeName}'s address?`, placeDetails[data], wrong, null, null)
+
+            }
+            else if(data == 'photos'){
+                wrong = randomPlaces(places);
+
+                //remove item from array
+                let photoRef = placeDetails.photos[0].photo_reference
+                //gets an image bytearray from google's servers
+                //question = getImage(photoRef).then((bytes) =>{
+                    //return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
+                question =  questionJson(`Name this place:`, placeName, wrong, null, 'img')
+                //})
+            }
+            else if(data =='reviews'){
+                wrong = randomPlaces(places);
+
+                //pick a review at random
+                let review = pickRandom(placeDetails.reviews).text
+                question = questionJson('What is this a review for?', placeName, wrong, review, 'text')
+            }
+            //generate question based on chosen data item
+            quiz.push(question)  
+              
+        }
+        console.log(quiz)
+        return quiz
+    })
+
+    return fspromise
+}
 
 function generateQuiz(coords, radius=10000, type='cafe'){
-
     //construct API query string
     let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json' +
-        '?location=' +coords.lat + '%2C' + coords.lon +
+        '?location=' + coords.lat + '%2C' + coords.lon +
         '&radius=' + radius +
         '&type=' + type + 
         '&key=' + API_KEY
@@ -19,10 +89,11 @@ function generateQuiz(coords, radius=10000, type='cafe'){
     //allowed question fields for later on (name is required but not a question)
     let fields = arrayToCsv(allowedData) + ',name'
     
-
     //query the google api to get a list of nearby places
-    let mainPromise = axios.get(url).then((res) =>{
-        var places =  res.data.results
+    let mainPromise = axios.get(url).then((res) =>{       //use this for live api query
+    
+        var places =  res.data.results 
+
         var promises = []
         
         for(let i=0; i < 10; i++){
@@ -39,7 +110,7 @@ function generateQuiz(coords, radius=10000, type='cafe'){
             '?placeid=' + placeId + 
             '&fields=' + fields +
             '&key=' + API_KEY
-
+            
             //make a new promise to process the above query
             let questionPromise = axios.get(url).then((details) => {
                 let placeDetails = details.data.result
@@ -70,9 +141,10 @@ function generateQuiz(coords, radius=10000, type='cafe'){
                     //remove item from array
                     let photoRef = placeDetails.photos[0].photo_reference
                     //gets an image bytearray from google's servers
-                    question = getImage(photoRef).then((bytes) =>{
-                        return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
-                    })
+                    //question = getImage(photoRef).then((bytes) =>{
+                        //return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
+                    return questionJson(`Name this place:`, placeName, wrong, null, 'img')
+                    //})
                 }
                 else if(data =='reviews'){
                     wrong = randomPlaces(places);
@@ -89,7 +161,8 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 
         //resolve all promises simultaneously
         return Promise.all(promises);
-    }).catch((err) => {
+    })
+    .catch((err) => {
         console.log(err)
         return [];
     })
@@ -100,6 +173,10 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 
 //get an image from google's api
 function getImage(ref){
+    //return null for now
+    return new Promise((resolve, reject) =>{
+        resolve('img')
+    })
     //construct API query string
     let url = 'https://maps.googleapis.com/maps/api/place/photo' +
     '?maxwidth=400' +
@@ -182,6 +259,6 @@ function arrayToCsv(array){
 }
 
 
-module.exports ={
-    pickRandom, randomRatings, arrayToCsv
-} 
+exports.generateQuiz = generateQuiz
+exports.generateQuizCache = generateQuizCache
+exports.pickRandom = pickRandom

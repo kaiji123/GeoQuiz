@@ -39,11 +39,12 @@ async function showClientLocation(){
     if('geolocation' in navigator) {
         var data = navigator.geolocation.getCurrentPosition((position) => {
             //get lat and lon coords
-            var coords = [position.coords.latitude, position.coords.longitude];
+
             var data = {
                     lat: position.coords.latitude,
                     lon: position.coords.longitude
-                };       
+                };  
+            console.log(data)     
             //create new POST request to location api using fetch (at the moment it just bounces back data)
             fetch('/api/location',{
                 method: 'POST',
