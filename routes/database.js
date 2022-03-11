@@ -74,8 +74,7 @@ module.exports = {
 
   // this is get top 5 users ranking in the world function 
   getTop5: function(req,res){
-    var mysql      = require('mysql2');
-    var fs = require('fs')
+  
     makeConnection()
     
   
