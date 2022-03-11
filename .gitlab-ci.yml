@@ -13,6 +13,7 @@ build :
   stage: build 
   script:
     - npm stop
+    - apt update && apt install -y gettext-base
     - envsubst <$CI_PROJECT_DIR/deploy/env.template> $CI_PROJECT_DIR/.env
     - npm i 
   artifacts:
