@@ -15,12 +15,6 @@ build :
 
   script:
     - npm stop
-    - touch .env
-    - echo HOSTNAME=$HOSTNAME >> .env
-    - echo DBUSER=$DBUSER >> .env
-    - echo DBPASSWORD=$DBPASSWORD >> .env
-    - echo DBPORT=$DBPORT >> .env
-    - echo DBDATABASE=$DBDATABASE >> .env
     - npm i 
   artifacts:
     paths:
@@ -30,7 +24,13 @@ build :
 test:
   stage: test
   script: 
-    - echo $CI_PROJECT_DIR
+    - cd $CI_PROJECT_DIR
+    
+    - echo HOSTNAME=$HOSTNAME >> .env
+    - echo DBUSER=$DBUSER >> .env
+    - echo DBPASSWORD=$DBPASSWORD >> .env
+    - echo DBPORT=$DBPORT >> .env
+    - echo DBDATABASE=$DBDATABASE >> .env
     - npm test
   cache:
     key: $NODE_MODULES
