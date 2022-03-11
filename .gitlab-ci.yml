@@ -10,11 +10,12 @@ cache:
   paths:
     - .npm/
 build :
-  image: docker:alpine
+
   stage: build 
+  before_script: apt-get install gettext-base
   script:
     - npm stop
-    - apt-get install gettext-base
+   
     - envsubst <$CI_PROJECT_DIR/deploy/env.template> $CI_PROJECT_DIR/.env
     - npm i 
   artifacts:
