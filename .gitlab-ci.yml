@@ -15,6 +15,7 @@ build :
 
   script:
     - npm stop
+    - touch .env
     - echo HOSTNAME=$HOSTNAME >> .env
     - echo DBUSER=$DBUSER >> .env
     - echo DBPASSWORD=$DBPASSWORD >> .env
