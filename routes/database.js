@@ -2,11 +2,11 @@ const res = require('express/lib/response');
 var mysql      = require('mysql2');
 var fs = require('fs')
 var connection = mysql.createConnection({
-  host     : 'db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com',
-  port     : '25060',
-  user     : 'doadmin',
-  password : 'R45mUKjM0QGNmejm',
-  database: 'defaultdb',
+  host     : process.env.HOSTNAME,
+  port     : process.env.DBPORT,
+  user     : process.env.DBUSER,
+  password : process.env.DBPASSWORD,
+  database: process.env.DBDATABASE,
   ssl      : {
     ca : fs.readFileSync('./ca-certificate.crt')
   }
