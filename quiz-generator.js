@@ -14,7 +14,7 @@ function generateQuizCache(){
         //read both general data and fine data
         var places =  JSON.parse(data).general
         var details = JSON.parse(data).fine
-
+        var photos = JSON.parse(data).photos
         var quiz = []
         
         for(let i=0; i < 10; i++){
@@ -53,12 +53,10 @@ function generateQuizCache(){
                 wrong = randomPlaces(places);
 
                 //remove item from array
-                let photoRef = placeDetails.photos[0].photo_reference
-                //gets an image bytearray from google's servers
-                //question = getImage(photoRef).then((bytes) =>{
-                    //return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
-                question =  questionJson(`Name this place:`, placeName, wrong, null, 'img')
-                //})
+                let bytes = photos[placeId]
+              
+                question =  questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
+                
             }
             else if(data =='reviews'){
                 wrong = randomPlaces(places);
@@ -141,10 +139,9 @@ function generateQuiz(coords, radius=10000, type='cafe'){
                     //remove item from array
                     let photoRef = placeDetails.photos[0].photo_reference
                     //gets an image bytearray from google's servers
-                    //question = getImage(photoRef).then((bytes) =>{
-                        //return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
-                    return questionJson(`Name this place:`, placeName, wrong, null, 'img')
-                    //})
+                    question = getImage(photoRef).then((bytes) =>{
+                        return questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
+                    })
                 }
                 else if(data =='reviews'){
                     wrong = randomPlaces(places);
@@ -173,10 +170,6 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 
 //get an image from google's api
 function getImage(ref){
-    //return null for now
-    return new Promise((resolve, reject) =>{
-        resolve('img')
-    })
     //construct API query string
     let url = 'https://maps.googleapis.com/maps/api/place/photo' +
     '?maxwidth=400' +

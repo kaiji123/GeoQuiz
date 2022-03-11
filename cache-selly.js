@@ -4,7 +4,6 @@ const fs = require('fs')
 const coords = {lat:'52.445071',lon:'-1.9374337'}
 const radius = 10000
 const type = 'cafe'
-const fields = ["rating", "vicinity", "photos", "reviews", "name"]
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 function cacheSelly(){
@@ -19,6 +18,7 @@ function cacheSelly(){
 
     let general = []
     let fine = {}
+    let photos = {}
 
     let mainPromise = axios.get(url).then((res) =>{       
         let places = res.data.results
@@ -31,12 +31,15 @@ function cacheSelly(){
             let detailsUrl = 'https://maps.googleapis.com/maps/api/place/details/json' + 
             '?placeid=' + placeId + 
             '&key=' + API_KEY
-
+            //query the google api to get a list of nearby places
+  
             let subPromise = axios.get(detailsUrl).then((details) =>{
                 data = details.data.result
-                return [placeId, place, data]
+                return getImage(data.photos[0].photo_reference).then((photo) => {
+                    return [placeId, place, data, photo]
+                })
             }) 
-            promises.push(subPromise)
+            promises.push(subPromise) 
         })
 
         return Promise.all(promises)
@@ -45,9 +48,10 @@ function cacheSelly(){
         data.forEach((placeData) =>{
             general.push(placeData[1])
             fine[placeData[0]] = placeData[2]
+            photos[placeData[0]] = placeData[3]
         })
         console.log(fine)
-        let json = {'general':general, 'fine': fine}
+        let json = {'general':general, 'fine': fine, 'photos': photos }
 
         return JSON.stringify(json)
     }).then((data) => [
@@ -58,4 +62,19 @@ function cacheSelly(){
     ])
 }   
 
+function getImage(ref){
+    //photo query
+    let url = 'https://maps.googleapis.com/maps/api/place/photo' +
+    '?maxwidth=400' +
+    '&photo_reference=' + ref + 
+    '&key=' + API_KEY
+
+    return axios.get(url, {
+        responseType: 'arraybuffer'
+    }).then((res) =>{
+        return Buffer.from(res.data, 'binary').toString('base64')
+    }).catch((err) => {
+        console.log('Error loading image!');  
+    })
+}
 cacheSelly()
