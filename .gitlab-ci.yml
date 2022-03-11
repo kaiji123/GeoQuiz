@@ -16,12 +16,7 @@ build :
   script:
     - npm stop
     - npm i 
-    - echo HOSTNAME="$HOSTNAME" >> .env
-    - echo DBUSER="$DBUSER" >> .env
-    - echo DBPASSWORD="$DBPASSWORD" >> .env
-    - echo DBPORT="$DBPORT" >> .env
-    - echo DBDATABASE="$DBDATABASE" >> .env
-    - cat .env
+
 
   artifacts:
     paths:
@@ -50,6 +45,8 @@ deploy:
 
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
+    - 'apk add --upgrade gettext'
+    - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
