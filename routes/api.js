@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-//var database = require('./database.js');
+var database = require('./database.js');
 var quizgen = require('../quiz-generator.js')
 
 const NodeGeocoder = require('node-geocoder');
@@ -37,12 +37,12 @@ router.post('/users', function(req, res){
 })
 
 router.get('/users', function(req,res){
-  //res.send(database.getUsers());
+  res.send(database.getUsers());
 })
 
 
-//router.get('/top5', database.getTop5
-//)
+router.get('/top5', database.getTop5
+)
 
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
