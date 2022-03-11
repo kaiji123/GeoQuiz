@@ -17,27 +17,5 @@ describe('quiz-generator.pickRandom', () => {
 
 
 
-describe('ratings', () => {
-    it('random ratings test', done => {
-        s = quiz.randomRatings()
-        for(i = 0 ; i < 3; i++){
-            expect(s[i] > 2 && s[i] <=5).to.be.true
-        }
-       
-        done();
-    });
-});
-
-
-
-describe('array to csv', () => {
-    it('array to csv test', done => {
-        s = quiz.arrayToCsv([1,2,3,4,5]);
-        expect(s).to.equal("1,2,3,4,5")
-
-       
-        done();
-    });
-});
 
 
