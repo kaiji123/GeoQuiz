@@ -16,11 +16,11 @@ build :
   script:
     - npm stop
     - npm i 
-    - echo HOSTNAME=$HOSTNAME >> .env
-    - echo DBUSER=$DBUSER >> .env
-    - echo DBPASSWORD=$DBPASSWORD >> .env
-    - echo DBPORT=$DBPORT >> .env
-    - echo DBDATABASE=$DBDATABASE >> .env
+    - echo HOSTNAME="$HOSTNAME" >> .env
+    - echo DBUSER="$DBUSER" >> .env
+    - echo DBPASSWORD="$DBPASSWORD" >> .env
+    - echo DBPORT="$DBPORT" >> .env
+    - echo DBDATABASE="$DBDATABASE" >> .env
     - cat .env
 
   artifacts:
