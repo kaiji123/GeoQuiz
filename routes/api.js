@@ -51,19 +51,6 @@ const locFromCoords = (coords) =>{
   })
 }
 
-//this won't work sadly
-function generaliseCoords(coords){
-  return new Promise((resolve, reject) =>{
-    generalCoords = geocoder.reverse(coords).then((loc) => {
-        geocoder.geocode(loc[0].city + 'city centre')
-      }).then((newCoords) => {
-        console.log(newCoords);
-        return newCoords; 
-      });
-
-    resolve(generalCoords)
-  })
-}
 
 //will generate a quiz given a location
 router.post('/quiz', async(req, res) =>{  
@@ -72,9 +59,16 @@ router.post('/quiz', async(req, res) =>{
   //console.log(coords);
   var coords = req.body;
 
-  quizgen.generateQuiz(coords).then((data) => {
+  //quizgen.generateQuiz(coords).then((data) => {
+  //  res.send(data)
+  //});
+
+  quizgen.generateQuizCache().then((data) => {
+    console.log(data)
     res.send(data)
   });
+
+
 
 });
 
