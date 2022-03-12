@@ -24,10 +24,6 @@ th{
     background-color: aqua;
     border:none;
 }
-td:hover{
-    background-color: bisque;
-    color: bisque
-}
 .start{
     margin-bottom: 5%;
     text-align: end;

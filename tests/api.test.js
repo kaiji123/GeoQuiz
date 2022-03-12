@@ -5,7 +5,7 @@ const app = require('../app.js');
 const should = chai.should();
 const expect = chai.expect;
 
-// starwars mocks
+// api/integration tests
 describe('GET /api/top5', () => {
     it('api/top5 get test', done => {
       chai
@@ -36,3 +36,5 @@ describe('GET /api/location', () => {
       }).then(done());
   });
 });
+
+
