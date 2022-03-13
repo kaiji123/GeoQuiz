@@ -11,7 +11,8 @@ require('dotenv').config()
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var quizRouter  = require('./routes/quiz.js');
-var termsRouter = require('./routes/terms-of-use');
+var scoreRouter = require('./routes/score.js')
+var termsRouter = require('./routes/terms-of-use.js');
 var apiRouter   = require('./routes/api.js');
 
 
@@ -30,11 +31,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/quiz', quizRouter);
+app.use('/score', scoreRouter);
 app.use('/api', apiRouter);
 app.use('/terms-of-use', termsRouter);
 
 
 port = 3000
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -54,9 +57,6 @@ app.use(function(err, req, res, next) {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
-
-
 
 module.exports = app;
 

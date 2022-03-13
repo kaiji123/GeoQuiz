@@ -1,6 +1,7 @@
-extends layout
+link(rel="stylesheet" href="stylesheets/style.css")
+.error
+  h2.status= error.status
+  .stacktrace
+    pre #{error.stack}
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  a(href='/')='Back to safety'

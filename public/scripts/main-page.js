@@ -32,7 +32,7 @@ function showTable(){
         );
 
 }
-async function showClientLocation(){
+function showClientLocation(){
     //check gelocation is available
     if('geolocation' in navigator) {
         var data = navigator.geolocation.getCurrentPosition((position) => {

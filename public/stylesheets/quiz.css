@@ -39,3 +39,9 @@ h3.trialQuestion{
     margin-top: 50px;
    
 }
+
+/*End of quiz stuff*/
+.quiz-end{
+    width: 100%;
+    text-align: center;
+}

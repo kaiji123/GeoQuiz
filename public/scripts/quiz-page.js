@@ -1,4 +1,4 @@
-var currentQuestion = 1;
+var currentQuestion = 0;
 var quizLength;
 var score = 0;
 
@@ -81,17 +81,23 @@ function nextQuestion(el, right){
     }
 
     setTimeout(function(){
-        currentQuestion++;
-        $('#quiz').html(questionHtml[currentQuestion - 1]);
-        quizLength = 1
-        if(currentQuestion > quizLength){
-            alert(score + '/' + quizLength)
-            //end of quiz processing
-        
-            //save score
-            
-            //redirect
+        if(currentQuestion + 1 >= quizLength){
+            finish(score);
+        }
+        else{
+            currentQuestion++
+            $('#quiz').html(questionHtml[currentQuestion]);
+
         }
      }, 500)    //wait for half a second
     
+}
+
+function finish(score){
+    //end of quiz processing
+        
+    //save score
+    
+    //redirect
+    window.location.href = '/score'
 }
