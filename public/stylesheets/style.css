@@ -11,6 +11,7 @@ Default element style
 */
 body {
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
 
   padding: 0px;
@@ -46,6 +47,7 @@ p{
 /*Header style*/
 .header{
   display: flex;
+  display: -webkit-flex;
   flex-direction: row;
   justify-content: space-between;
   position: absolute;
@@ -87,6 +89,7 @@ p{
 .page{
   margin-top: 75px;
   display: flex;
+  display: -webkit-flex;
   flex-grow: 1;
 }
 
