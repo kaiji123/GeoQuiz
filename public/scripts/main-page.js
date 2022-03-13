@@ -10,9 +10,7 @@ function showUser(){
 }
 
 //show leaderboard table in homepage
-
 function showTable(){
-
        //create GET request to /api/top5 to get top 5 users in homepage
        fetch('/api/top5',{
         method: 'GET',
@@ -24,12 +22,12 @@ function showTable(){
             data = data.top5
             console.log(data)
 
-            var content = "<table style='width:30%', border='1'><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
+            var content = "<table><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
             for(i=0; i<data.length; i++){
                 content += '<tr><td>' + (i+1) +'</td>' +'<td>'+ data[i].name + '</td>'+ '<td>'+ data[i].scores + '</td>' + '</tr>';
             }
             content += "</table>"
-                $('#top').append(content)
+                $('#leaderboard').append(content)
             }
         );
 

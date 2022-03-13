@@ -67,7 +67,6 @@ router.post('/quiz', async(req, res) =>{
   //});
 
   quizgen.generateQuizCache().then((data) => {
-    console.log(data)
     res.send(data)
   });
 

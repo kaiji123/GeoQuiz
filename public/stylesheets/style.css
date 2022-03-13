@@ -6,6 +6,9 @@
   --button-font: 'Prata', serif;
 }
 
+/*
+Default element style
+*/
 body {
   display: flex;
   flex-direction: column;
@@ -20,9 +23,11 @@ body {
 
 button{
   padding: 20px 40px;
+
   font-size:1.25em;
   font-family: var(--default-font);
   font-weight: bold;
+
   border-radius: 3px;
   border: 2px solid black;
   filter: drop-shadow(2px 2px 2px black);
@@ -45,16 +50,20 @@ p{
   height: 75px;
   
 }
+
+.usernameText {
+  padding-right: 25px;
+  padding-top: 25px;
+}
+
 .header:after{
   display:flex;
   content: "";
   background: white;
-  position:relative;
-  margin-left: -1800px;
+  position: relative;
   top: 75px;
   width:150%;
   height: 1px;
-
 }
 .usernameText {
   padding-right: 25px;
@@ -74,16 +83,16 @@ p{
 }
 
 .signin{
-  margin-left: 80%;
-  height:fit-content;
-  margin-top: 1%;
-  margin-right: 2.5%;
-  white-space:nowrap;
+  font-size: 2vw;
+  
+  position: fixed;
+
+  margin: 24px 0;
+  margin-left: 89%;
+
   padding: 0px 5px;
-
-
+  
 }
-
 
 /*Main page class*/
 .page{
@@ -102,147 +111,4 @@ p{
   text-decoration: none;
   color: black;
   margin-right: 20px;
-}
-
-@media screen and (max-width:1439px) {
-  .scaling{
-    display: none;
-  }
-  
-  scalingButton{ 
-    display: none;
-  }
-    
-  scalingButton:hover{
-    display: none;
-  }
-
-}
-
-
-@media screen and (max-width:1020px) {
-  button.signin{
-    width:fit-content;
-    position: fixed;
-    margin: 2.5px 12.5;
-    margin-left: 90%;
-    margin-right: 0%;
-  
-    padding: 0px 5px;
-
-    font-size:1.125em;
-  
-  }
-
-}
-
-@media screen and (max-width:800px) {
-  button.signin{
-    width:fit-content;
-    position: fixed;
-    margin: 5px 12.5;
-    margin-left: 89.6%;
-    margin-right: 2.5%;
-  
-    padding: 0px 5px;
-
-    font-size:1em;
-  }
-  p{
-    font-size: 15px;
-  }
-  h1 {
-    font-size: 1.5em;
-  }
-
-  button{
-    padding: 10px 20px;
-    font-size:1.25em;
-    font-family: var(--default-font);
-    font-weight: bold;
-    border-radius: 1.5px;
-  }
-}
-
-@media screen and (max-width:650px) {
-  
-  button{
-      padding: 10px 20px;
-      font-size:1.125em;
-      font-family: var(--default-font);
-      font-weight: bold;
-      border-radius: 1.5px;
-    }
-  
-  p{
-    font-size: 12.5px;
-  }
-  h1 {
-    font-size: 1.25em;
-  }
-}
-
-@media screen and (max-width:600px) {
-  button.signin{
-    margin-right: 10%;
-  }
-}
-
-@media screen and (max-width:500px) {
-  button.signin{
-    width:fit-content;
-    position: absolute;
-    margin: 5px 7.5;
-    margin-left: 87.5%;
-    margin-right: 10%;
-    padding: 0px 5px;
-  }
-}
-
-@media screen and (max-width:415px) {
-  button.signin{
-    width:fit-content;
-    position: fixed;
-    margin: 10px 13;
-    margin-left: 74%;
-    margin-right: 0%;
-  
-    padding: 0px 20;
-
-    font-size:1.5em;
-    border-radius: 1.5px;
-    border: 1px solid black;
-    filter: drop-shadow(1px 1px 1px black);
-    transition: 0.3s;
-  
-  }
-
-  p{
-    font-size: 12.5px;
-  }
-  h1 {
-    font-size: 2em;
-  }
-
-  button.start-quiz{
-    width:fit-content;
-    position: center;
-    margin-left: 10%;
-    margin-right: 5.75%;
-  
-    padding: 0px 20;
-
-    font-size: 1.5em;
-    border-radius: 1.5px;
-    border: 1px solid black;
-    filter: drop-shadow(1px 1px 1px black);
-    transition: 0.3s;
-  }
-  table{
-    position: relative;
-    width: 80%;
-    top : 10%;
-    bottom: 100%;
-    left: 60px
-}
 }

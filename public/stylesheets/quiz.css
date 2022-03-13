@@ -14,6 +14,12 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+#quiz button.right{
+    background-color: green;
+}
+#quiz button.wrong{
+    background-color: red;
+}
 img.trialQuestion{
     margin-top: 15px;
     height: 50%;
