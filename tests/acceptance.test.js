@@ -11,7 +11,7 @@ describe('webdriver test', () => {
             }
         })
         
-        browser.url('https://geo-quiz.xyz')
+        browser.url('http://localhost:3000')
         
            
         
