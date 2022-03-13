@@ -32,15 +32,20 @@ th{
     background-color:darkgoldenrod;
 }
 
-td{
-    text-align: center;
+tr{
     background-color: white;
+    transition: 0.1s;
+    text-align: center;
 }
 
 th,td{
     padding: 5px 10px;
 }
 
+tr:hover{
+    background-color: grey;
+    cursor: pointer;
+}
 /*Start button*/
 .start{
     width: 50%;

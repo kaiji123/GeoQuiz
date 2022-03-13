@@ -83,19 +83,16 @@ p{
 }
 
 .signin{
-    font-size: 2vw;
-    
-    position: fixed;
-
-    margin: 24px 0;
-    margin-left: 89%;
-
-    padding: 0px 5px;
+  font-size: 2vw;
   
+  position: fixed;
 
+  margin: 24px 0;
+  margin-left: 89%;
 
+  padding: 0px 5px;
+  
 }
-
 
 /*Main page class*/
 .page{
