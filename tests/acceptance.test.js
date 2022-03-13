@@ -1,20 +1,19 @@
-const { remote } = require('webdriverio');
+require('chromedriver');
+var webdriver = require('selenium-webdriver');
+var driver = new webdriver.Builder()
+  .forBrowser('chrome')
+  .build();
 
 
-
-describe('webdriver test', () => {
-    it('webdriver', async () => {
+describe('GET /api/top5', () => {
+    it('api/top5 get test', async()=> {
+     
     
-        const browser = await remote({
-            capabilities: {
-                browserName: 'chrome'
-            }
-        })
-        
-        browser.url('http://localhost:3000')
-        
-           
-        
-        
+        try {
+          await driver.get('http://www.google.com/ncr');
+        } finally {
+          await driver.quit();
+        }
+      
     });
 });
