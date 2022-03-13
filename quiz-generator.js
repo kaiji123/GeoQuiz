@@ -253,5 +253,5 @@ function arrayToCsv(array){
 
 
 module.exports ={
-    pickRandom, randomRatings, arrayToCsv, questionJson, 
+    pickRandom, randomRatings, arrayToCsv, questionJson, generateQuiz, generateQuizCache
 } 

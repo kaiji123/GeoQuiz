@@ -77,7 +77,7 @@ module.exports = {
   
 
 
-      connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc", function (err, result, fields) {
+      connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc limit 5", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.send({"top5":result})
@@ -86,6 +86,19 @@ module.exports = {
         connection.end();
         return result
       });
+  },
+
+  getLeaderboard: function(req,res){
+    var connection = makeConnection()
+    connection.query("SELECT users.name,scores.scores from scores inner join users on scores.id = users.id order by scores.scores desc", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+      res.send({"top5":result})
+      
+   
+      connection.end();
+      return result
+    });
   }
 }
 

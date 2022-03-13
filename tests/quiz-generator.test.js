@@ -57,6 +57,25 @@ describe('questionJson', () => {
 
 
 
+describe('generate quiz cache', () => {
+    it('quiz cache',async() => {
+        s = await quiz.generateQuizCache()
+        expect(s).to.have.lengthOf(10)
+        console.log(s)
+        for(let i =0;i <s.length; i++){
+            expect(s[i]).to.have.property("question")
+            expect(s[i]).to.have.property("answer")
+            expect(s[i]).to.have.property("wrong")
+            expect(s[i]).to.have.property("metadata")
+            expect(s[i]).to.have.property("type")
+        }
+    
+    });
+});
+
+
+
+
 
 
 

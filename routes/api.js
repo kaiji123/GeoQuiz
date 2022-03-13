@@ -44,6 +44,9 @@ router.get('/users', function(req,res){
 router.get('/top5', database.getTop5
 )
 
+router.get('/leaderboard', database.getLeaderboard
+)
+
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
   return new Promise((resolve, reject) =>{
