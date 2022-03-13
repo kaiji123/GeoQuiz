@@ -1,78 +1,96 @@
 .container{
-    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     width: 100%;
-}
-.content{
-    width: 100%;
-  
-   
-    
-}
-table{
-    position: relative;
-    width: 100%;
-    top : 50px;
-    left: 60px;
-    background-color:rgb(2, 4, 5);
-    border-radius: 10px;
-    border: 2px;
-    margin-left: 5%;
 }
 
+/*Welcome text*/
+.upper{   
+    width: 100%;
+    text-align: center;
+    font-size: large;
+}
+
+.lower{
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+}
+/*Leadboard table*/
+#leaderboard{
+    width: 50%;
+}
+
+table{
+    background-color:rgb(2, 4, 5);
+    width: 90%;
+    margin-left: 10%;
+}
+
+th{
+    background-color:darkgoldenrod;
+}
 
 td{
-    border:none;
     text-align: center;
     background-color: white;
 }
-th{
-    background-color:darkgoldenrod;
-    border:none;
+
+th,td{
+    padding: 5px 10px;
 }
+
+/*Start button*/
 .start{
-    margin-bottom: 5%;
-    text-align: end;
-    position: relative;
-    bottom: 80px;
-    right :20%;
-
-}
-.start-quiz{
-    margin-top: 4%;
-}
-
-
-
-.located{
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
+    width: 50%;
     text-align: center;
-    position: relative;
 }
-  
+
 .scaling{
-    text-align: end;
-    position: relative;
-    right :20%;
     margin-top: 10%;
 }
 
-scalingButton{ 
-   
-    background-color: white;
+.scale{ 
     padding: 5px 10px;
     font-weight: bold;
     border-radius: 3px;
-    border: 2px solid black;
-    filter: drop-shadow(2px 2px 2px black);
     transition: 0.3s;
-  }
+}
   
-  scalingButton:hover{
-    background-color: grey;
-    cursor: pointer;
-  }
-  
+.scale:hover{
+background-color: grey;
+cursor: pointer;
+}
 
-  
+/*adaptive design*/
+@media screen and (max-width: 800px) {
+    .upper{
+        height: fit-content;
+        flex-shrink: 1;
+    }
+    .lower{
+        padding: 0;
+        flex-direction: column-reverse;
+    }
+    #leaderboard{
+        width: 100%;
+        margin-top: 50px;
+    }
+    table{
+        width: 80%;
+    }
+    .start{
+        width: 100%;
+    }
+    .start-quiz{
+        max-width: 80%;
+        min-width: 50%;
+    }
+}
+
+@media screen and (max-height: 700px){
+    .page{
+        margin-top: 75px;
+    }
+}

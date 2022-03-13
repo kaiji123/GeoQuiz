@@ -5,8 +5,6 @@ const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 const allowedData = ["rating", "vicinity", "photos", "reviews"]
 
-generateQuizCache()
-
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){
     //read in cached api data
@@ -69,13 +67,13 @@ function generateQuizCache(){
             quiz.push(question)  
               
         }
-        console.log(quiz)
         return quiz
     })
 
     return fspromise
 }
 
+//uses live API queries - expensive!
 function generateQuiz(coords, radius=10000, type='cafe'){
     //construct API query string
     let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json' +
@@ -253,5 +251,5 @@ function arrayToCsv(array){
 
 
 module.exports ={
-    pickRandom, randomRatings, arrayToCsv, questionJson, 
+    generateQuizCache, pickRandom, randomRatings, arrayToCsv, questionJson, 
 } 

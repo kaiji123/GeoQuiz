@@ -1,5 +1,6 @@
-var currentQuestion = 0;
+var currentQuestion = 1;
 var quizLength;
+var score = 0;
 
 //takes a JSON quiz and generates html
 function genQuizHtml(quiz){
@@ -26,10 +27,10 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button class="trialQuestion" onclick="nextQuestion()">' + q.answer + '</button>';
+                html += '<button class="trialQuestion" onclick="nextQuestion(this, true)">' + q.answer + '</button>';
             }
             else{
-                html += '<button class="trialQuestion">'+q.wrong[wi]+'</button>'
+                html += '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi]+'</button>'
                 wi++;
             }
         }
@@ -40,11 +41,21 @@ function genQuizHtml(quiz){
     $('#quiz').html(questionHtml[0]);
 }
 
-function nextQuestion(){
-    currentQuestion++;
-    $('#quiz').html(questionHtml[currentQuestion - 1]);
-
-    if(currentQuestion > quizLength){
-        console.log('well done');
+function nextQuestion(el, right){
+    if(right) {
+        score++;
+        $(el).addClass('right')
     }
+    else{
+        $(el).addClass('wrong')
+    }
+    currentQuestion++;
+    setTimeout(function(){
+        $('#quiz').html(questionHtml[currentQuestion - 1]);
+
+        if(currentQuestion > quizLength){
+            alert(score + '/10')
+        }
+     }, 500)    //wait for half a second
+    
 }

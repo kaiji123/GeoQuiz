@@ -1,22 +1,19 @@
 extends layout
 block content
-    head
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet' href='/stylesheets/login.css')
-        script(src='https://apis.google.com/js/platform.js')
-        script(src='/scripts/client-login.js')
-        <meta>
-        meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
-        
-        script.
-        
-        .login
-            h1='The best way to get familiar with your area'
-            p='To get started, login or play as a guest'
-            button.guest-login(onclick='window.location.href="/"')='Play as a guest'
-        .login
-            .social-login 
-                h2='Login'
-                .g-signin2(data-onsuccess="onSignIn", data-width="535", data-height="50", data-longtitle="true", data-theme="dark")
-                //- .fb-login-button( data-button-type='continue_with', data-use-continue-as='true', data-theme="dark")
+    meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
+
+    link(rel='stylesheet' href='/stylesheets/login.css')
+
+    script(src='https://apis.google.com/js/platform.js')
+    script(src='/scripts/client-login.js')
+
+    .login
+        h1='The best way to get familiar with your area'
+        p='To get started, login or play as a guest'
+        button.guest-login(onclick='window.location.href="/"')='Play as a guest'
+    .login
+        .social-login 
+            h2='Login'
+            .g-signin2(data-onsuccess="onSignIn", data-width="535", data-height="50", data-longtitle="true", data-theme="dark")
+            //- .fb-login-button( data-button-type='continue_with', data-use-continue-as='true', data-theme="dark")
                 
