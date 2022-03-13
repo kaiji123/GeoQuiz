@@ -28,9 +28,8 @@ build :
 test:
   stage: test
   script: 
-    - apk add chromium
-    - apk add chromium-chromedriver
     - npm test
+    - npm run post-test
   cache:
     key: $NODE_MODULES
     paths: 
