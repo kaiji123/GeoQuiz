@@ -1,25 +1,31 @@
 #quiz{
-    margin-left: 25%;
+    width: 100%;
     text-align: center;
-    margin-top: 30px;
     position: relative;
 }
 
+#buttons{
+    width: 50%;
+    margin-left: 25%;
+}
 #quiz button{
-    width: 200px;
-    height:max-content;
-    margin-top: 50px;
+    width: 100%;
+    height: max-content;
+    margin: 5px 0px;
     justify-content: center;
     position: relative;
     margin-left: 5px;
     margin-right: 5px;
 }
+
 #quiz button.right{
     background-color: green;
 }
+
 #quiz button.wrong{
     background-color: red;
 }
+
 img.trialQuestion{
     margin-top: 15px;
     height: 50%;
