@@ -27,6 +27,8 @@ build :
 
 test:
   stage: test
+  services:
+    - selenium/standalone-chrome
   script: 
     - npm test
   cache:
