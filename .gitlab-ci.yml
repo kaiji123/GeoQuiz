@@ -28,7 +28,6 @@ build :
 test:
   stage: test
   script: 
-    - npm start
     - npm test
   cache:
     key: $NODE_MODULES
