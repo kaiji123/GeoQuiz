@@ -2,11 +2,22 @@
 function showUser(){
         //check if a user is logged in + set header to username
         if(sessionStorage.getItem("user") != null){
+            window.onLoadCallback = function(){
+                gapi.auth2.init({
+                    client_id: process.env.CLIENT_ID
+                  });
+            }
             $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
+            var s = document.getElementById("authentication")
+            s.innerHTML = "Sign Out"
+            s.onclick = signOut
+        
         }
         else{
             $('#username').append('Guest');
         }
+
+      
 }
 
 //show leaderboard table in homepage

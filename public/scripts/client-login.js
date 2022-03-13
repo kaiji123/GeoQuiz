@@ -1,21 +1,41 @@
 //called by google signin api
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    
+    console.log("hello")
     //check if the user exists in our database
     sessionStorage.setItem("id", profile.getId());
     sessionStorage.setItem("user", profile.getName());
-
+    let s = document.getElementById("authentication")
+    console.log(s)
+    
+    s.innerHTML = "Sign out"
+    s.onclick = signOut
+    window.location.href = "/"
+    
+   
     //window.location.href = '/index'
 }
 
+
+
+
+
+
+
 function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
+
+   
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        console.log('User signed out.');
+    })
+    let s = document.getElementById("authentication")
+    console.log(s)
+    
+    s.innerHTML = "Sign in"
+    window.location.href = "/login"
   }
-signOut();
+
 
 // window.fbAsyncInit = function() {
 //     // FB JavaScript SDK configuration and setup

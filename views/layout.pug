@@ -3,8 +3,20 @@ html
   head
     title= title
     meta(name ='viewport' content='width=device-width, initial-scale=1')
-    meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
-
+    meta(name="google-signin-client_id",content=process.env.CLIENT_ID)
+  
+    script.
+      
+      function onLoad(){
+         
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+  
+      }
+    script(async,defer,src='https://apis.google.com/js/platform.js?onload=onLoad')
+    script(async,defer,src='https://apis.google.com/js/platform.js')
+      
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
@@ -16,7 +28,7 @@ html
       .logo
         a(href='/index')
           img(src='/images/logo.png')
-      button.signin(onclick='window.location.href="/login"')='Sign in'
+      button.signin#authentication(onclick='window.location.href="/login"')='Sign in'
       
     
     .page
