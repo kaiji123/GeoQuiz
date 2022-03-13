@@ -21,6 +21,7 @@ function showTable(){
         })
         .then(res => res.json())
         .then(data => {
+            data = data.top5
             console.log(data)
 
             var content = "<table style='width:30%', border='1'><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
@@ -38,11 +39,12 @@ async function showClientLocation(){
     if('geolocation' in navigator) {
         var data = navigator.geolocation.getCurrentPosition((position) => {
             //get lat and lon coords
-            var coords = [position.coords.latitude, position.coords.longitude];
+
             var data = {
                     lat: position.coords.latitude,
                     lon: position.coords.longitude
-                };       
+                };  
+            console.log(data)     
             //create new POST request to location api using fetch (at the moment it just bounces back data)
             fetch('/api/location',{
                 method: 'POST',

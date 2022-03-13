@@ -5,16 +5,22 @@ stages :
   - test
   - deploy
 cache:
-  key: npm
-  policy: pull-push
+  key: $CI_COMMIT_REF_SLUG
   paths:
     - .npm/
+
+
 build :
+
   stage: build 
+
   script:
     - npm stop
-    - npm i 
+    - npm ci --cache .npm --prefer-offline
+
+
   artifacts:
+    expire_in: 1h
     paths:
       - node_modules/
 
@@ -22,7 +28,8 @@ build :
 test:
   stage: test
   script: 
-    - echo $CI_PROJECT_DIR
+    - apk add chromium
+    - apk add chromium-chromedriver
     - npm test
   cache:
     key: $NODE_MODULES
@@ -42,9 +49,13 @@ deploy:
 
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
+    - 'apk add --upgrade gettext'
+    - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'    
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;npm test;npm run post-test;pm2 start npm -- start'
+
+
 
 
 

@@ -5,7 +5,7 @@ const app = require('../app.js');
 const should = chai.should();
 const expect = chai.expect;
 
-// starwars mocks
+// api/integration tests
 describe('GET /api/top5', () => {
     it('api/top5 get test', done => {
       chai
@@ -23,7 +23,7 @@ describe('GET /api/top5', () => {
 
 // post location test
 describe('GET /api/location', () => {
-  it('api/location post error', done => {
+  it('api/location post request 200', done => {
     chai
       .request(app)
       .post('/api/location')
@@ -35,4 +35,21 @@ describe('GET /api/location', () => {
         done();
       }).then(done());
   });
+
+  it('api/location post error', done => {
+
+    expect(
+    chai
+      .request(app) //request api
+      .post('/api/location')
+      .send({ lat: -888888, lon: -8888888 })
+      .then((err, res) => {
+        res.should.have.status(200)
+        console.log(res.body)
+        expect(res.body).to.be.an("Object")
+        done();
+      }).then(done())).to.throw(Error); //throw error
+  });
 });
+
+

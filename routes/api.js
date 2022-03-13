@@ -10,6 +10,7 @@ const { json } = require('express/lib/response');
 //node geocoder configuration
 const options = {
   provider: 'google',
+  //apiKey: 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84',
   apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ', // for Mapquest, OpenCage, Google Premier
   formatter: null // 'gpx', 'string', ...
 };
@@ -28,6 +29,13 @@ router.get('/adduser', function(req, res){
   res.send(database.addUser(1, 'laila'));
 });
 
+
+router.post('/users', function(req, res){
+  id = req.body.id
+  usernname = req.body.name
+  res.send(database.addUser(id, usernname))
+})
+
 router.get('/users', function(req,res){
   res.send(database.getUsers());
 })
@@ -43,19 +51,6 @@ const locFromCoords = (coords) =>{
   })
 }
 
-//this won't work sadly
-function generaliseCoords(coords){
-  return new Promise((resolve, reject) =>{
-    generalCoords = geocoder.reverse(coords).then((loc) => {
-        geocoder.geocode(loc[0].city + 'city centre')
-      }).then((newCoords) => {
-        console.log(newCoords);
-        return newCoords; 
-      });
-
-    resolve(generalCoords)
-  })
-}
 
 //will generate a quiz given a location
 router.post('/quiz', async(req, res) =>{  
@@ -64,9 +59,16 @@ router.post('/quiz', async(req, res) =>{
   //console.log(coords);
   var coords = req.body;
 
-  quizgen.generateQuiz(coords).then((data) => {
+  //quizgen.generateQuiz(coords).then((data) => {
+  //  res.send(data)
+  //});
+
+  quizgen.generateQuizCache().then((data) => {
+    console.log(data)
     res.send(data)
   });
+
+
 
 });
 
