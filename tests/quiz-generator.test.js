@@ -24,7 +24,7 @@ describe('ratings', () => {
     it('random ratings test', done => {
         s = quiz.randomRatings()
         for(i = 0 ; i < 3; i++){
-            expect(s[i] > 2 && s[i] <=5).to.be.true
+            expect(s[i] >= 1 && s[i] <=5).to.be.true
         }
        
         done();

@@ -14,7 +14,9 @@
     "build": "^0.1.4",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
+    "chai-webdriver": "^1.2.3",
     "cookie-parser": "~1.4.4",
+    "cypress": "^9.5.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
     "express": "~4.16.1",
@@ -30,9 +32,12 @@
     "pm2": "^5.2.0",
     "pug": "^3.0.2",
     "query-string": "^7.1.1",
+    "selenium-assistant": "^6.1.0",
+    "wdio": "^6.0.1",
     "webpack": "^5.69.1"
   },
   "devDependencies": {
+    "webdriverio": "^7.17.4",
     "webpack-cli": "^4.9.2"
   }
 }
