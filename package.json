@@ -6,7 +6,8 @@
     "test": "mocha --exit tests/*.js",
     "start": "node app.js",
     "stop": "killall -SIGINT this-name-can-be-as-long-as-it-needs-to-be || true",
-    "build": "webpack"
+    "build": "webpack",
+    "post-test": "mocha --exit acceptance.test.js"
   },
   "dependencies": {
     "@google/maps": "^1.1.3",
