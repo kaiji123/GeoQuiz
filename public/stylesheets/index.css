@@ -44,7 +44,6 @@ th,td{
 
 tr:hover{
     background-color: grey;
-    cursor: pointer;
 }
 /*Start button*/
 .start{

@@ -99,6 +99,22 @@ module.exports = {
       connection.end();
       return result
     });
+  },
+
+  addScore(id, score, percentage){
+    var connection = makeConnection()
+  
+    //make connection
+
+    connection.connect(function(err) {
+      if (err) throw err;
+      connection.query("INSERT INTO scores(id, scores, percentage) VALUES ("+ id + ", '"+ score +", '"+percentage +"')", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        connection.end();
+      });
+    });
   }
 }
 

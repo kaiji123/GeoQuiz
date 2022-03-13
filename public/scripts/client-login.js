@@ -9,6 +9,8 @@ function onSignIn(googleUser) {
     //window.location.href = '/index'
 }
 
+
+
 // window.fbAsyncInit = function() {
 //     // FB JavaScript SDK configuration and setup
 //     //window.location.href = '/authenticate/facebook'

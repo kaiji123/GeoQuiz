@@ -47,6 +47,14 @@ router.get('/top5', database.getTop5
 router.get('/leaderboard', database.getLeaderboard
 )
 
+
+router.post('/score', function(req,res){
+  let data = req.body
+  let score = data.score
+  let googleId= data.id
+  let percentage= data.percentage
+  res.send(database.addScore(googleId, score, percentage))
+})
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
   return new Promise((resolve, reject) =>{
