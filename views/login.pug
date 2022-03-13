@@ -1,7 +1,5 @@
 extends layout
 block content
-    meta(name="google-signin-client_id" ,content=process.env.CLIENT_ID)
-
     link(rel='stylesheet' href='/stylesheets/login.css')
     script(async,defer,src='https://apis.google.com/js/platform.js?onload=init')
     script(src='https://apis.google.com/js/platform.js')
