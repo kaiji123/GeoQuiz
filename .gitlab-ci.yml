@@ -16,7 +16,7 @@ build :
 
   script:
     - npm stop
-    - npm ci --cache .npm --prefer-offline
+    - npm i
 
 
   artifacts:
