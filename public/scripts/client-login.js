@@ -65,7 +65,7 @@ function setHeaderButton(){
   else{
     headerButton.html("Sign out")
     headerButton.click(function(){
-      window.location.href='signOut'
+      window.location.href='/'
     })
   }
 }

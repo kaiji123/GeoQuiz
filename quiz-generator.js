@@ -5,10 +5,6 @@ const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 const allowedData = ["rating", "formatted_address", "photos", "reviews"]
 
-generateQuizCache().then((quiz) => {
-    //console.log(quiz)
-})
-
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){
     //read in cached api data
@@ -20,7 +16,7 @@ function generateQuizCache(){
         for (const [key, value] of Object.entries(places)) {
             placePool.push(value.data)
         }
-        
+
         var quiz = []
         
         for(let i=0; i < 10; i++){

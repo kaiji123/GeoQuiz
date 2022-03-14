@@ -9,10 +9,6 @@ require('dotenv').config()
 
 //one router per page
 var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/login');
-var quizRouter  = require('./routes/quiz.js');
-var scoreRouter = require('./routes/score.js')
-var termsRouter = require('./routes/terms-of-use.js');
 var apiRouter   = require('./routes/api.js');
 
 
@@ -29,12 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/quiz', quizRouter);
-app.use('/score', scoreRouter);
 app.use('/api', apiRouter);
-app.use('/terms-of-use', termsRouter);
-
 
 port = 3000
 
