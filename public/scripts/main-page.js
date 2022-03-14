@@ -69,9 +69,19 @@ function showClientLocation(){
     }
 }
 
+function toggleGDPR(){
+    $('.popup').toggle()  
+}
+
+function acceptGDPR(){
+    toggleGDPR()
+}
 //run on document load
 $(function(){
     showUser();
     showClientLocation();
     showTable();
+    
+    //check if user has signed gdpr
+    toggleGDPR();
 })

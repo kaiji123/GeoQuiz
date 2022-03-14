@@ -55,6 +55,7 @@ router.post('/score', function(req,res){
   let percentage= data.percentage
   res.send(database.addScore(googleId, score, percentage))
 })
+
 //uses node geocoder to return location data from a set of coords
 const locFromCoords = (coords) =>{
   return new Promise((resolve, reject) =>{
@@ -65,9 +66,7 @@ const locFromCoords = (coords) =>{
 
 //will generate a quiz given a location
 router.post('/quiz', async(req, res) =>{  
-  //send the client coordinates to the quiz generator
-  //var coords = await generaliseCoords(req.body);
-  //console.log(coords);
+
   var coords = req.body;
 
   //quizgen.generateQuiz(coords).then((data) => {
@@ -77,9 +76,6 @@ router.post('/quiz', async(req, res) =>{
   quizgen.generateQuizCache().then((data) => {
     res.send(data)
   });
-
-
-
 });
 
 module.exports = router;

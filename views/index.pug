@@ -7,6 +7,11 @@ block content
       h1#username='Welcome, '
       h1#location='You\'re doing a quiz for: '
 
+    .popup 
+      h1='Terms of Use'
+      .gdpr 
+        include ./gdpr.pug
+      button(onclick='acceptGDPR()').accept='Accept'
     .lower
       #leaderboard
 

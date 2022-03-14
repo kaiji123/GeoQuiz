@@ -17,6 +17,46 @@
     margin-top: 50px;
     display: flex;
 }
+
+/*GDPR popup*/
+.popup{
+    display: none;
+    position: absolute;
+    z-index: 99;
+    width: 50vw;
+    left: 25vw;
+    margin-top: 5px;
+    height: 80vh;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+
+    filter: drop-shadow(3px 3px 3px black);
+}
+
+.popup .accept{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.gdpr{
+    height: 55vh;
+    overflow-y: scroll;
+    font-size: 10px;
+}
+
+.gdpr h1{
+    font-size: 25px;
+}
+
+.gdpr h2{
+    font-size: 20px;
+}
+
+.gdpr p{
+    font-size: 15px;
+}
 /*Leadboard table*/
 #leaderboard{
     width: 50%;
