@@ -86,12 +86,24 @@ function signOut() {
 //   };
 
 //on resize - not working
-function resizeGLogin(){
+function renderGLogin(){
   var containerWidth = $('.social-login').width()
     
   console.log($('.g-signin2').data('width'))
 
   $('.g-signin2').data('width', containerWidth)
+  gapi.signin2.render('g-signin',{
+    'scope': 'profile email',
+    'width': containerWidth,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': onSignIn,
+    'onfailure': renderGLogin
+  })
 }
+$(function(){
+  renderGLogin()
+})
 
-window.onresize = resizeGLogin;
+window.onresize = renderGLogin;
