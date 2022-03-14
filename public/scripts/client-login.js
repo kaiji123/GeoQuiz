@@ -1,35 +1,58 @@
+
+$(function(){
+  console.log(window.location.pathname)
+  if(window.location.pathname == '/login'){
+    renderGLogin()
+  }
+  setHeaderButton()
+})
+
 //called by google signin api
+function onLoad(){
+  gapi.load('auth2', function() {
+    gapi.auth2.init();
+  });
+}
+
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log("hello")
+
     //check if the user exists in our database
     sessionStorage.setItem("id", profile.getId());
     sessionStorage.setItem("user", profile.getName());
-    let s = document.getElementById("authentication")
-    console.log(s)
-    
-    s.innerHTML = "Sign out"
-    s.onclick = signOut
+    setHeaderButton()
     window.location.href = "/"
-    
-   
-    //window.location.href = '/index'
 }
 
-function signOut() {
+function signOut() {   
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    //clear session storage and reset button
+    sessionStorage.clear()
+    setHeaderButton()
 
-   
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-        console.log('User signed out.');
+    window.location.href = "/"
+  })
+}
+
+//edits header content based on user login status
+function setHeaderButton(){
+  let headerButton = $('#authentication')
+  console.log(sessionStorage.getItem('id'))
+  //check if a user is logged in
+  if(!sessionStorage.getItem('id')){
+    headerButton.html("Sign in")
+    headerButton.click(function(){
+      window.location.href='/login'
     })
-    let s = document.getElementById("authentication")
-    console.log(s)
-    
-    s.innerHTML = "Sign in"
-    window.location.href = "/login"
   }
-
+  else{
+    headerButton.html("Sign out")
+    headerButton.click(function(){
+      window.location.href='signOut'
+    })
+  }
+}
 
 // window.fbAsyncInit = function() {
 //     // FB JavaScript SDK configuration and setup
@@ -102,8 +125,5 @@ function renderGLogin(){
     'onfailure': renderGLogin
   })
 }
-$(function(){
-  renderGLogin()
-})
 
 window.onresize = renderGLogin;
