@@ -46,23 +46,20 @@ function showTable(){
 function showClientLocation(){
     //check gelocation is available
     if('geolocation' in navigator) {
-        var data = navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition((position) => {
             //get lat and lon coords
-
-            var data = {
+            var coords = {
                     lat: position.coords.latitude,
                     lon: position.coords.longitude
                 };  
-            console.log(data)     
             //create new POST request to location api using fetch (at the moment it just bounces back data)
             fetch('/api/location',{
                 method: 'POST',
                 headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-                body: JSON.stringify(data),
+                body: JSON.stringify(coords),
             })
             .then(res => res.json())
             .then(data => {
-                    console.log(data);
                     $('#location').append(data.city)
                 }
             );

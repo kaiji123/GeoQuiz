@@ -26,3 +26,12 @@
   padding-right: 25px;
   padding-top: 25px;
 }
+
+@media screen and (max-width: 800px) {
+  .page{
+    flex-direction: column;
+  }
+  .login{
+    width: 100%;
+  }
+}

@@ -16,12 +16,6 @@ function onSignIn(googleUser) {
     //window.location.href = '/index'
 }
 
-
-
-
-
-
-
 function signOut() {
 
    
@@ -91,3 +85,13 @@ function signOut() {
 //     database: ""
 //   };
 
+//on resize - not working
+function resizeGLogin(){
+  var containerWidth = $('.social-login').width()
+    
+  console.log($('.g-signin2').data('width'))
+
+  $('.g-signin2').data('width', containerWidth)
+}
+
+window.onresize = resizeGLogin;

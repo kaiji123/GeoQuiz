@@ -2,5 +2,11 @@ extends layout
 
 block content
     link(rel="stylesheet" href="/stylesheets/quiz.css")
+    script(src="scripts/scores.js")
     .quiz-end
         h1='Well Done!'
+        h3='You scored:'
+        #score 
+        button.home(onclick='window.location.href="/"')='Home'
+        br
+        button.play-again(onclick='window.location.href="/quiz"')='Play Again'

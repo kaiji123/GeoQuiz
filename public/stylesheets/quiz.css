@@ -42,6 +42,26 @@ h3.trialQuestion{
 
 /*End of quiz stuff*/
 .quiz-end{
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
+    height: 80%;
     text-align: center;
+}
+
+#score{
+    font-size: 100px;
+    margin: 50px 0px;
+}
+
+.quiz-end button{
+    width: 50%;
+    padding: 20px 0;
+}
+
+@media screen and (max-width: 800px) {
+    .quiz-end{
+        width: 100%;
+        margin: 0;
+
+    }
 }
