@@ -115,8 +115,42 @@ module.exports = {
         connection.end();
       });
     });
+  },
+
+    //updates a users score in the scores table
+    updateScore(id, score){
+      var connection = makeConnection()
+    
+      //make connection
+  
+      connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("UPDATE scores SET scores = '" + score + "' WHERE id = " + id, function (err, result, fields) {
+          if (err) throw err;
+          console.log(result);
+  
+          connection.end();
+        });
+      });
+    },
+  
+    //updates a users percentage in the scores table
+    updateScore(id, percentage){
+      var connection = makeConnection()
+    
+      //make connection
+  
+      connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("UPDATE scores SET percentage = '" + percentage + "' WHERE id = " + id, function (err, result, fields) {
+          if (err) throw err;
+          console.log(result);
+  
+          connection.end();
+        });
+      });
+    }
   }
-}
 
 
 
