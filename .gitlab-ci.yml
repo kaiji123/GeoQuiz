@@ -11,7 +11,7 @@ cache:
 
 
 build :
-  image: selenium/standalone-chrome:alpine
+  image: selenium/standalone-chrome
   stage: build 
 
   script:
