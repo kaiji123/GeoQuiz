@@ -15,7 +15,6 @@ build :
   stage: build 
 
   script:
-    - npm stop
     - npm ci --cache .npm --prefer-offline
 
 
