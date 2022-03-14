@@ -29,9 +29,9 @@ button{
   font-family: var(--default-font);
   font-weight: bold;
 
-  border-radius: 3px;
-  border: 2px solid black;
-  filter: drop-shadow(2px 2px 2px black);
+  border-radius: 2px;
+  border: 1.5px solid black;
+  filter: drop-shadow(1.5px 1.5px 1.5px black);
   transition: 0.3s;
 }
 
