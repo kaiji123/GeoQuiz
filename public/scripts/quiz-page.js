@@ -95,9 +95,26 @@ function nextQuestion(el, right){
 
 function finish(score){
     //end of quiz processing
-        
+    var percentage = (score / quizLength) * 100
     //save score
-    
-    //redirect
-    window.location.href = '/score'
+    if(sessionStorage.id != null){
+        //send score to db
+        fetch('/api/save-score',{
+            method: 'POST',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                'score': score,
+                'percentage': percentage,
+                'id': sessionStorage.id
+            })
+        
+        }).then((res) =>{
+            console.log(res)
+            //redirect
+            //window.location.href = '/score?score=' + score
+        })
+    }else{
+        window.location.href = '/score?score=' + score
+ 
+    }
 }

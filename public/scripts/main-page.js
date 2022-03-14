@@ -23,18 +23,20 @@ function showUser(){
 //show leaderboard table in homepage
 function showTable(){
        //create GET request to /api/top5 to get top 5 users in homepage
-       fetch('/api/top5',{
+       fetch('/api/leaderboard',{
         method: 'GET',
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
       
         })
         .then(res => res.json())
-        .then(data => {
-            data = data.top5
+        .then(data => {  
+            console.log(data)
 
             var content = "<table><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
-            for(i=0; i<data.length; i++){
-                content += '<tr><td>' + (i+1) +'</td>' +'<td>'+ data[i].name + '</td>'+ '<td>'+ data[i].scores + '</td>' + '</tr>';
+            let i = 1
+            for (const [key, value] of Object.entries(data)) {
+                content += '<tr><td>' + i +'</td>' +'<td>'+ value.name + '</td>'+ '<td>'+ value.total + '</td>' + '</tr>';
+                i++
             }
             content += "</table>"
                 $('#leaderboard').append(content)
@@ -55,7 +57,7 @@ function showClientLocation(){
             fetch('/api/location',{
                 method: 'POST',
                 headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-                body: JSON.stringify(coords),
+                body: JSON.stringify(coords)
             })
             .then(res => res.json())
             .then(data => {

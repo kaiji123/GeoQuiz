@@ -215,13 +215,14 @@ function randomRatings(){
 }
 
 //genearte three random place names
-function randomPlaces(sample){
+function randomPlaces(sample, not){
     //pick some places and get their names
     let randPlaces = [];
     for(x = 0; x < 3; x++){
         let place = pickRandom(sample);
 
         let name = place.name
+
         randPlaces.push(name);
     }
     return randPlaces

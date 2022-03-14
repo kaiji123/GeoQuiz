@@ -4,6 +4,8 @@ $(function(){
 
 //gets a user's most recent score and displays it
 function showScore(){
-    var score = 0;
+    var queryString = window.location.search
+    var score = new URLSearchParams(queryString).get("score")
+
     $('#score').html(score + '/10')
 }
