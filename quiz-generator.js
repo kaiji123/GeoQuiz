@@ -3,35 +3,38 @@ const fs = require('fs');
 
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
-const allowedData = ["rating", "vicinity", "photos", "reviews"]
+const allowedData = ["rating", "formatted_address", "photos", "reviews"]
+
+generateQuizCache().then((quiz) => {
+    //console.log(quiz)
+})
 
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){
     //read in cached api data
     let fspromise = fs.promises.readFile('./selly.json').then((data) =>{              
         //read both general data and fine data
-        var places =  JSON.parse(data).general
-        var details = JSON.parse(data).fine
-        var photos = JSON.parse(data).photos
+        var places = JSON.parse(data)
+        let placePool = [];
+
+        for (const [key, value] of Object.entries(places)) {
+            placePool.push(value.data)
+        }
+        
         var quiz = []
         
         for(let i=0; i < 10; i++){
             //pick a local place at random without replacement
-            let place = pickRandom(places);
-            let placeId = place.place_id
+            let placeId = pickRandom(Object.keys(places))
+            
+            let details = places[placeId].data
 
-            //remove item from array
-            let index = places.indexOf(place);
-            places.splice(index, 1)
-
-            let placeDetails = details[placeId]
-
-            let placeName = placeDetails.name
+            let placeName = details.name
             let data = pickRandom(allowedData)
             let wrong = ['a', 'b', 'c'];  
 
             //if the place is missing data, pick something else
-            while(placeDetails[data] == null){
+            while(details[data] == null){
                 console.log(data + ' not found for current place')
                 data = pickRandom(allowedData)
             }
@@ -40,30 +43,31 @@ function generateQuizCache(){
             //populate the question with the right data
             if(data == 'rating'){
                 wrong = randomRatings();
-                question = questionJson(`What is ${placeName}'s rating on Google?`, placeDetails[data], wrong, null, null)
+                question = questionJson(`What is ${placeName}'s rating on Google?`, details[data], wrong, null, null)
             }
-            else if(data == 'vicinity'){
-                wrong = randomAddresses(places)
-                question = questionJson(`What is ${placeName}'s address?`, placeDetails[data], wrong, null, null)
+            else if(data == 'formatted_address'){
+                wrong = randomAddresses(placePool)
+                question = questionJson(`What is ${placeName}'s address?`, details[data], wrong, null, null)
 
             }
             else if(data == 'photos'){
-                wrong = randomPlaces(places);
+                wrong = randomPlaces(placePool);
 
                 //remove item from array
-                let bytes = photos[placeId]
+                let bytes = places[placeId].photo
               
                 question =  questionJson(`Name this place:`, placeName, wrong, bytes, 'img')
                 
             }
             else if(data =='reviews'){
-                wrong = randomPlaces(places);
+                wrong = randomPlaces(placePool);
 
                 //pick a review at random
-                let review = pickRandom(placeDetails.reviews).text
+                let review = pickRandom(details.reviews).text
                 question = questionJson('What is this a review for?', placeName, wrong, review, 'text')
             }
-            //generate question based on chosen data item
+            //remove place from the json object
+            delete places[placeId]
             quiz.push(question)  
               
         }
@@ -234,7 +238,7 @@ function randomAddresses(sample){
     for(x = 0; x < 3; x++){
         let place = pickRandom(sample);
 
-        let addr = place.vicinity
+        let addr = place.formatted_address
         randAddr.push(addr);
     }
     return randAddr

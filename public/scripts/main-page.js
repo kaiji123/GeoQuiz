@@ -31,7 +31,6 @@ function showTable(){
         .then(res => res.json())
         .then(data => {
             data = data.top5
-            console.log(data)
 
             var content = "<table><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
             for(i=0; i<data.length; i++){

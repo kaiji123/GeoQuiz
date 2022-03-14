@@ -1,6 +1,6 @@
 
 $(function(){
-  console.log(window.location.pathname)
+  //only try and render google login if we're on the login page
   if(window.location.pathname == '/login'){
     renderGLogin()
   }
@@ -14,6 +14,23 @@ function onLoad(){
   });
 }
 
+//renders google login at an appropriate size
+function renderGLogin(){
+  var containerWidth = $('.social-login').width()
+    
+  $('.g-signin2').data('width', containerWidth)
+  gapi.signin2.render('g-signin',{
+    'scope': 'profile email',
+    'width': containerWidth,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': onSignIn,
+    'onfailure': renderGLogin
+  })
+}
+
+window.onresize = renderGLogin;
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
 
@@ -38,7 +55,6 @@ function signOut() {
 //edits header content based on user login status
 function setHeaderButton(){
   let headerButton = $('#authentication')
-  console.log(sessionStorage.getItem('id'))
   //check if a user is logged in
   if(!sessionStorage.getItem('id')){
     headerButton.html("Sign in")
@@ -108,22 +124,3 @@ function setHeaderButton(){
 //     database: ""
 //   };
 
-//on resize - not working
-function renderGLogin(){
-  var containerWidth = $('.social-login').width()
-    
-  console.log($('.g-signin2').data('width'))
-
-  $('.g-signin2').data('width', containerWidth)
-  gapi.signin2.render('g-signin',{
-    'scope': 'profile email',
-    'width': containerWidth,
-    'height': 50,
-    'longtitle': true,
-    'theme': 'dark',
-    'onsuccess': onSignIn,
-    'onfailure': renderGLogin
-  })
-}
-
-window.onresize = renderGLogin;
