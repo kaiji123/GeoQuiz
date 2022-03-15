@@ -19,7 +19,7 @@ function generateQuizCache(){
 
         var quiz = []
         
-        for(let i=0; i < 10; i++){
+        for(let i=0; i < 2; i++){
             //pick a local place at random without replacement
             let placeId = pickRandom(Object.keys(places))
             
@@ -251,6 +251,6 @@ function arrayToCsv(array){
 }
 
 
-module.exports ={
+module.exports = {
     pickRandom, randomRatings, arrayToCsv, questionJson, generateQuiz, generateQuizCache
 } 

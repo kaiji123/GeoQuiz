@@ -5,14 +5,12 @@ var quizgen = require('../quiz-generator.js')
 
 const NodeGeocoder = require('node-geocoder');
 const res = require('express/lib/response');
-const { json } = require('express/lib/response');
 
 //node geocoder configuration
 const options = {
     provider: 'google',
-    //apiKey: 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84',
-    apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ', // for Mapquest, OpenCage, Google Premier
-    formatter: null // 'gpx', 'string', ...
+    apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ',
+    formatter: null
 };
 
 const geocoder = NodeGeocoder(options);
@@ -57,10 +55,12 @@ router.delete('/score', function(req, res){
 
 router.get('/score', database.getScores)
 
-router.get('/top5', database.getTop5)
-
-router.get('/leaderboard', database.getLeaderboard
-)
+router.get('/leaderboard', async (req, res) => {
+    console.log('getting leaderboard')
+    let leaderboard = await database.getLeaderboard()
+    res.send(leaderboard)
+   
+})
 
 
 router.post('/save-score', (req, res) => {
@@ -81,12 +81,7 @@ const locFromCoords = (coords) => {
 
 //will return a quiz when passed a location
 router.post('/quiz', async (req, res) => {
-
     var coords = req.body;
-
-    //quizgen.generateQuiz(coords).then((data) => {
-    //  res.send(data)
-    //});
 
     quizgen.generateQuizCache().then((data) => {
         res.send(data)
