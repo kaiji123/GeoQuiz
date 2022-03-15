@@ -47,7 +47,7 @@ describe('array to csv', () => {
 describe('questionJson', () => {
     it('questionJson test', done => {
         s = quiz.questionJson("what is the place", "London", "Berlin", [1,2], "image");
-        console.log(s)
+        //console.log(s)
         expect(s).to.deep.equal({question : "what is the place", answer: "London", wrong: "Berlin", metadata : [1,2],type: "image" })
         
     
@@ -61,7 +61,7 @@ describe('generate quiz cache', () => {
     it('quiz cache',async() => {
         s = await quiz.generateQuizCache()
         expect(s).to.have.lengthOf(10)
-        console.log(s)
+        //console.log(s)
         for(let i =0;i <s.length; i++){
             expect(s[i]).to.have.property("question")
             expect(s[i]).to.have.property("answer")

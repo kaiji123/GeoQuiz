@@ -4,6 +4,7 @@ chai.use(chaiHttp);
 const app = require('../app.js');
 const should = chai.should();
 const expect = chai.expect;
+const database = require("./testQueries.js")
 
 // api/integration tests
 describe('GET /api/top5', () => {
@@ -30,7 +31,7 @@ describe('GET /api/location', () => {
       .send({ lat: 45.767, lon: 4.833 })
       .then((err, res) => {
         res.should.have.status(200)
-        console.log(res.body)
+        //console.log(res.body)
         expect(res.body).to.be.an("Object")
         done();
       }).then(done());
@@ -45,11 +46,57 @@ describe('GET /api/location', () => {
       .send({ lat: -888888, lon: -8888888 })
       .then((err, res) => {
         res.should.have.status(200)
-        console.log(res.body)
+        //console.log(res.body)
         expect(res.body).to.be.an("Object")
         done();
       }).then(done())).to.throw(Error); //throw error
   });
 });
 
+
+// api/integration tests
+describe('post /api/save-score', () => {
+  it('save score success', done => {
+
+
+    const prev = database.getScores()
+
+    chai
+      .request(app)
+      .post('/api/save-score')
+      .send({ score: 6, id: "1", percentage: 60 })
+      .then((err, res) => {
+        res.should.have.status(200);
+        const cur = database.getScores()
+        expect(cur).to.equal(prev+1)
+        database.deleteScore(1);
+      
+      }).then(
+        done());
+  });
+});
+
+
+
+// api/integration tests
+describe('post /addUser', () => {
+  it('add user success', done => {
+
+
+    const prev = database.getUsers()
+
+    chai
+      .request(app)
+      .post('/api/users')
+      .send({ id: "9", name: "James Bond" })
+      .then((err, res) => {
+        res.should.have.status(200);
+        const cur = database.getUsers()
+        expect(cur).to.equal(prev+1)
+        database.deleteUser("9");
+      
+      }).then(
+        done());
+  });
+});
 
