@@ -41,8 +41,23 @@ router.get('/users', function (req, res) {
 })
 
 
-router.get('/top5', database.getTop5
-)
+router.delete('/users', function(req, res){
+  data = req.body
+  let userId = data.id
+  res.send(database.deleteUser(userId))
+})
+
+
+router.delete('/score', function(req, res){
+  data= req.body
+  let scoreId = data.id
+  res.send(database.deleteScore(scoreId))
+})
+
+
+router.get('/score', database.getScores)
+
+router.get('/top5', database.getTop5)
 
 router.get('/leaderboard', database.getLeaderboard
 )

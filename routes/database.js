@@ -120,6 +120,8 @@ module.exports = {
         });
     },
 
+    
+
     addScore: function (id, score, percentage) {
         var connection = makeConnection()
         console.log([id, score, percentage])
@@ -172,5 +174,53 @@ module.exports = {
                 connection.end();
             });
         });
-    }
+    },
+    
+    deleteScore (scoreId){
+      var connection = makeConnection()
+
+      //make connection
+
+      connection.connect(function (err) {
+          if (err) throw err;
+          connection.query("delete from scores where scoreId =" + scoreId, function (err, result, fields) {
+              if (err) throw err;
+              console.log(result);
+
+              connection.end();
+          });
+      });
+  },
+  deleteUser(userId){
+      var connection = makeConnection()
+
+      //make connection
+
+      connection.connect(function (err) {
+          if (err) throw err;
+          connection.query("delete from users where userId =" + userId, function (err, result, fields) {
+              if (err) throw err;
+              console.log(result);
+
+              connection.end();
+          });
+      });
+  },
+  getScores(req,res){
+    var connection = makeConnection()
+
+    //make connection
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        connection.query("select * from scores", function (err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+            res.send(result)
+            connection.end();
+            return result
+        });
+    });
+
+}
 }
