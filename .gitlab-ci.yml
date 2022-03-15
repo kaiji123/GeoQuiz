@@ -12,7 +12,7 @@ cache:
 
 build :
   stage: build 
-
+  image: selenium/standalone-chrome:alpine
   script:
     - npm ci --cache .npm --prefer-offline
 
