@@ -11,7 +11,7 @@ describe('pickRandom()', () => {
     it('Picking a random value', done => {
         s = quiz.pickRandom([1,2,3])
         expect([1,2,3]).to.include(s)
-        s =quiz.pickRandom([true,false])
+        s = quiz.pickRandom([true,false])
         expect([true, false]).to.include(s)
         done();
     });

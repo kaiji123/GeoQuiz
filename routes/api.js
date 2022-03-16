@@ -28,29 +28,20 @@ router.post('/get-gdpr', async (req, res) =>{
     res.send(gdpr)
 })
 
+//sets a user's gdpr status to 1
 router.post('/set-gdpr', async (req, res) =>{
     let id = req.body.id
     let status = await database.setGDPR(id, 1)
     res.sendStatus(status)
 
 })
-//add a user to the database
-router.get('/adduser', function (req, res) {
-    //we might need to change the /adduser to /user and use post method for api convention
-    res.send(database.addUser(1, 'laila'))
-})
 
-
-router.post('/users', function (req, res) {
+//adds a user to the database
+router.post('/add-user', function (req, res) {
     id = req.body.id
     usernname = req.body.name
     res.send(database.addUser(id, usernname))
 })
-
-router.get('/users', function (req, res) {
-    res.send(database.getUsers())
-})
-
 
 router.delete('/users', function(req, res){
   data = req.body
@@ -59,7 +50,10 @@ router.delete('/users', function(req, res){
 })
 
 
-router.get('/score', database.getScores)
+router.get('/scores', async (req, res) => {
+    let scores = await database.getScores()
+    res.send(scores)
+})
 
 router.get('/leaderboard', async (req, res) => {
     let leaderboard = await database.getLeaderboard()

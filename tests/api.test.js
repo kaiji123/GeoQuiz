@@ -79,12 +79,12 @@ describe('POST /api/save-score', () => {
 
 
 // api/integration tests
-describe('POST /addUser', () => {
+describe('POST /add-user', () => {
   it('Successful user creation', done => {
     const prev = database.getUsers()
     chai
       .request(app)
-      .post('/api/users')
+      .post('/api/add-user')
       .send({ id: "9", name: "James Bond" })
       .then((err, res) => {
         res.should.have.status(200);

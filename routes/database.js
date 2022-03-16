@@ -143,6 +143,20 @@ async function deleteScore(id){
         return 502
     }
 }
+
+async function getScores(){
+    var connection = makeConnection()
+    let sql = "SELECT * FROM scores"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    }catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
 //selects the given users score
 
 module.exports = {
@@ -150,6 +164,7 @@ module.exports = {
     addUser,
     deleteUser,
     addScore,
+    getScores,
     getGDPR,
     setGDPR,
 
@@ -183,23 +198,6 @@ module.exports = {
                 return result;
             });
         });
-    },
-
-
-  getScores(req,res){
-    var connection = makeConnection()
-
-    //make connection
-
-    connection.connect(function (err) {
-        if (err) throw err;
-        connection.query("select * from scores", function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-            res.send(result)
-            connection.end();
-            return result
-        });
-    });
     }
 }
+
