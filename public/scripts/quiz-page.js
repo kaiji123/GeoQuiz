@@ -109,9 +109,8 @@ function finish(score){
             })
         
         }).then((res) =>{
-            console.log(res)
             //redirect
-            //window.location.href = '/score?score=' + score
+            window.location.href = '/score?score=' + score
         })
     }else{
         window.location.href = '/score?score=' + score

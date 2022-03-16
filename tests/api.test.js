@@ -1,30 +1,32 @@
 const chai = require('chai');
-const chaiHttp = require('chai-http');
-chai.use(chaiHttp);
-const app = require('../app.js');
 const should = chai.should();
 const expect = chai.expect;
-const database = require("./testQueries.js")
+
+const chaiHttp = require('chai-http');
+chai.use(chaiHttp);
+
+const app = require('../app.js');
+const database = require("../routes/database.js")
 
 // api/integration tests
-describe('GET /api/top5', () => {
-    it('api/top5 get test', done => {
+describe('GET /api/leaderboard', () => {
+    it('Testing api/leaderboard', done => {
       chai
         .request(app)
-        .get('/api/top5')
+        .get('/api/leaderboard')
         .then((err, res) => {
           res.should.have.status(200);
           expect(res.body).to.be.an('array')
-          expect(res.body[0]).to.have.all.keys('name', 'scores')
+          expect(res.body[0]).to.have.all.keys('name', 'total')
           expect(res.body[0].name).to.be.a('string')
         
         }).then(done());
     });
 });
 
-// post location test
-describe('GET /api/location', () => {
-  it('api/location post request 200', done => {
+//  location test
+describe('POST /api/location', () => {
+  it('Successful request', done => {
     chai
       .request(app)
       .post('/api/location')
@@ -37,7 +39,7 @@ describe('GET /api/location', () => {
       }).then(done());
   });
 
-  it('api/location post error', done => {
+  it('Unsuccesful request', done => {
 
     expect(
     chai
@@ -55,10 +57,8 @@ describe('GET /api/location', () => {
 
 
 // api/integration tests
-describe('post /api/save-score', () => {
-  it('save score success', done => {
-
-
+describe('POST /api/save-score', () => {
+  it('Successful request', done => {
     const prev = database.getScores()
 
     chai
@@ -79,12 +79,9 @@ describe('post /api/save-score', () => {
 
 
 // api/integration tests
-describe('post /addUser', () => {
-  it('add user success', done => {
-
-
+describe('POST /addUser', () => {
+  it('Successful user creation', done => {
     const prev = database.getUsers()
-
     chai
       .request(app)
       .post('/api/users')
