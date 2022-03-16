@@ -29,6 +29,7 @@ test:
     - selenium/standalone-chrome
   script: 
     - npm test
+    - npm run post-test
   cache:
     key: $NODE_MODULES
     paths: 
