@@ -25,6 +25,7 @@ build :
 
 test:
   stage: test
+  image: selenium/standalone-chrome:latest
   script: 
     - npm test
   cache:
