@@ -11,6 +11,7 @@ cache:
 
 
 build :
+  image: selenium/standalone-chrome:latest
   stage: build 
   script:
     - npm ci --cache .npm --prefer-offline
