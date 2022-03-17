@@ -1,11 +1,14 @@
 .container {
   position: relative;
   z-index: 1;
-  padding-top: 60px;
+  padding-top: 10px;
   padding-left: 20px;
+  /*
   font-size: small;
+  */
 }
-
+/*
 p {
   font-size: small;
 }
+*/
