@@ -34,7 +34,6 @@
     "webpack": "^5.69.1"
   },
   "devDependencies": {
-    "chromedriver": "^99.0.0",
-
+    "chromedriver": "^99.0.0"
   }
 }
