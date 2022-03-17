@@ -13,7 +13,11 @@ var driver = new webdriver.Builder()
 async function testBrowser(){
 try {
   await driver.get('http://www.google.com/ncr');
-} finally {
+} 
+catch(error){
+  throw error;
+}
+finally {
   await driver.quit();
 }
 }
