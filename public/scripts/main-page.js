@@ -85,6 +85,21 @@ $(function(){
     showClientLocation();
     showTable();
     
+    
     //check if user has signed gdpr
     toggleGDPR();
+    getText();
 })
+
+function setText(size){
+    document.cookie = "size = " + size;
+    document.body.style.fontSize = size + "%";
+
+}
+
+function getText(){
+    let decodedCookie = decodeURIComponent(document.cookie);
+    size = decodedCookie.split('=')[1];
+    document.body.style.fontSize = size + "%";
+    
+}
