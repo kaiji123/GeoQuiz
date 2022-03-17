@@ -4,6 +4,7 @@ stages :
   - build
   - test
   - deploy
+  - e2e
 cache:
   key: $CI_COMMIT_REF_SLUG
   paths:
@@ -59,3 +60,10 @@ deploy:
 
 
 
+e2e:
+  stage: e2e
+  services:
+    - selenium/standalone-chrome:3.13
+
+  script: 
+    - npm confidence-check --host=selenium__standalone-chrome
