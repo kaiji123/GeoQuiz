@@ -89,35 +89,30 @@ function acceptGDPR(){
         toggleGDPR()
     });
 }
+
 //run on document load
 $(function(){
     showUser();
     showClientLocation();
     showTable();
     
-    
     //check if user has signed gdpr
-    toggleGDPR();
-    getText();
+    if(sessionStorage.getItem('gdpr') == 0){
+        toggleGDPR();
+    }
+
+    getTextSize();
 })
 
-function setText(size){
+function setTextSize(size){
     document.cookie = "size = " + size;
     document.body.style.fontSize = size + "%";
 
 }
 
-function getText(){
+function getTextSize(){
     let decodedCookie = decodeURIComponent(document.cookie);
     size = decodedCookie.split('=')[1];
-    document.body.style.fontSize = size + "%";
-    
+    document.body.style.fontSize = size + "%"; 
 }
 
-
-//had a merge conflict so i commented out this code.
-/*
-if(sessionStorage.getItem('gdpr') == 0){
-        toggleGDPR();
-    }
-})*/
