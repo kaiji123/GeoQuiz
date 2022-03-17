@@ -11,7 +11,7 @@ var driver = new webdriver.Builder()
 
 
 try {
-  await driver.get('http://www.google.com/ncr');
+   driver.get('http://www.google.com/ncr');
 } finally {
-  await driver.quit();
+   driver.quit();
 }
