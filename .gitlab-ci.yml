@@ -11,6 +11,7 @@ cache:
 
 
 build :
+ 
   stage: build 
   script:
     - npm ci --cache .npm --prefer-offline
@@ -24,8 +25,11 @@ build :
 
 test:
   stage: test
+  services: 
+    - selenium/standalone-chrome
   script: 
     - npm test
+    - npm run post-test
   cache:
     key: $NODE_MODULES
     paths: 
