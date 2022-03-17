@@ -8,8 +8,7 @@ const dynamicConfig = {};
         { browserName: 'chrome' },
     ];
 
-/*
-if(!process.env.CI) {
+
     // If we're not running in CI, start a local server for the app, and a Selenium server
     dynamicConfig.services = ['selenium-standalone'];
     dynamicConfig.baseUrl = 'http://localhost:8000';
@@ -18,7 +17,7 @@ if(!process.env.CI) {
     const seleniumAssistant = require('selenium-assistant');
     const browsers = seleniumAssistant.getLocalBrowsers();
     dynamicConfig.capabilities = browsers.map(browser => ({ browserName: browser.getId() }));
-}*/
+
 
 dynamicConfig.capabilities.map(capability => {
     if(capability.browserName === 'chrome') {
