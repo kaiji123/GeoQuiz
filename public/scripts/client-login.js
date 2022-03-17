@@ -6,7 +6,9 @@ $(function(){
     setHeaderButton()
 })
 
-//called by google signin api
+window.onresize = renderGLogin;
+
+//called when login api loads
 function onLoad(){
     gapi.load('auth2', function() {
         gapi.auth2.init();
@@ -29,19 +31,26 @@ function renderGLogin(){
     })
 }
 
-window.onresize = renderGLogin;
-
+//called on successful google signin
 function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
+        var id = profile.getId()
+        var name = profile.getName()
 
         //check if the user exists in our database
-        sessionStorage.setItem("id", profile.getId());
-        sessionStorage.setItem("user", profile.getName());
-        setHeaderButton()
-        checkGDPR(profile.getId()).then((gdpr) => {
+        sessionStorage.setItem("id", id)
+        sessionStorage.setItem("user", name)
+
+        //query the api with the user's id and add them to the db if they're new
+        addUserIfNew(id, name).then((res) => {
+            //once the user has been added/verified, check their gdpr status
+            return checkGDPR(profile.getId())
+        })
+        .then((gdpr) => {
             sessionStorage.setItem('gdpr', gdpr)
             window.location.href = "/"
         })
+        
 }
 
 function signOut() {     
@@ -81,13 +90,23 @@ async function checkGDPR(id){
             'id': id
         })
     });
+
     const data = await res.json();
     return data.gdpr;
 }
 
 //sends an id to the api to check if a user exists
-function checkUserExists(id){
+async function addUserIfNew(id, name){
+    const res = await fetch('/api/add-user', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            'id': id,
+            'name': name
+        })
+    })
 
+    return res
 }
 
 // window.fbAsyncInit = function() {

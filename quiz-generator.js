@@ -1,5 +1,6 @@
 const axios = require('axios')
 const fs = require('fs');
+const QUIZ_LENGTH = 10
 
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
@@ -19,7 +20,7 @@ function generateQuizCache(){
 
         var quiz = []
         
-        for(let i=0; i < 2; i++){
+        for(let i=0; i < QUIZ_LENGTH; i++){
             //pick a local place at random without replacement
             let placeId = pickRandom(Object.keys(places))
             

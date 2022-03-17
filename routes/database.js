@@ -74,7 +74,7 @@ async function addUser(userId, name) {
 
     try{
         const [rows, fields] = await connection.promise().query(sql)
-        console.log(rows);
+        console.log(rows.values);
 
         connection.end();
         return 200
@@ -84,6 +84,21 @@ async function addUser(userId, name) {
         return 502
     }
 
+}
+
+async function userExists(userId){
+    var conn = makeConnection()
+    let sql = "SELECT EXISTS(SELECT 1 FROM users WHERE userId = " + userId + ")"
+
+    try{
+        const[rows, fields] = await conn.promise().query(sql)
+        exists = Object.values(rows[0])[0] == 1 ? true : false
+        return exists
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
 }
 
 //removes a user from users 
@@ -202,6 +217,7 @@ module.exports = {
     getLeaderboard,
     addUser,
     deleteUser,
+    userExists,
     addScore,
     getScores,
     getGDPR,

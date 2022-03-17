@@ -32,10 +32,19 @@ router.post('/set-gdpr', async (req, res) =>{
 })
 
 //adds a user to the database
-router.post('/add-user', function (req, res) {
-    id = req.body.id
-    username = req.body.name
-    res.sendStatus(database.addUser(id, username))
+router.post('/add-user', async (req, res) => {
+    let id = req.body.id
+    let name = req.body.name
+
+    let exists = await database.userExists(id)
+
+    if(!exists){
+        var status = await database.addUser(id, name)
+        res.sendStatus(status)
+    }
+    else{
+        res.sendStatus(200)
+    }
 })
 
 router.delete('/users', function(req, res){

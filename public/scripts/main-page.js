@@ -41,8 +41,8 @@ function showTable(){
             $('#leaderboard').append(content)
         }
     );
-
 }
+
 function showClientLocation(){
     //check gelocation is available
     if('geolocation' in navigator) {
@@ -71,10 +71,6 @@ function showClientLocation(){
     }
 }
 
-function toggleGDPR(){
-    $('.popup').toggle()  
-}
-
 //set the user's gdpr status
 function acceptGDPR(){
     fetch('/api/set-gdpr', {
@@ -88,6 +84,10 @@ function acceptGDPR(){
         sessionStorage.setItem('gdpr', 1)   //don't bother the user again even if db fails
         toggleGDPR()
     });
+}
+
+function toggleGDPR(){
+    $('.popup').toggle()  
 }
 
 //run on document load
