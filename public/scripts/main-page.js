@@ -96,7 +96,6 @@ $(function(){
     
     
     //check if user has signed gdpr
-<<<<<<< HEAD
     toggleGDPR();
     getText();
 })
@@ -113,9 +112,11 @@ function getText(){
     document.body.style.fontSize = size + "%";
     
 }
-=======
-    if(sessionStorage.getItem('gdpr') == 0){
+
+
+//had a merge conflict so i commented out this code.
+/*
+if(sessionStorage.getItem('gdpr') == 0){
         toggleGDPR();
     }
-})
->>>>>>> 4cbed20e570920eb815bb96106853f3a5d85f1c7
+})*/
