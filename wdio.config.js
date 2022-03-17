@@ -25,7 +25,9 @@ exports.config = Object.assign({}, {
     // need to define host and port information because WebdriverIO can figure that out
     // according to your user and key information. However, if you are using a private Selenium
     // backend you should define the host address, port, and path here.
-    host: 'geo-quiz.xyz',
+    host: 'localhost',
+    port: 9515,
+
 
     //
     // ==================
@@ -135,7 +137,10 @@ exports.config = Object.assign({}, {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [
-        "chromedriver"
+        "chromedriver",
+        
+        ['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: true, chromiumedge: 'latest' } }]
+     
     ],//
     firefoxProfile: {
         // Prevent automatic tests with Firefox from showing up in Analytics
