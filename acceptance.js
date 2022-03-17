@@ -3,15 +3,18 @@ const chaiHttp = require('chai-http');
 
 const should = chai.should();
 const expect = chai.expect;
+require("chromedriver")
 var webdriver = require('selenium-webdriver');
 var driver = new webdriver.Builder()
   .forBrowser('chrome')
   .build();
 
 
-
+async function testBrowser(){
 try {
-   driver.get('http://www.google.com/ncr');
+  await driver.get('http://www.google.com/ncr');
 } finally {
-   driver.quit();
+  await driver.quit();
 }
+}
+testBrowser()
