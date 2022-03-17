@@ -30,8 +30,8 @@
     "pm2": "^5.2.0",
     "pug": "^3.0.2",
     "query-string": "^7.1.1",
+    "selenium-standalone": "^8.0.10",
     "selenium-webdriver": "^4.1.1",
-    "webdriverio": "^7.18.0",
     "webpack": "^5.69.1"
   },
   "devDependencies": {
