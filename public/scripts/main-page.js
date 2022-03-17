@@ -92,6 +92,7 @@ function acceptGDPR(){
 
 //run on document load
 $(function(){
+    getTextSize();
     showUser();
     showClientLocation();
     showTable();
@@ -101,7 +102,7 @@ $(function(){
         toggleGDPR();
     }
 
-    getTextSize();
+    
 })
 
 function setTextSize(size){
