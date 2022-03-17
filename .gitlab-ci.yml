@@ -63,7 +63,7 @@ deploy:
 e2e:
   stage: e2e
   services:
-    - selenium/standalone-chrome:3.13
+    - selenium/standalone-chrome:latest
 
   script: 
     - npm confidence-check --host=selenium__standalone-chrome
