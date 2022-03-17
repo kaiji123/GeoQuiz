@@ -21,4 +21,9 @@ finally {
   await driver.quit();
 }
 }
+
+try{
 testBrowser()
+}catch(error){
+  console.log(error)
+}
