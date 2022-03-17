@@ -29,7 +29,7 @@ test:
     - selenium/standalone-chrome
   script: 
     - npm test
-    - ./node_modules/.bin/wdio wdio.conf.js --host=selenium__standalone-chrome
+    - ./node_modules/.bin/wdio wdio.conf.js
   cache:
     key: $NODE_MODULES
     paths: 
