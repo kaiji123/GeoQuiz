@@ -28,6 +28,7 @@ test:
   services: 
     - selenium/standalone-chrome
   script: 
+    - apk add chromium-chromedriver
     - npm test
   cache:
     key: $NODE_MODULES

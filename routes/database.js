@@ -12,7 +12,7 @@ function makeConnection() {
 }
 
 //save a user's score and percentage 
-function addScore(id, score, percentage) {
+async function addScore(id, score, percentage) {
     var connection = makeConnection()
 
     let sql = "INSERT INTO scores (userId, score, percentage) VALUES ('" 
@@ -20,13 +20,14 @@ function addScore(id, score, percentage) {
         + score + ", " 
         + percentage + ")"
 
-    return connection.promise().query(sql).then(([rows,fields]) => {
-        connection.end()
-        return 200
-    }).catch((err) => {
-        console.log(err)
-        return 502
-    });
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200;
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
 }
 
 //return an ordered list of users and their scores
@@ -67,33 +68,39 @@ async function getLeaderboard(){
 }
 
 //adds a user to the users table
-function addUser(userId, name) {
+async function addUser(userId, name) {
     var connection = makeConnection()
+    let sql = "INSERT INTO users(userId, name) VALUES (" + userId + ", '" + name + "')"
 
-    connection.connect(function (err) {
-        if (err) throw err;
-        connection.query("INSERT INTO users(userId, name) VALUES (" + userId + ", '" + name + "')", function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
+    try{
+        const [rows, fields] = await connection.promise().query(sql)
+        console.log(rows);
 
-            connection.end();
-        });
-    });
+        connection.end();
+        return 200
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+
 }
 
 //removes a user from users 
-function deleteUser(userId){
+async function deleteUser(userId){
     var connection = makeConnection()
+    let sql = "DELETE FROM users WHERE userId = " + userId
+    
+    try{
+        const [rows, fields] = await connection.promise().query(sql) 
+        connection.end()
+        return 200
 
-    connection.connect(function (err) {
-        if (err) throw err;
-        connection.query("DELETE FROM users WHERE userId =" + userId, function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-
-            connection.end();
-        });
-    });
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
 }
 
 async function getGDPR(id){
@@ -157,7 +164,39 @@ async function getScores(){
     }
 }
 
-//selects the given users score
+async function selectUsersPoints(id){
+    var connection = makeConnection()
+    let sql = "SELECT scores FROM scores WHERE userId =" + id
+
+    try{
+        const [rows, fields] = await connection.promise().query(sql)
+        console.log(rows)
+        connection.end()
+
+        return rows
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    } 
+}
+
+async function getUsers(){
+    var conn = makeConnection()
+
+    let sql = "SELECT * FROM users"
+    try{
+        const [rows, fields] = await conn.promise().query(sql)
+        console.log(rows)
+        connection.end()
+        
+        return rows
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
 
 module.exports = {
     getLeaderboard,
@@ -167,37 +206,7 @@ module.exports = {
     getScores,
     getGDPR,
     setGDPR,
-
-    //selecting user points
-    selectUsersPoints: function (id) {
-        //make connection
-        var connection = makeConnection()
-        connection.connect(function (err) {
-            if (err) throw err;
-            connection.query("SELECT scores FROM scores WHERE userId =" + id, function (err, result, fields) {
-                if (err) throw err;
-                console.log(result);
-
-                connection.end();
-            });
-        });
-    },
-
-    //this is get users function to get all users
-    getUsers: function () {
-        //make connection 
-        var connection = makeConnection()
-
-        connection.connect(function (err) {
-            if (err) throw err;
-            connection.query("SELECT * from users", function (err, result, fields) {
-                if (err) throw err;
-                console.log(result);
-
-                connection.end();
-                return result;
-            });
-        });
-    }
+    selectUsersPoints,
+    getUsers
 }
 
