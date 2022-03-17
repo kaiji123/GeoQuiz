@@ -104,7 +104,7 @@ $(function(){
 
     
 })
-
+/*
 function setTextSize(size){
     document.cookie = "size = " + size;
     document.body.style.fontSize = size + "%";
@@ -117,3 +117,4 @@ function getTextSize(){
     document.body.style.fontSize = size + "%"; 
 }
 
+*/
