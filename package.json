@@ -16,6 +16,7 @@
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cookie-parser": "~1.4.4",
+    "cypress": "^9.5.2",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
     "express": "~4.16.1",
