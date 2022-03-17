@@ -13,12 +13,7 @@ const dynamicConfig = {};
 
 
 dynamicConfig.capabilities.map(capability => {
-    if(capability.browserName === 'chrome') {
-        // Prevent automatic tests with Chrome from showing up in Analytics
-        capability.chromeOptions = {
-            prefs: { 'enable_do_not_track': true },
-        };
-    }
+  
 
     return capability;
 });
@@ -140,7 +135,7 @@ exports.config = Object.assign({}, {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [
-    
+        "chromedriver"
     ],//
     firefoxProfile: {
         // Prevent automatic tests with Firefox from showing up in Analytics
