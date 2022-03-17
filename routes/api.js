@@ -15,11 +15,6 @@ const options = {
 
 const geocoder = NodeGeocoder(options)
 
-//returns an address from given coordinates
-router.post('/location', async (req, res) => {
-    var coords = req.body
-    locFromCoords(coords).then((loc) => res.send(loc[0]))
-})
 
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) =>{
@@ -39,8 +34,8 @@ router.post('/set-gdpr', async (req, res) =>{
 //adds a user to the database
 router.post('/add-user', function (req, res) {
     id = req.body.id
-    usernname = req.body.name
-    res.send(database.addUser(id, usernname))
+    username = req.body.name
+    res.sendStatus(database.addUser(id, username))
 })
 
 router.delete('/users', function(req, res){
@@ -80,6 +75,12 @@ router.post('/quiz', async (req, res) => {
     quizgen.generateQuizCache().then((data) => {
         res.send(data)
     })
+})
+
+//returns an address from given coordinates
+router.post('/location', async (req, res) => {
+    var coords = req.body
+    locFromCoords(coords).then((loc) => res.send(loc[0]))
 })
 
 //uses node geocoder to return location data from a set of coords

@@ -10,11 +10,11 @@ const database = require("../routes/database.js")
 
 // api/integration tests
 describe('GET /api/leaderboard', () => {
-    it('Testing api/leaderboard', done => {
+    it('Should return a leaderboard object', done => {
       chai
         .request(app)
         .get('/api/leaderboard')
-        .then((err, res) => {
+        .then((res) => {
           res.should.have.status(200);
           expect(res.body).to.be.an('array')
           expect(res.body[0]).to.have.all.keys('name', 'total')
@@ -26,39 +26,23 @@ describe('GET /api/leaderboard', () => {
 
 //  location test
 describe('POST /api/location', () => {
-  it('Successful request', done => {
+  it('Should return a JSON object containing city and country', done => {
     chai
       .request(app)
       .post('/api/location')
       .send({ lat: 45.767, lon: 4.833 })
       .then((err, res) => {
         res.should.have.status(200)
-        //console.log(res.body)
-        expect(res.body).to.be.an("Object")
+        expect(res.body).should.have.property('data').that.includes.all.keys(['city','country'])
         done();
       }).then(done());
-  });
-
-  it('Unsuccesful request', done => {
-
-    expect(
-    chai
-      .request(app) //request api
-      .post('/api/location')
-      .send({ lat: -888888, lon: -8888888 })
-      .then((err, res) => {
-        res.should.have.status(200)
-        //console.log(res.body)
-        expect(res.body).to.be.an("Object")
-        done();
-      }).then(done())).to.throw(Error); //throw error
   });
 });
 
 
 // api/integration tests
 describe('POST /api/save-score', () => {
-  it('Successful request', done => {
+  it('Should save a score to the database', done => {
     const prev = database.getScores()
 
     chai
@@ -76,11 +60,9 @@ describe('POST /api/save-score', () => {
   });
 });
 
-
-
-// api/integration tests
-describe('POST /add-user', () => {
-  it('Successful user creation', done => {
+//api/integration tests
+describe('POST /api/add-user', () => {
+  it('Should create a new user', done => {
     const prev = database.getUsers()
     chai
       .request(app)
