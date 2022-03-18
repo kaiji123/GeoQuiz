@@ -1,4 +1,25 @@
-.container {
-    position: relative;
-    
-  }
+.form{
+  	margin: 20px auto;
+	width: 40vw;
+	padding: 20px;
+	background-color: white;
+	border-radius: 5px;
+	filter: drop-shadow(1.5px 1.5px 1.5px black);
+
+}
+
+input[type=text]{
+	padding: 5px 10px;
+	margin: 10px 0px;
+}
+
+input[type=submit]{
+	padding: 5px 10px;
+	margin: 10px 0px;
+}
+
+textarea{
+	width: 90%;
+	height: 100px
+}
+

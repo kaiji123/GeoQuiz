@@ -22,7 +22,7 @@ body {
   background-color: var(--background-color);
 }
 
-button{
+button, input[type=submit]{
   padding: 20px 40px;
 
   font-size:1.25em;
@@ -35,7 +35,7 @@ button{
   transition: 0.3s;
 }
 
-button:hover{
+button:hover, input[type=submit]:hover{
   background-color: grey;
   cursor: pointer;
 }
@@ -87,7 +87,7 @@ p{
 
 /*Main page class*/
 .page{
-  margin-top: 75px;
+  margin-top: 83.5px;
   display: flex;
   display: -webkit-flex;
   flex-grow: 1;

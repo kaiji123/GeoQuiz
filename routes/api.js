@@ -76,6 +76,11 @@ router.post('/save-score', (req, res) => {
     })
 })
 
+router.post('/support', (req, res) => {
+    json = req.body
+    res.send(req.body)
+})
+
 //will return a quiz when passed a location
 router.post('/quiz', async (req, res) => {
     var coords = req.body
