@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var database = require('./database.js')
 var quizgen = require('../quiz-generator.js')
+var fs = require('fs').promises
 
 const NodeGeocoder = require('node-geocoder')
 
@@ -76,9 +77,22 @@ router.post('/save-score', (req, res) => {
     })
 })
 
-router.post('/support', (req, res) => {
+//receieve and handle support queries
+router.post('/support', async (req, res) => {
     json = req.body
-    res.send(req.body)
+    fs.readFile('./support/requests.json')
+    .then((raw) => {
+        data = JSON.parse(raw)
+        data.push(json)
+        return fs.writeFile('./support/requests.json', JSON.stringify(data))
+    })
+    .then(() => {
+        res.send(req.body)
+    })
+    .catch((err) =>{
+        console.log(err)
+    })
+    
 })
 
 //will return a quiz when passed a location
