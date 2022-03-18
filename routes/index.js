@@ -29,5 +29,9 @@ router.get('/about', function(req, res, nect){
   res.render('about')
 });
 
+router.get('/profile', function(req, res, nect){
+  res.render('profile')
+});
+
 
 module.exports = router;
