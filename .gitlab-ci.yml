@@ -66,6 +66,5 @@ e2e:
     - apk add openjdk11
     - apk add chromium
     - apk add chromium-chromedriver
-    - export PATH=$PATH:$HOME/bin
     - npx selenium-standalone start
     - npm run confidence-check --host=selenium__standalone-chrome
