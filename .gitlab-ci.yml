@@ -68,4 +68,4 @@ e2e:
     - apk add chromium-chromedriver
     - npx selenium-standalone install 
 
-    - npx selenium-standalone start & npm run confidence-check --host=selenium__standalone-chrome
+    #- npx selenium-standalone start & npm run confidence-check --host=selenium__standalone-chrome
