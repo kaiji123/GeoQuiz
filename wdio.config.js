@@ -130,8 +130,8 @@ exports.config = Object.assign({}, {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [
-      
-    ],//
+        ['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: true, chromiumedge: 'latest' } }]
+    ],
     firefoxProfile: {
         // Prevent automatic tests with Firefox from showing up in Analytics
         'privacy.donottrackheader.enabled': true,
