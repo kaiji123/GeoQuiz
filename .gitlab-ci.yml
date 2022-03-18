@@ -4,7 +4,6 @@ stages :
   - build
   - test
   - deploy
-  - e2e
 cache:
   key: $CI_COMMIT_REF_SLUG
   paths:
@@ -26,7 +25,6 @@ build :
 
 test:
   stage: test
-  services: 
   script: 
     - npm test
   cache:
@@ -53,17 +51,3 @@ deploy:
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start;npx selenium-standalone install;npx selenium-standalone start &'
 
-
-
-
-###
-
-e2e:
-  stage: e2e
-  services:
-    - selenium/standalone-chrome:latest
-  script: 
-    - apk add openjdk11
-    - apk add chromium
-    - apk add chromium-chromedriver
-    #- npm run confidence-check
