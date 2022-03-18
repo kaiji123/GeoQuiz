@@ -1,5 +1,5 @@
 $(function(){
-    getText();
+    getTextSize();
 })
 
 function getTextSize(){

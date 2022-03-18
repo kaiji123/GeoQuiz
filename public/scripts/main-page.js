@@ -28,7 +28,6 @@ function showTable(){
     })
     .then(res => res.json())
     .then(data => {  
-        console.log(data)
         data = data.slice(0,4)
 
         var content = "<table><tr><th>Rank</th><th>Name</th><th>Total</th></tr>"
@@ -60,7 +59,6 @@ function showClientLocation(){
             })
             .then(res => res.json())
             .then(data => {
-                    console.log(data)
                     $('#location').append(data.city)
                 }
             );
