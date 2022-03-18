@@ -1,29 +1,6 @@
-doctype html
-html
-  head
-    title= title
-    meta(name="google-signin-client_id" content="90750308076-96ae6pca4ddf3l0f5pbviuvvj9ibr394.apps.googleusercontent.com")
-    link(rel='stylesheet', href='/stylesheets/style.css')
+extends layout
+block content
     link(rel='stylesheet' href='/stylesheets/terms-of-use.css')
-    script(src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous")
-    script(src='/scripts/scaling.js')
-  body
-    .header 
-      .logo
-        a(href='/')
-          img(src='/images/logo.png')
-      button.signin(onclick='window.location.href="/login"')='Sign in'
-      
-    
-    .page
-      block content
-    
     .container 
+    
       include ./gdpr.pug
-
-    .footer 
-      a(href='/terms-of-use')='Terms of Use'
-      a(href='/support')='Support'
-      a(href='/about')='About'
