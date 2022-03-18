@@ -54,9 +54,10 @@
     font-size: 20px;
 }
 
-.gdpr p{
+.gdpr p, .gdpr ul{
     font-size: 15px;
 }
+
 /*Leadboard table*/
 #leaderboard{
     width: 50%;

@@ -25,5 +25,9 @@ router.get('/support', function(req, res, nect){
   res.render('support')
 });
 
+router.get('/about', function(req, res, nect){
+  res.render('about')
+});
+
 
 module.exports = router;

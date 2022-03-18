@@ -4,7 +4,6 @@ var database = require('./database.js')
 var quizgen = require('../quiz-generator.js')
 
 const NodeGeocoder = require('node-geocoder')
-const res = require('express/lib/response')
 
 //node geocoder configuration
 const options = {
@@ -31,7 +30,7 @@ router.post('/set-gdpr', async (req, res) =>{
 
 })
 
-//adds a user to the database
+//adds a user to the database if they don't already exist
 router.post('/add-user', async (req, res) => {
     let id = req.body.id
     let name = req.body.name
