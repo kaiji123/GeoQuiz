@@ -56,7 +56,7 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button class="trialQuestion" onclick="nextQuestion(this, true)">' + q.answer + '</button>';
+                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer + '</button>';
             }
             else{
                 html += '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi]+'</button>'
@@ -78,6 +78,7 @@ function nextQuestion(el, right){
     }
     else{
         $(el).addClass('wrong')
+        $('#rightanswer').addClass('right')
     }
 
     setTimeout(function(){
