@@ -61,9 +61,11 @@ deploy:
 e2e:
   stage: e2e
   services:
+  
+    - selenium/standalone-chrome:latest
+    
+  script: 
     - apk add chromium
     - apk add chromium-chromedriver
-    - selenium/standalone-chrome:latest
     - export PATH=$PATH:$HOME/bin
-  script: 
     - npm run confidence-check --host=selenium__standalone-chrome
