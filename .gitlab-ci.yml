@@ -66,4 +66,4 @@ e2e:
     - apk add openjdk11
     - apk add chromium
     - apk add chromium-chromedriver
-    - npx selenium-standalone start & npm run confidence-check
+    - npm run confidence-check
