@@ -106,13 +106,12 @@ $(function(){
 })
 
 function setTextSize(size){
-    document.cookie = "size = " + size;
+    sessionStorage.setItem("size", size);
     document.body.style.fontSize = size + "%";
 
 }
 
 function getTextSize(){
-    let decodedCookie = decodeURIComponent(document.cookie);
-    size = decodedCookie.split('=')[1];
+    let size = sessionStorage.getItem("size");
     document.body.style.fontSize = size + "%"; 
 }
