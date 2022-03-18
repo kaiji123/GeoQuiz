@@ -51,7 +51,7 @@ deploy:
     - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
-    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start; /usr/local/lib/node_modules/selenium-standalone/.selenium/chromedriver/latest-x64/chromedriver'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start;npx selenium-standalone install;npx selenium-standalone start'
 
 
 
@@ -66,6 +66,4 @@ e2e:
     - apk add openjdk11
     - apk add chromium
     - apk add chromium-chromedriver
-    - npx selenium-standalone install 
-
-    #- npx selenium-standalone start & npm run confidence-check --host=selenium__standalone-chrome
+    - npx selenium-standalone start & npm run confidence-check
