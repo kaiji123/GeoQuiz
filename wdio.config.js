@@ -11,13 +11,6 @@ const dynamicConfig = {};
 
 
 
-
-dynamicConfig.capabilities.map(capability => {
-  
-
-    return capability;
-});
-
 exports.config = Object.assign({}, {
     // Host address of the running Selenium server. This information is usually obsolete as
     // WebdriverIO automatically connects to localhost. Also, if you are using one of the
