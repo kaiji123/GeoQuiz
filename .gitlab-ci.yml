@@ -61,11 +61,11 @@ deploy:
 e2e:
   stage: e2e
   services:
-  
     - selenium/standalone-chrome:latest
-    
   script: 
+    - apk add openjdk8=8.242.08-r0
     - apk add chromium
     - apk add chromium-chromedriver
     - export PATH=$PATH:$HOME/bin
+    - npx selenium-standalone start
     - npm run confidence-check --host=selenium__standalone-chrome
