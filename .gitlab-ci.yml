@@ -58,3 +58,10 @@ e2e:
     - selenium/standalone-chrome
   script:
     - apk add --update openjdk11
+    - apk add --update chromium || true
+    - apk add --update chromium-chromedriver
+    - npm install chromedriver --detect_chromedriver_version 
+
+
+    - npx selenium-standalone install
+    - npm run confidence-check --host=selenium__standalone-chrome
