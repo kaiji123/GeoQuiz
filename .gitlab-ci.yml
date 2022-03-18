@@ -27,9 +27,7 @@ build :
 test:
   stage: test
   services: 
-    - selenium/standalone-chrome
   script: 
-    - apk add chromium-chromedriver
     - npm test
   cache:
     key: $NODE_MODULES
@@ -63,6 +61,8 @@ deploy:
 e2e:
   stage: e2e
   services:
+    - apk add chromium
+    - apk add chromium-chromedriver
     - selenium/standalone-chrome:latest
 
   script: 
