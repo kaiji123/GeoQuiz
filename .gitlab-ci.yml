@@ -58,7 +58,8 @@ e2e:
   services:
     - selenium/standalone-chrome
   script:
-    - echo "hello"
-    - npx selenium-standalone start
+    - apk add --update openjdk11
+    - apk add --update chromium || true
+    - apk add --update chromium-chromedriver
+    - npm install chromedriver --detect_chromedriver_version 
     - npm run confidence-check
-    
