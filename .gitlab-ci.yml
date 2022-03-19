@@ -36,6 +36,7 @@ test:
 
 deploy:
   stage : deploy
+  timeout: 1h
   before_script :
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
     - eval $(ssh-agent -s)
