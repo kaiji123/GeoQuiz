@@ -55,14 +55,14 @@ deploy:
 
 e2e:
   stage: e2e
-    services:
-      - selenium/standalone-chrome
-    variables:
-      SELENIUM_HOST: selenium__standalone-chrome
-    script:
-      - npm run selenium "/e2e/main.js"
-    artifacts:
-      when: always
-      paths:
-        - tests_output/
-      expire_in: 1 hour
+  services:
+    - selenium/standalone-chrome
+  variables:
+    SELENIUM_HOST: selenium__standalone-chrome
+  script:
+    - npm run selenium "/e2e/main.js"
+  artifacts:
+    when: always
+    paths:
+      - tests_output/
+    expire_in: 1 hour
