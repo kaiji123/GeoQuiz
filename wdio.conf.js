@@ -20,6 +20,7 @@ exports.config = Object.assign({}, {
     // backend you should define the host address, port, and path here.
     host: 'localhost',
     port: 4444,
+    path : "/wd/hub",
 
 
     //
