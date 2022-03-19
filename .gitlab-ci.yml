@@ -59,7 +59,6 @@ e2e:
     - selenium/standalone-chrome
 
   script:
-    - 
     - apk add --update openjdk11
     - apk add --update chromium || true
     - apk add --update chromium-chromedriver
