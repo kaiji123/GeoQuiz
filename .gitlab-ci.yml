@@ -58,4 +58,4 @@ e2e:
   services:
     - selenium/standalone-chrome
   script:
-    - npm run confidence-check
+    - echo "hello"
