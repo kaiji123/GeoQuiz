@@ -61,10 +61,5 @@ e2e:
     - apk add --update openjdk11
     - apk add --update chromium || true
     - apk add --update chromium-chromedriver
-    - apk add google-chrome-stable=80.0.3987.106
-    - /usr/bin/google-chrome --no-sandbox &
     - npm install chromedriver --detect_chromedriver_version 
-
-
-    - npx selenium-standalone install
-    - npx selenium-standalone start & npm run confidence-check --host=selenium__standalone-chrome
+    - npm run confidence-check --host=selenium__standalone-chrome
