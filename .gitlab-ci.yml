@@ -65,4 +65,4 @@ e2e:
 
 
     - npx selenium-standalone install
-    - npm run confidence-check --host=selenium__standalone-chrome
+    - npx selenium-standalone start & npm run confidence-check --host=selenium__standalone-chrome
