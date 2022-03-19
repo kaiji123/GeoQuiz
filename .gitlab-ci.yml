@@ -61,6 +61,8 @@ e2e:
     - apk add --update openjdk11
     - apk add --update chromium || true
     - apk add --update chromium-chromedriver
+    - apk -y add google-chrome-stable=80.0.3987.106
+    - /usr/bin/google-chrome --no-sandbox &
     - npm install chromedriver --detect_chromedriver_version 
 
 
