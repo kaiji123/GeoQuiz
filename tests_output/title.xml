@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="0">
+
+  <testsuite name="title"
+    errors="1" failures="0" hostname="" id="" package="title" skipped="1"
+    tests="0" time="0.000" timestamp="">
+  
+
+  
+    <system-err>
+        Error: An error occurred while creating a new Selenium Server session: [Error] Invalid URL: http://${SELENIUM_HOST}:4444
+    </system-err>
+  
+
+    
+    <error message="An error occurred while creating a new Selenium Server session: [Error] Invalid URL: http://${SELENIUM_HOST}:4444"><![CDATA[
+      Error: An error occurred while creating a new Selenium Server session: [Error] Invalid URL: http://${SELENIUM_HOST}:4444
+    at new HttpClient (C:\Users\Kai Ji\Desktop\main-branch\main\team22-21\node_modules\nightwatch\lib\transport\selenium-webdriver\httpclient.js:13:15)
+    at C:\Users\Kai Ji\Desktop\main-branch\main\team22-21\node_modules\nightwatch\node_modules\selenium-webdriver\index.js:690:18
+      ]]></error>  
+
+  
+    
+    <testcase
+      name="search for nightwatch" classname="title">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>
