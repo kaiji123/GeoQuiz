@@ -57,9 +57,12 @@ e2e:
   stage: e2e
   services:
     - selenium/standalone-chrome
+
   script:
+    - 
     - apk add --update openjdk11
     - apk add --update chromium || true
     - apk add --update chromium-chromedriver
     - npm install chromedriver --detect_chromedriver_version 
-    - npm run confidence-check
+    - export DISPLAY=:1
+    - npx selenium-standalone start & npm run confidence-check
