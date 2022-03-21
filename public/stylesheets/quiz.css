@@ -15,7 +15,7 @@
 .outer{
     height:100%;
     width: 100%;
-    border-radius: 50%;
+    border-radius: 40%;
     border: 1px solid sienna;
     padding: 10%;
     box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),

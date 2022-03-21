@@ -120,17 +120,7 @@ function finish(score){
  
     }
 }
-// var ProgressBar = require('progressbar.js')
-// function onLoad() {
-//     //var ProgressBar = require('progressbar.js')
-//     var circle = new ProgressBar.Circle('#Myprogress', {
-//         color: '#FCB03C',
-//         duration: 3000,
-//         easing: 'easeInOut'
-//     });
 
-//     circle.animate(1);
-// };
 function move() {
     var barWidth = $('#progress').width()
     var progressWidth = barWidth * ((currentQuestion + 1)/quizLength)
