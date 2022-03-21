@@ -64,6 +64,7 @@ function genQuizHtml(quiz){
             }
         }
         html += '</div>'
+        
         questionHtml.push(html);
     })
     
@@ -80,7 +81,8 @@ function nextQuestion(el, right){
         $(el).addClass('wrong')
         $('#rightanswer').addClass('right')
     }
-
+    //advance progress bar
+    move()
     setTimeout(function(){
         if(currentQuestion + 1 >= quizLength){
             finish(score);
@@ -118,3 +120,29 @@ function finish(score){
  
     }
 }
+// var ProgressBar = require('progressbar.js')
+// function onLoad() {
+//     //var ProgressBar = require('progressbar.js')
+//     var circle = new ProgressBar.Circle('#Myprogress', {
+//         color: '#FCB03C',
+//         duration: 3000,
+//         easing: 'easeInOut'
+//     });
+
+//     circle.animate(1);
+// };
+function move() {
+    var barWidth = $('#progress').width()
+    var progressWidth = barWidth * ((currentQuestion + 1)/quizLength)
+    $('#myBar').css('width', progressWidth + 'px')
+
+}
+
+/*
+function circle(){
+    var progress =$(.outer).width()
+    var progressWidth = progress * ((currentQuestion + 1)/quizLength)
+    $('circle').css('stroke-dashoffset', progressWidth + 'px')
+}
+*/
+

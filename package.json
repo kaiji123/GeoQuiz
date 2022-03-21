@@ -30,6 +30,7 @@
     "node-geocoder": "^4.0.0",
     "node-navigator": "^1.0.1",
     "pm2": "^5.2.0",
+    "progressbar.js": "^1.1.0",
     "pug": "^3.0.2",
     "query-string": "^7.1.1",
     "selenium-assistant": "^6.1.0",

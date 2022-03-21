@@ -97,6 +97,7 @@ p{
 .footer{
   height: 75px;
   margin-left: 2.5%;
+  position: relative;
 }
 
 .footer a{
