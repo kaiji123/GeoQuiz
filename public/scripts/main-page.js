@@ -114,6 +114,7 @@ function showProfile(){
             window.location.href = "/profile"
         })
 
+        profileBtn.className = "header"
         document.body.appendChild(profileBtn) 
     }
 }
