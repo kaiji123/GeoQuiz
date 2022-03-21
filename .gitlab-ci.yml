@@ -52,18 +52,3 @@ deploy:
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;npm install dotenv;pm2 start npm -- start'
-
-e2e:
-  stage: e2e
-  services:
-    - selenium/standalone-chrome
-  variables:
-    SELENIUM_HOST: selenium__standalone-chrome
-  script:
-    - npm run selenium "/e2e/main.js"
-    - npm run selenium "/e2e/title.js"
-  artifacts:
-    when: always
-    paths:
-      - tests_output/
-    expire_in: 1 hour
