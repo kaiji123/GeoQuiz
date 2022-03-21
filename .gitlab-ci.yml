@@ -63,6 +63,7 @@ e2e:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
     - npm run selenium "/e2e/main.js"
+    - npm run selenium "/e2e/title.js"
   artifacts:
     when: always
     paths:
