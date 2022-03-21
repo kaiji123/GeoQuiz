@@ -96,9 +96,19 @@ async function checkGDPR(id){
 }
 
 //sends an id to the api to check if a user exists
-// function checkUserExists(id){
+async function addUserIfNew(id, name){
+    const res = await fetch('/api/add-user', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            'id': id,
+            'name': name
+        })
+    })
 
-// }
+    return res
+}
+
 
 // window.fbAsyncInit = function() {
 //         // FB JavaScript SDK configuration and setup
