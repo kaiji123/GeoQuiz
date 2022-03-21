@@ -9,7 +9,7 @@ module.exports = {
   test_workers: false,
 
   selenium: {
-    start_process: false,
+    start_process: true,
 
     cli_args: {
       "webdriver.chrome.driver": chromedriver.path
