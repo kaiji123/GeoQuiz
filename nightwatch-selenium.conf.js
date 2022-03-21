@@ -22,7 +22,7 @@ module.exports = {
 
   test_settings: {
     default: {
-      selenium_port: 4444,
+      selenium_port: 7900,
       selenium_host: "${SELENIUM_HOST}",
 
       screenshots: {
