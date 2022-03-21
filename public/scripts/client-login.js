@@ -144,13 +144,5 @@ async function checkGDPR(id){
 //            * It consists of Twitter app information, database information.
 //            */
     
-//         facebook_api_key: 589355126092251,
-//         facebook_api_secret: b72f68a6baaa044498ff5bb6d5c67228,
-//         callback_url: "http://localhost:3000/index",
-//         use_database: false,
-//         host: "localhost",
-//         username: "root",
-//         password: "",
-//         database: ""
-//     };
+
 
