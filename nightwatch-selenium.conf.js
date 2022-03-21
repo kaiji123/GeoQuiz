@@ -25,17 +25,12 @@ module.exports = {
       selenium_port: 4444,
       selenium_host: "${SELENIUM_HOST}",
 
-      screenshots: {
-        enabled: true,
-        path: "tests_output/",
-        on_failure: true
-      },
 
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
           w3c: false,
-          args: ['no-sandbox','headless','disable-gpu']
+          args: ["--no-sandbox"]
         }
       }
     }
