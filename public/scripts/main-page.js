@@ -94,6 +94,7 @@ $(function(){
     showUser();
     showClientLocation();
     showTable();
+    showProfile();
     
     //check if user has signed gdpr
     if(sessionStorage.getItem('gdpr') == 0){
@@ -102,6 +103,20 @@ $(function(){
 
     
 })
+
+//check if a user is logged in and if they are display the profile button
+function showProfile(){
+    if(sessionStorage.getItem("user") != null){
+        const profileBtn = document.createElement('profileBtn')
+        profileBtn.innerText = 'Profile'
+
+        profileBtn.addEventListener('click', () => {
+            window.location.href = "/profile"
+        })
+
+        document.body.appendChild(profileBtn) 
+    }
+}
 
 function setTextSize(size){
     sessionStorage.setItem("size", size);

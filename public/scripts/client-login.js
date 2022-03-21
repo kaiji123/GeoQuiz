@@ -109,7 +109,6 @@ async function addUserIfNew(id, name){
     return res
 }
 
-
 // window.fbAsyncInit = function() {
 //         // FB JavaScript SDK configuration and setup
 //         //window.location.href = '/authenticate/facebook'
@@ -154,5 +153,13 @@ async function addUserIfNew(id, name){
 //            * It consists of Twitter app information, database information.
 //            */
     
-
+//         facebook_api_key: 589355126092251,
+//         facebook_api_secret: b72f68a6baaa044498ff5bb6d5c67228,
+//         callback_url: "http://localhost:3000/index",
+//         use_database: false,
+//         host: "localhost",
+//         username: "root",
+//         password: "",
+//         database: ""
+//     };
 
