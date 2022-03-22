@@ -23,9 +23,15 @@ html
 
       div.navbar
         ul
-          each val in ["Home", "Leaderboard", "Profile","Achievement"]
-            li
-            a(href = "/")= val
+          li
+            a(href = "/")= "Home"
+          li
+            a(href = "/leaderboard")= "Leaderboard"
+          li
+            a(href = "/profile")= "Profile"
+          li
+            a(href = "/")= "Achievement"
+         
           
       button.signin#authentication='Sign in'
       

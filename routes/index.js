@@ -33,5 +33,9 @@ router.get('/profile', function(req, res, nect){
   res.render('profile')
 });
 
+router.get('/leaderboard', function(req, res, nect){
+  res.render('leaderboard')
+});
+
 
 module.exports = router;

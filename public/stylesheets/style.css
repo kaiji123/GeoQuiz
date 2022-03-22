@@ -34,7 +34,7 @@ body {
 ul li {
   display: inline-block;
   padding-left: 20px;
-  padding-top: 30px;
+  padding-top: 20px;
   padding-right: 20px;
 }
 button, input[type=submit]{

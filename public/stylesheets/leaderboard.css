@@ -1,0 +1,32 @@
+/*Leadboard table*/
+#leaderboard{
+    width: 70%;
+    padding-left: 200px;
+    padding-top: 50px;
+}
+.container{
+    width: 100%;
+}
+table{
+    background-color:rgb(2, 4, 5);
+    width: 90%;
+    margin-left: 10%;
+}
+
+th{
+    background-color:darkgoldenrod;
+}
+
+tr{
+    background-color: white;
+    transition: 0.1s;
+    text-align: center;
+}
+
+th,td{
+    padding: 5px 10px;
+}
+
+tr:hover{
+    background-color: grey;
+}
