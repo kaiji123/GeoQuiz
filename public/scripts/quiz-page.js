@@ -90,7 +90,12 @@ function nextQuestion(el, right){
         else{
             currentQuestion++
             $('#quiz').html(questionHtml[currentQuestion]);
-
+            var circle = document.getElementById('circle');
+            var elem = document.getElementById('timer');
+            elem.style.animation = 'none';
+            
+            //elem.style.animation;
+            
         }
      }, 500)    //wait for half a second
     
@@ -128,11 +133,11 @@ function move() {
 
 }
 
-/*
-function circle(){
-    var progress =$(.outer).width()
-    var progressWidth = progress * ((currentQuestion + 1)/quizLength)
-    $('circle').css('stroke-dashoffset', progressWidth + 'px')
-}
-*/
+
+// function circle(){
+//     var progress =$(outer).width()
+//     var progressWidth = progress * ((currentQuestion + 1)/quizLength)
+//     $('circle').css('stroke-dashoffset', progressWidth + 'px')
+// }
+
 

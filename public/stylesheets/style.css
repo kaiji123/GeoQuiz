@@ -23,23 +23,25 @@ body {
 }
 
 .navbar{
-  width: 60%;
-
+  width: 100%;
+  margin-top:1%;
   display: flex;
-  margin-right:200px
 
 }
 
-
-ul li {
-  display: inline-block;
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-right: 20px;
+ul{
+  width:100%
+}
+ul a{
+  color: black;
+  display: inline;
+  margin-right: 1%;
+  font-size: larger;
+ 
 }
 button, input[type=submit]{
   padding: 20px 40px;
-
+  
   font-size:1.25em;
   font-family: var(--default-font);
   font-weight: bold;
@@ -54,7 +56,11 @@ button:hover, input[type=submit]:hover{
   background-color: grey;
   cursor: pointer;
 }
-
+button.signin{
+  white-space: nowrap;
+  width:max-content;
+  height: max-content;
+}
 p{
   font-size: 20px;
 }

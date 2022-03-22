@@ -9,21 +9,20 @@ block content
     link(rel='stylesheet' href='/stylesheets/quiz.css')
     script(src='/scripts/quiz-page.js')
 
+    .container-left
     #quiz-container
         #quiz 
              h1='Loading your quiz...'
         #progress 
              #myBar
-    //.container
-        svg(xmlns='http://www.w3.org/2000/svg' version='1.1' width='160px' height='160px')
+    .container-right
+        svg( width='160px' height='160px')
             defs
                 lineargradient#GradientColor
-                    stop(offset='0%' stop-color='#ec9f05')
-                    stop(offset='100%' stop-color='#ff4e00')
-            circle(cx='80' cy='80' r='70' stroke-linecap='round')
-        .outer
-            .inner
-
+                    stop(offset='0%' stop-color='#d2b48c')
+                    stop(offset='100%' stop-color='#a0522d')
+            circle(id='timer' cx='80' cy='80' r='70' stroke-linecap='round')
+        
             
 
     
