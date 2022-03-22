@@ -22,6 +22,21 @@ body {
   background-color: var(--background-color);
 }
 
+.navbar{
+  width: 60%;
+
+  display: flex;
+  margin-right:200px
+
+}
+
+
+ul li {
+  display: inline-block;
+  padding-left: 20px;
+  padding-top: 30px;
+  padding-right: 20px;
+}
 button, input[type=submit]{
   padding: 20px 40px;
 

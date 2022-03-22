@@ -20,6 +20,13 @@ html
       .logo
         a(href='/')
           img(src='/images/logo.png')
+
+      div.navbar
+        ul
+          each val in ["Home", "Leaderboard", "Profile","Achievement"]
+            li
+            a(href = "/")= val
+          
       button.signin#authentication='Sign in'
       
     
