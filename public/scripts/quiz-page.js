@@ -1,6 +1,7 @@
 var currentQuestion = 0;
 var quizLength;
 var score = 0;
+var curTimer;
 
 //document ready function - run on page load
 $(function(){
@@ -17,7 +18,7 @@ $(function(){
                 }
             });
         });
-        timeQuestion()
+        curTimer = timeQuestion()
     }else{
         console.log('ERROR: Location services not available.');
     }
@@ -98,8 +99,8 @@ function nextQuestion(el, right){
         else{
             currentQuestion++
             $('#quiz').html(questionHtml[currentQuestion]);
-            
-            timeQuestion();
+            clearTimeout(curTimer);
+            curTimer = timeQuestion();
             
             
             //elem.style.animation;
@@ -139,7 +140,7 @@ function finish(score){
 function timeQuestion(){
     $('#timer').css('animation', "anim 5s linear forwards")
     //set 5s time out then it calls nextQuestion automatically
-    setTimeout(nextQuestion, 5000)
+    return setTimeout(nextQuestion, 5000)
 }
 function move() {
     var barWidth = $('#progress').width()
