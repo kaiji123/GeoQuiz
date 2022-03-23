@@ -1,0 +1,6 @@
+HOSTNAME=db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com
+DBPORT=25060
+DBUSER=doadmin
+DBPASSWORD=R45mUKjM0QGNmejm
+DBDATABASE=defaultdb
+CLIENT_ID=50356069479-gejcilfv0kbn9q5i67q56pf17cil63vv.apps.googleusercontent.com

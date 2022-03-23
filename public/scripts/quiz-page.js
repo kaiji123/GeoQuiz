@@ -106,7 +106,7 @@ function nextQuestion(el, right){
             //elem.style.animation;
             
         }
-     }, 500)    //wait for half a second
+     }, 2500)    //wait for half a second
     
 }
 
