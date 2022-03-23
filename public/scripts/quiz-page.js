@@ -17,9 +17,14 @@ $(function(){
                 }
             });
         });
+        timeQuestion()
     }else{
         console.log('ERROR: Location services not available.');
     }
+  
+
+
+
 })
 
 //fetch a quiz from the API
@@ -83,6 +88,9 @@ function nextQuestion(el, right){
     }
     //advance progress bar
     move()
+
+    $('#timer').css('animation', "")
+    
     setTimeout(function(){
         if(currentQuestion + 1 >= quizLength){
             finish(score);
@@ -90,9 +98,9 @@ function nextQuestion(el, right){
         else{
             currentQuestion++
             $('#quiz').html(questionHtml[currentQuestion]);
-            var circle = document.getElementById('circle');
-            var elem = document.getElementById('timer');
-            elem.style.animation = 'none';
+            
+            timeQuestion();
+            
             
             //elem.style.animation;
             
@@ -126,6 +134,13 @@ function finish(score){
     }
 }
 
+
+//time your question 
+function timeQuestion(){
+    $('#timer').css('animation', "anim 5s linear forwards")
+    //set 5s time out then it calls nextQuestion automatically
+    setTimeout(nextQuestion, 5000)
+}
 function move() {
     var barWidth = $('#progress').width()
     var progressWidth = barWidth * ((currentQuestion + 1)/quizLength)
@@ -133,11 +148,12 @@ function move() {
 
 }
 
-
-// function circle(){
-//     var progress =$(outer).width()
-//     var progressWidth = progress * ((currentQuestion + 1)/quizLength)
-//     $('circle').css('stroke-dashoffset', progressWidth + 'px')
-// }
+/*
+ function circle(){
+     var progress =$(outer).width()
+     var progressWidth = progress * ((currentQuestion + 1)/quizLength)
+     $('circle').css('stroke-dashoffset', progressWidth + 'px')
+ }
+ */
 
 
