@@ -87,6 +87,7 @@ function nextQuestion(el, right){
         $(el).addClass('wrong')
         $('#rightanswer').addClass('right')
     }
+    
     //advance progress bar
     move()
 

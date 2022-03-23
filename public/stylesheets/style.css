@@ -1,138 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 :root{
-  --background-color: #ffdc9f;
-  --default-font: 'Prata', serif;
-  --button-font: 'Prata', serif;
+    --background-color: #ffdc9f;
+    --default-font: helvetica;
 }
 
 /*
 Default element style
 */
 body {
-  display: flex;
-  display: -webkit-flex;
-  flex-direction: column;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
 
-  padding: 0px;
-  margin: 0px;
+    padding: 0px;
+    margin: 0px;
 
-  height: 100vh;
-  font-family: var(--default-font);
-  background-color: var(--background-color);
+    height: 100vh;
+    font-family: var(--default-font);
+    background-color: var(--background-color);
 }
 
 .navbar{
-  width: 100%;
-  margin-top:1%;
-  display: flex;
-
+    width: 100%;
+    margin-top:1%;
+    display: flex;
 }
 
 ul{
-  width:100%
+    width:100%
 }
+
 ul a{
-  color: black;
-  display: inline;
-  margin-right: 1%;
-  font-size: larger;
+    color: black;
+    display: inline;
+    margin-right: 1%;
+    font-size: larger;
  
 }
-button, input[type=submit]{
-  padding: 20px 40px;
-  
-  font-size:1.25em;
-  font-family: var(--default-font);
-  font-weight: bold;
 
-  border-radius: 2px;
-  border: 1.5px solid black;
-  filter: drop-shadow(1.5px 1.5px 1.5px black);
-  transition: 0.3s;
+button, input[type=submit]{
+    padding: 20px 40px;
+    
+    font-size:1.25em;
+    font-family: var(--default-font);
+    font-weight: bold;
+
+    border-radius: 2px;
+    border: 1.5px solid black;
+    filter: drop-shadow(1.5px 1.5px 1.5px black);
+    transition: 0.3s;
 }
 
 button:hover, input[type=submit]:hover{
-  background-color: grey;
-  cursor: pointer;
+    background-color: grey;
+    cursor: pointer;
 }
+
 button.signin{
-  white-space: nowrap;
-  width:max-content;
-  height: max-content;
+    white-space: nowrap;
+    width:max-content;
+    height: max-content;
 }
+
 p{
-  font-size: 20px;
+    font-size: 20px;
 }
 
 /*Header style*/
 .header{
-  display: flex;
-  display: -webkit-flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: absolute;
-  width: 100%;
-  height: 82.5px;
-  border-bottom: 1px solid white;
-  
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    height: 82.5px;
+    border-bottom: 1px solid white;
+    
 }
 
 .usernameText {
-  padding-right: 25px;
-  padding-top: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
 }
 
 .usernameText {
-  padding-right: 25px;
-  padding-top: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
 }
 
 .logo{
-  position: relative;
-  margin-left: 2.5%;
-  
+    position: relative;
+    margin-left: 2.5%;
+    
 }
 
 .logo img{
-  height:100%;
+    height:100%;
 }
 
 .signin{
-  position: relative;
-  margin: 20px 10px;
+    position: relative;
+    margin: 20px 10px;
 
-  padding: 0px 5px;
-  
+    padding: 0px 5px;
+    
 }
 
 /*Main page class*/
 .page{
-  margin-top: 83.5px;
-  display: flex;
-  display: -webkit-flex;
-  flex-grow: 1;
+    margin-top: 83.5px;
+    display: flex;
+    display: -webkit-flex;
+    flex-grow: 1;
 }
 
 /*Footer style*/
 .footer{
-  height: 75px;
-  margin-left: 2.5%;
-  position: relative;
-  
+    height: 75px;
+    margin-left: 2.5%;
+    position: relative;
+    
 }
 
 .footer a{
-  line-height: 75px;
-  text-decoration: none;
-  color: black;
-  margin-right: 20px;
+    line-height: 75px;
+    text-decoration: none;
+    color: black;
+    margin-right: 20px;
 }
 
 /*Error page style*/
 .status{
-  font-size: 50px;
+    font-size: 50px;
 }
+
 .error{
-  margin-left: 50px;
+    margin-left: 50px;
 }
