@@ -18,6 +18,7 @@ build :
   stage: build 
   script:
     - apk add --no-cache python3 py3-pip
+    - apk add pkg-config
     - npm ci --cache .npm --prefer-offline
 
 
