@@ -21,7 +21,7 @@ build :
     - apk add pkgconfig
     - apk add --no-cache 
       g++ \
-      cairo-dev \
+      cairo-dev=1.17.4-r0 \
       jpeg-dev \
       pango-dev \
       musl-dev \
