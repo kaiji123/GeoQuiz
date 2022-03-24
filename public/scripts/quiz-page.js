@@ -75,10 +75,10 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer + '</button>';
+                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true), displayTickIcon()">' + q.answer + '</button>' + '<img style="position: relative; left: 450px; width: 50px; height: 50px; display:none;" id="tick" src="tick" />';
             }
             else{
-                html += '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi]+'</button>'
+                html += '<button class="trialQuestion" onclick="nextQuestion(this, false), displayCrossIcon()">'+q.wrong[wi]+'</button>' + '<img style="position: relative; left: 450px; width: 50px; height: 50px; display:none;" id="cross" src="cross" />';
                 wi++;
             }
         }
@@ -88,6 +88,20 @@ function genQuizHtml(quiz){
     })
     return htmlArray
 }
+
+function displayTickIcon() {
+    var sourceOfPicture = "https://www.freepnglogos.com/uploads/tick-png/tick-mark-symbol-icon-26.png";
+    var img = document.getElementById('tick')
+    img.src = sourceOfPicture;
+    img.style.display = "block";
+  } 
+
+  function displayCrossIcon() {
+    var sourceOfPicture = "https://www.downloadclipart.net/large/52728-wrong-cross-clipart.png";
+    var img = document.getElementById('cross')
+    img.src = sourceOfPicture;
+    img.style.display = "block";
+  } 
 
 function nextQuestion(el, right){
     //style element based on whether right answer clicked
