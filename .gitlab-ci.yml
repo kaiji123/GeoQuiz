@@ -19,17 +19,7 @@ build :
   script:
     - apk add --no-cache python3 py3-pip
     - apk add pkgconfig
-    - apk add --no-cache 
-      g++ \
-      cairo-dev@1.17.4-r0 \
-      jpeg-dev \
-      pango-dev \
-      musl-dev \
-      giflib-dev \
-      pixman-dev \
-      pangomm-dev \
-      libjpeg-turbo-dev \
-      freetype-dev \
+    - apk add --no-cache pixman-dev
     - npm ci --cache .npm --prefer-offline
 
 
