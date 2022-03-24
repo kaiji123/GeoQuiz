@@ -29,6 +29,7 @@
     "mysql2": "^2.3.3",
     "nightwatch": "^2.0.10",
     "node-geocoder": "^4.0.0",
+    "node-gyp": "^9.0.0",
     "node-navigator": "^1.0.1",
     "pm2": "^5.2.0",
     "progressbar.js": "^1.1.0",
