@@ -13,12 +13,13 @@ cache:
 
 build :
 
-  stage: build 
   services: 
     - python:alpine
+  stage: build 
   script:
     - apk add --no-cache python3 py3-pip
     - npm ci --cache .npm --prefer-offline
+
 
 
   artifacts:
