@@ -13,8 +13,6 @@ cache:
 
 build :
 
-  services: 
-    - python:alpine
   stage: build 
   script:
     - apk add --no-cache python3 py3-pip
