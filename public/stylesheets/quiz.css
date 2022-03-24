@@ -65,7 +65,7 @@ circle{
     }
 }
 
-#progress {
+#progress-bar {
     position: relative;
     height: 5%;
     margin-top: 0.5%;
@@ -77,7 +77,7 @@ circle{
     filter: drop-shadow(2px 2px 2px black);
  }
 
-#myBar {
+#inner-bar {
     transition: 0.3s;
     width: 0%;
     height: 100%;

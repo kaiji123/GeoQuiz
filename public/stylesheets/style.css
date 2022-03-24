@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 :root{
     --background-color: #ffdc9f;
-    --default-font: helvetica;
+    --default-font: Prata;
 }
 
 /*

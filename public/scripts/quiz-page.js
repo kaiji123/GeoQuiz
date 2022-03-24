@@ -1,10 +1,17 @@
 var currentQuestion = 0;
 var quizLength;
+var quizHtml = []
 var score = 0;
-var curTimer;
+
+//constantly increasing timer
+var timer = 0
+var quizStarted = false
 
 //document ready function - run on page load
 $(function(){
+    //start main loop
+    window.requestAnimationFrame(loop)
+
     //get client coordinates and generate a quiz for that location
     if('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -12,39 +19,44 @@ $(function(){
             var coords = {lat: position.coords.latitude, lon:position.coords.longitude};
             fetchQuiz(coords).then((data) => {
                 if(data == []){
-                    console.log('failed to load quiz');
-                }else{
-                    genQuizHtml(data);
+                    console.log('Failed to load quiz');
+                }
+                else{
+                    //generate markup for the quiz
+                    quizLength = data.length
+                    quizHtml = genQuizHtml(data);
+                    
+                    //start the quiz by rendering the first question
+                    $('#quiz').html(quizHtml[0]);
+                    quizStarted = true
+                    
                 }
             });
         });
-        curTimer = timeQuestion()
-    }else{
+    }
+    else{
         console.log('ERROR: Location services not available.');
     }
-  
-
-
-
 })
 
 //fetch a quiz from the API
-function fetchQuiz(coords){
-    return fetch('/api/quiz',{
+async function fetchQuiz(coords){
+    const res = await fetch('/api/quiz', {
         method: 'POST',
-        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(coords),
-    })
-    .then((res) => res.json());
+    });
+    return await res.json();
 }
 
 //takes a JSON quiz and generates html
 function genQuizHtml(quiz){
-    quizLength = quiz.length;
-    questionHtml = [];
+    var htmlArray = [];
+
     quiz.forEach((q) =>{
-        html  = '<h1 class="trialQuestion">' + q.question + '</h1>';
+        var html = '<h1 class="trialQuestion">' + q.question + '</h1>';
         
+        //create content for special question types
         if(q.type == 'text'){
             html += '<h3 class="trialQuestion">"' + q.metadata + '"</h3>';
         }
@@ -56,9 +68,10 @@ function genQuizHtml(quiz){
         //put buttons in a random order
         var rightPos = Math.floor(Math.random() * 4);
 
-        //keep track of used wrong answers
+        //keeps track of position in wrong answer array
         var wi = 0;
         html += '<div id="buttons">';
+
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
@@ -69,16 +82,15 @@ function genQuizHtml(quiz){
                 wi++;
             }
         }
+
         html += '</div>'
-        
-        questionHtml.push(html);
+        htmlArray.push(html);
     })
-    
-    $('#quiz').html(questionHtml[0]);
+    return htmlArray
 }
 
 function nextQuestion(el, right){
-    //style element 
+    //style element based on whether right answer clicked
     if(right) {
         score++;
         $(el).addClass('right')
@@ -88,31 +100,30 @@ function nextQuestion(el, right){
         $('#rightanswer').addClass('right')
     }
     
-    //advance progress bar
-    move()
+    //advance quiz progress bar
+    advanceProgressBar()
 
+    //stop timer animation
     $('#timer').css('animation', "")
     
-    setTimeout(function(){
-        if(currentQuestion + 1 >= quizLength){
-            finish(score);
-        }
-        else{
+    if(currentQuestion + 1 >= quizLength){
+        finish(score);
+    }
+    else{
+        setTimeout(() => {
             currentQuestion++
-            $('#quiz').html(questionHtml[currentQuestion]);
-            clearTimeout(curTimer);
-            curTimer = timeQuestion();
-            
-            
-            //elem.style.animation;
-            
-        }
-     }, 2500)    //wait for half a second
-    
+            $('#quiz').html(quizHtml[currentQuestion]);
+            timer = 0
+        }, 2500)
+
+        
+        //reset timer animation here
+        //elem.style.animation;
+    }  
 }
 
+//called when the quiz is finished
 function finish(score){
-    //end of quiz processing
     var percentage = (score / quizLength) * 100
     //save score
     if(sessionStorage.id != null){
@@ -136,18 +147,11 @@ function finish(score){
     }
 }
 
-
-//time your question 
-function timeQuestion(){
-    $('#timer').css('animation', "anim 5s linear forwards")
-    //set 5s time out then it calls nextQuestion automatically
-    return setTimeout(nextQuestion, 5000)
-}
-function move() {
-    var barWidth = $('#progress').width()
+//increases the width of the progress bar
+function advanceProgressBar() {
+    var barWidth = $('#progress-bar').width()
     var progressWidth = barWidth * ((currentQuestion + 1)/quizLength)
-    $('#myBar').css('width', progressWidth + 'px')
-
+    $('#inner-bar').css('width', progressWidth + 'px')
 }
 
 /*
@@ -159,3 +163,25 @@ function move() {
  */
 
 
+//main quiz loop - deltaTime = how long the last loop took in ms
+var deltaTime = 0
+var start = 0;
+var end = Date.now()
+
+function loop() {
+    //recalculate delta time
+    start = Date.now();
+    deltaTime = start - end;
+    
+    //code goes here
+    timer += deltaTime
+
+    if(timer > 10000 & quizStarted){
+        nextQuestion()
+        timer = 0
+    }
+    
+    //loop end calculations
+    end = Date.now()
+    window.requestAnimationFrame(loop)
+}
