@@ -100,6 +100,10 @@ circle{
     position: relative;
     margin-left: 5px;
     margin-right: 5px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #quiz button.right{
@@ -124,6 +128,16 @@ h1.trialQuestion{
 h3.trialQuestion{
     margin-top: 1%;
    
+}
+
+.tick-container{
+    width: 30px;
+    height: 30px;
+}
+.tick{
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 
 /*End of quiz stuff*/

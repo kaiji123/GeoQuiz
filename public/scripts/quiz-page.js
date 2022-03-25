@@ -75,10 +75,18 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true), displayTickIcon()">' + q.answer + '</button>' + '<img style="position: relative; left: 450px; width: 50px; height: 50px; display:none;" id="tick" src="tick" />';
+                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer 
+                    +       '<div class="tick-container">'
+                    +           '<img class="tick" src="https://www.freepnglogos.com/uploads/tick-png/tick-mark-symbol-icon-26.png"/>' 
+                    +       '</div>'
+                    +   '</button>' 
             }
             else{
-                html += '<button class="trialQuestion" onclick="nextQuestion(this, false), displayCrossIcon()">'+q.wrong[wi]+'</button>' + '<img style="position: relative; left: 450px; width: 50px; height: 50px; display:none;" id="cross" src="cross" />';
+                html+=  '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi] 
+                    +       '<div class="tick-container">'
+                    +           '<img class="tick" src="https://www.downloadclipart.net/large/52728-wrong-cross-clipart.png"/>' 
+                    +       '</div>'
+                    +   '</button>' 
                 wi++;
             }
         }
@@ -89,29 +97,20 @@ function genQuizHtml(quiz){
     return htmlArray
 }
 
-function displayTickIcon() {
-    var sourceOfPicture = "https://www.freepnglogos.com/uploads/tick-png/tick-mark-symbol-icon-26.png";
-    var img = document.getElementById('tick')
-    img.src = sourceOfPicture;
-    img.style.display = "block";
-  } 
-
-  function displayCrossIcon() {
-    var sourceOfPicture = "https://www.downloadclipart.net/large/52728-wrong-cross-clipart.png";
-    var img = document.getElementById('cross')
-    img.src = sourceOfPicture;
-    img.style.display = "block";
-  } 
-
 function nextQuestion(el, right){
     //style element based on whether right answer clicked
     if(right) {
         score++;
         $(el).addClass('right')
+        $(el).find('.tick').toggle()
     }
     else{
         $(el).addClass('wrong')
+        $(el).find('.tick').toggle()
+
         $('#rightanswer').addClass('right')
+        $('#rightanswer').find('.tick').toggle()
+
     }
     
     //advance quiz progress bar
@@ -188,7 +187,7 @@ function loop() {
     deltaTime = start - end;
     
     //code goes here
-    timer += deltaTime
+    //timer += deltaTime
 
     if(timer > 10000 & quizStarted){
         nextQuestion()
