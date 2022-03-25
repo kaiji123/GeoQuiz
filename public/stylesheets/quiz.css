@@ -111,7 +111,7 @@ circle{
 }
 
 #quiz button.wrong{
-    background-color: red;
+    background-color: rgb(204, 0, 0);
 }
 
 #google-image{
