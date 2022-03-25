@@ -22,7 +22,6 @@ function generateProfilePicture(res){
         row = row.concat(half)
         img.push(row)
     }
-    console.log(img)
     saveImg(img, 600)
 }
 
@@ -70,4 +69,4 @@ function randomColor(){
 }
 
 
-generateProfilePicture(8)
+generateProfilePicture(100)
