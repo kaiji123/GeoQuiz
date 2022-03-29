@@ -4,7 +4,7 @@ const QUIZ_LENGTH = 10
 
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
-const allowedData = ["rating", "formatted_address", "photos", "reviews"]
+const allowedData = ["rating", "photos", "reviews"]
 
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){

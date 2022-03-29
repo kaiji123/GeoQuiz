@@ -28,6 +28,8 @@ $(function(){
                     
                     //start the quiz by rendering the first question
                     $('#quiz').html(quizHtml[0]);
+                    $('#timer').css('animation', "anim 10s linear forwards")
+
                     quizStarted = true
                     
                 }
@@ -97,6 +99,7 @@ function genQuizHtml(quiz){
     return htmlArray
 }
 
+//called when the user clicks an answer
 function nextQuestion(el, right){
     //style element based on whether right answer clicked
     if(right) {
@@ -127,11 +130,8 @@ function nextQuestion(el, right){
             currentQuestion++
             $('#quiz').html(quizHtml[currentQuestion]);
             timer = 0
+            $('#timer').css('animation', "anim 10s linear forwards")
         }, 2500)
-
-        
-        //reset timer animation here
-        //elem.style.animation;
     }  
 }
 
@@ -187,7 +187,7 @@ function loop() {
     deltaTime = start - end;
     
     //code goes here
-    //timer += deltaTime
+    timer += deltaTime
 
     if(timer > 10000 & quizStarted){
         nextQuestion()

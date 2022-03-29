@@ -69,4 +69,4 @@ function randomColor(){
 }
 
 
-generateProfilePicture(100)
+generateProfilePicture(8)
