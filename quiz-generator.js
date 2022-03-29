@@ -1,11 +1,14 @@
 const axios = require('axios')
-const fs = require('fs');
+const fs = require('fs')
+const pos = require('pos')
+
 const QUIZ_LENGTH = 10
 
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
-const allowedData = ["rating", "photos", "reviews"]
+let allowedData = ["rating", "photos", "reviews", "reviews"]  //extra weighting for reviews
 
+let backupWords = ['Amazing!', 'nice', 'horrible,', 'staff', 'food', 'drink', 'Disappointing']
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){
     //read in cached api data
@@ -48,7 +51,7 @@ function generateQuizCache(){
 
             }
             else if(data == 'photos'){
-                wrong = randomPlaces(placePool);
+                wrong = randomPlaces(placePool,places[placeId]);
 
                 //remove item from array
                 let bytes = places[placeId].photo
@@ -57,11 +60,53 @@ function generateQuizCache(){
                 
             }
             else if(data =='reviews'){
-                wrong = randomPlaces(placePool);
-
-                //pick a review at random
+                let variant = Math.random() > 0.5 ? true : false    //picks one of the two types of review question
                 let review = pickRandom(details.reviews).text
-                question = questionJson('What is this a review for?', placeName, wrong, review, 'text')
+
+                if(variant){
+                    wrong = randomPlaces(placePool, places[placeId]);
+                    question = questionJson('What is this a review for?', placeName, wrong, review, 'text')
+                }
+                else{
+                    //identify nouns etc (pos = natural language processor)
+                    let allowedWordTypes = ['NN', 'NNP', 'NNPS', 'JJ', 'JJR', 'JJS']
+                    let words = new pos.Lexer().lex(review)
+                    let tagger = new pos.Tagger()
+                    let taggedWords = tagger.tag(words)
+
+                    //filter by allowed word types
+                    let filteredWords = []
+                    taggedWords.forEach(w => {
+                        if (allowedWordTypes.includes(w[1])){
+                            filteredWords.push(w)
+                        }
+                    })
+
+                    //pick a word of allowed type
+                    let rndWord = pickRandom(filteredWords)
+                    
+                    filteredWords.splice(filteredWords.indexOf(rndWord), 1) //remove the word 
+
+                    //replace the word with a gap
+                    let revArray = review.split(' ')
+                    let wordIndex = revArray.indexOf(rndWord[0])
+                    revArray[wordIndex] = '____'   //replace a random word
+                    let newRev = revArray.join(' ')
+
+                    //select some wrong answers
+                    let wrongWords = []
+                    for(let x = 0; x < 3; x++){
+                        let wrongWord = pickRandom(filteredWords)
+                        if(!wrongWord){
+                            wrongWord = pickRandom(backupWords)
+                        }
+                        wrongWords.push(wrongWord[0])
+                        filteredWords.splice(filteredWords.indexOf(wrongWord), 1)
+                    }                    
+
+                    question = questionJson('What word is missing?', rndWord[0], wrongWords, newRev, 'text')
+                    
+                } 
             }
             //remove place from the json object
             delete places[placeId]
@@ -73,6 +118,7 @@ function generateQuizCache(){
 
     return fspromise
 }
+
 
 //uses live API queries - expensive!
 function generateQuiz(coords, radius=10000, type='cafe'){
@@ -133,7 +179,7 @@ function generateQuiz(coords, radius=10000, type='cafe'){
 
                 }
                 else if(data == 'photos'){
-                    wrong = randomPlaces(places);
+                    wrong = randomPlaces(places, places[placeId]);
 
                     //remove item from array
                     let photoRef = placeDetails.photos[0].photo_reference
@@ -143,7 +189,7 @@ function generateQuiz(coords, radius=10000, type='cafe'){
                     })
                 }
                 else if(data =='reviews'){
-                    wrong = randomPlaces(places);
+                    wrong = randomPlaces(places, places[placeId]);
 
                     //pick a review at random
                     let review = pickRandom(placeDetails.reviews).text
@@ -222,9 +268,16 @@ function randomPlaces(sample, not){
     for(x = 0; x < 3; x++){
         let place = pickRandom(sample);
 
-        let name = place.name
+        //makes sure certain places are never picked
+        if(place.name == not.name || randPlaces.includes(place.name)){
+            x--
+            continue
+        }
+        else{
+            let name = place.name
 
-        randPlaces.push(name);
+            randPlaces.push(name);
+        }
     }
     return randPlaces
 }

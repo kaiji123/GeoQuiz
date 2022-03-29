@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 :root{
-    --background-color: #ffdc9f;
     --default-font: helvetica;
 }
 
@@ -18,7 +17,7 @@ body {
 
     height: 100vh;
     font-family: var(--default-font);
-    background-color: var(--background-color);
+    background-color: lightblue;
 }
 
 .navbar{
