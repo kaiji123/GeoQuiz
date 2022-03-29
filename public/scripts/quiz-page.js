@@ -131,7 +131,7 @@ function nextQuestion(el, right){
             $('#quiz').html(quizHtml[currentQuestion]);
             timer = 0
             $('#timer').css('animation', "anim 10s linear forwards")
-        }, 2500)
+        }, 2000)
     }  
 }
 
