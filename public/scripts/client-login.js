@@ -65,7 +65,7 @@ function signOut() {
 
 //edits header content based on user login status
 function setHeaderButton(){
-    let headerButton = $('#authentication')
+    let headerButton = $('#signin-out')
     //check if a user is logged in
     if(!sessionStorage.getItem('id')){
         headerButton.html("Sign in")

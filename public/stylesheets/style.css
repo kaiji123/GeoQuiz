@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 :root{
     --background-color: #ffdc9f;
-    --default-font: Prata;
+    --default-font: helvetica;
 }
 
 /*
@@ -100,12 +100,29 @@ p{
     height:100%;
 }
 
-.signin{
-    position: relative;
-    margin: 20px 10px;
+.buttons{
+    flex-grow: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
+#signin-out{
+    position: relative;
     padding: 0px 5px;
-    
+    margin-right: 10px
+}
+
+#profile{
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    border: 2px solid black;
+    margin-right: 10px
+}
+
+#profile:hover{
+    cursor: pointer;    
 }
 
 /*Main page class*/

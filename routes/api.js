@@ -91,8 +91,7 @@ router.post('/support', async (req, res) => {
     })
     .catch((err) =>{
         console.log(err)
-    })
-    
+    }) 
 })
 
 //will return a quiz when passed a location

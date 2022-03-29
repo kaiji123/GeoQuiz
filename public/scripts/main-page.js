@@ -8,13 +8,14 @@ function showUser(){
                 });
         }
         $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
-        var s = document.getElementById("authentication")
-        s.innerHTML = "Sign Out"
-        s.onclick = signOut
+
+        $('#signin-out').html("Sign Out")
+        $('#signin-out').click(signOut)
     
     }
     else{
         $('#username').append('Guest');
+        $('#profile').toggle();
     }   
 }
 
@@ -72,7 +73,7 @@ $(function(){
     showUser();
     showClientLocation();
    
-    showProfile();
+    //showProfile();
     
     //check if user has signed gdpr
     if(sessionStorage.getItem('gdpr') == 0){

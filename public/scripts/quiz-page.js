@@ -77,18 +77,20 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer 
+                html += '<div class="answer-container">'
+                    +       '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer + '</button>' 
                     +       '<div class="tick-container">'
                     +           '<img class="tick" src="https://www.freepnglogos.com/uploads/tick-png/tick-mark-symbol-icon-26.png"/>' 
                     +       '</div>'
-                    +   '</button>' 
+                    +   '</div>'
             }
             else{
-                html+=  '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi] 
+                html+=  '<div class="answer-container">'
+                    +       '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi] + '</button>' 
                     +       '<div class="tick-container">'
                     +           '<img class="tick" src="https://www.downloadclipart.net/large/52728-wrong-cross-clipart.png"/>' 
                     +       '</div>'
-                    +   '</button>' 
+                    +   '</div>'
                 wi++;
             }
         }
@@ -105,14 +107,14 @@ function nextQuestion(el, right){
     if(right) {
         score++;
         $(el).addClass('right')
-        $(el).find('.tick').toggle()
+        $(el).parent().find('.tick').toggle()
     }
     else{
         $(el).addClass('wrong')
-        $(el).find('.tick').toggle()
+        $(el).parent().find('.tick').toggle()
 
         $('#rightanswer').addClass('right')
-        $('#rightanswer').find('.tick').toggle()
+        $('#rightanswer').parent().find('.tick').toggle()
 
     }
     
