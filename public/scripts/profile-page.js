@@ -9,7 +9,31 @@ function getUsername(){
         
 }
 
+function registerDelete(){
+    $('#delete').click(function(){
+        let id = sessionStorage.getItem('id')
+        deleteUser(id).then(res => signOut())
+        
+       
+    })
+}
+
+
+async function deleteUser(id){
+
+    
+    const res = await fetch('/api/users', {
+        method: 'Delete',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            'id': id,
+        })
+    })
+
+    return res
+}
 //run on document load
 $(function(){
     getUsername();
+    registerDelete();
 })
