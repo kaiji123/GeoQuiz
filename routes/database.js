@@ -67,6 +67,8 @@ async function getLeaderboard(){
 
 }
 
+
+
 //adds a user to the users table
 async function addUser(userId, name) {
     var connection = makeConnection()

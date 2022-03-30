@@ -1,6 +1,11 @@
 //displays the username
 function getUsername(){
-    $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
+    if (sessionStorage.getItem('user')){
+        $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
+    }else{
+        $('#username').append("Guest");
+      
+    }
         
 }
 
