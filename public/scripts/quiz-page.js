@@ -56,15 +56,15 @@ function genQuizHtml(quiz){
     var htmlArray = [];
 
     quiz.forEach((q) =>{
-        var html = '<h1 class="trialQuestion">' + q.question + '</h1>';
+        var html = '<h1>' + q.question + '</h1>';
         
         //create content for special question types
         if(q.type == 'text'){
-            html += '<h3 class="trialQuestion">"' + q.metadata + '"</h3>';
+            html += '<h3>"' + q.metadata + '"</h3>';
         }
         else if(q.type == 'img'){
             var bytearray = q.metadata;
-            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '" class="trialQuestion"></img><br>'
+            html += '<img id="google-image" src="data:image/png;base64,' + bytearray + '"></img><br>'
         }
 
         //put buttons in a random order
@@ -77,25 +77,27 @@ function genQuizHtml(quiz){
         //add each question
         for(i = 0; i < 4; i++){
             if(i == rightPos){
-                html += '<div class="answer-container">'
-                    +       '<button class="trialQuestion" id="rightanswer" onclick="nextQuestion(this, true)">' + q.answer + '</button>' 
-                    +       '<div class="tick-container">'
-                    +           '<img class="tick" src="https://www.freepnglogos.com/uploads/tick-png/tick-mark-symbol-icon-26.png"/>' 
-                    +       '</div>'
+                html += '<div class="answer" id="rightanswer"  onclick="nextQuestion(this, true)">'
+                    +       '<div class="answer-text" >' 
+                    +           q.answer 
+                    +           '<span class="tick">    ✔️</span>'
+                    +       '</div>' 
                     +   '</div>'
             }
             else{
-                html+=  '<div class="answer-container">'
-                    +       '<button class="trialQuestion" onclick="nextQuestion(this, false)">'+q.wrong[wi] + '</button>' 
-                    +       '<div class="tick-container">'
-                    +           '<img class="tick" src="https://www.downloadclipart.net/large/52728-wrong-cross-clipart.png"/>' 
-                    +       '</div>'
+                html+=  '<div class="answer" onclick="nextQuestion(this, false)">'
+                    +       '<div class="answer-text">'
+                    +           q.wrong[wi] 
+                    +           '<span class="tick">    ❌</span>'
+                    +       '</div>' 
                     +   '</div>'
                 wi++;
             }
         }
 
         html += '</div>'
+
+      
         htmlArray.push(html);
     })
     return htmlArray
@@ -107,14 +109,14 @@ function nextQuestion(el, right){
     if(right) {
         score++;
         $(el).addClass('right')
-        $(el).parent().find('.tick').toggle()
+        $(el).find('.tick').css('visibility', 'visible')
     }
     else{
         $(el).addClass('wrong')
-        $(el).parent().find('.tick').toggle()
+        $(el).find('.tick').css('visibility', 'visible')
 
         $('#rightanswer').addClass('right')
-        $('#rightanswer').parent().find('.tick').toggle()
+        $('#rightanswer').find('.tick').css('visibility', 'visible')
 
     }
     

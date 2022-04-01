@@ -17,8 +17,6 @@ function showUser(){
     }   
 }
 
-
-
 function showClientLocation(){
     //check gelocation is available
     if('geolocation' in navigator) {

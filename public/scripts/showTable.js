@@ -25,6 +25,4 @@ function showTable(){
 
 $(function(){
     showTable();
-
-    
 })

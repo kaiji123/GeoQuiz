@@ -51,7 +51,8 @@ function generateQuizCache(){
 
             }
             else if(data == 'photos'){
-                wrong = randomPlaces(placePool,places[placeId]);
+                //random places excluding arg#2
+                wrong = randomPlaces(placePool, placeName);
 
                 //remove item from array
                 let bytes = places[placeId].photo
@@ -104,7 +105,7 @@ function generateQuizCache(){
                         filteredWords.splice(filteredWords.indexOf(wrongWord), 1)
                     }                    
 
-                    question = questionJson('What word is missing?', rndWord[0], wrongWords, newRev, 'text')
+                    question = questionJson(`What word is missing from this review for ${placeName}?`, rndWord[0], wrongWords, newRev, 'text')
                     
                 } 
             }
@@ -262,14 +263,14 @@ function randomRatings(){
 }
 
 //genearte three random place names
-function randomPlaces(sample, not){
+function randomPlaces(sample, exclude){
     //pick some places and get their names
     let randPlaces = [];
     for(x = 0; x < 3; x++){
         let place = pickRandom(sample);
 
         //makes sure certain places are never picked
-        if(place.name == not.name || randPlaces.includes(place.name)){
+        if(place.name === exclude || randPlaces.includes(place.name)){
             x--
             continue
         }

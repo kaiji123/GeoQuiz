@@ -48,7 +48,7 @@ router.post('/add-user', async (req, res) => {
     }
 })
 
-router.get('/profile-picture/:id', async(req, res) =>{
+router.get('/profile-picture/:id    ', async(req, res) =>{
     let id = req.params.id
     console.log('fetching profile picture for ' + id)
     let pixels = await database.getProfilePicture(id)
