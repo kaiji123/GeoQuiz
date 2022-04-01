@@ -11,7 +11,7 @@ cache:
     - .npm/
 
 .prep :
-  script:
+  before_script:
     - apk add --no-cache python3 py3-pip
     - apk add pkgconfig
     - apk add --no-cache pixman-dev
