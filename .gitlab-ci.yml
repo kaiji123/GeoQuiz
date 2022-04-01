@@ -26,6 +26,8 @@ build :
     - apk add --no-cache pango-dev 
     - apk add --no-cache giflib-dev
 
+    
+
     - npm ci --cache .npm --prefer-offline
 
 
