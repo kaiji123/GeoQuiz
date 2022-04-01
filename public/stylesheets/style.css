@@ -47,7 +47,7 @@ button, input[type=submit]{
 
     border-radius: 2px;
     border: 1.5px solid black;
-    filter: drop-shadow(1.5px 1.5px 1.5px black);
+    filter: drop-shadow(1px 1px 1px black);
     transition: 0.3s;
 }
 
@@ -74,9 +74,10 @@ p{
     justify-content: space-between;
     position: absolute;
     width: 100%;
-    height: 82.5px;
-    border-bottom: 1px solid white;
-    
+    height: 75px;
+    background-color: rgb(141, 206, 227);
+    border-bottom: 0.5px solid rgb(0, 0, 0);
+    filter: drop-shadow(1.25px 1.25px 1.25px black);
 }
 
 .usernameText {
