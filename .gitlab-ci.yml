@@ -55,8 +55,6 @@ test:
 deploy:
   stage : deploy
   timeout: 1h
-  extends:
-    - .prep
   before_script :
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
     - eval $(ssh-agent -s)
@@ -68,6 +66,7 @@ deploy:
     - ssh-add
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS ufw allow 3000
     - 'apk add --upgrade gettext'
+    - 'apk add --upgrade nodejs'
     - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
