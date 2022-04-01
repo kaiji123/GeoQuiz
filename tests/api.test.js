@@ -2,8 +2,12 @@ const chai = require('chai');
 const should = chai.should();
 const expect = chai.expect;
 
+require('canvas')
+
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
+
+
 
 const app = require('../app.js');
 const database = require("../routes/database.js")
@@ -23,6 +27,8 @@ describe('GET /api/leaderboard', () => {
         }).then(done());
     });
 });
+
+
 
 //  location test
 describe('POST /api/location', () => {
@@ -60,6 +66,8 @@ describe('POST /api/save-score', () => {
   });
 });
 
+
+/*
 //api/integration tests
 describe('POST /api/add-user', () => {
   it('Should create a new user', done => {
@@ -78,4 +86,6 @@ describe('POST /api/add-user', () => {
         done());
   });
 });
+
+*/
 
