@@ -3,27 +3,29 @@ html
   head
     title= 'GeoQuiz'
     meta(name ='viewport' content='width=device-width, initial-scale=1')
-    meta(name="google-signin-client_id",content=process.env.CLIENT_ID)
+    meta(name="google-signin-client_id", content=process.env.CLIENT_ID)
+
     //jquery include
     script(src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous")
     
     //google oauth include
     script(async,defer,src='https://apis.google.com/js/platform.js?onload=onLoad')
    
-    //handles all signin/signout behaviour
+    //handles all signin/signout behaviour for all pages
     script(src='/scripts/client-login.js')
 
+    //default element styles
     link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
     .header 
       .logo
         a(href='/')
-          img(src='/images/logo.png')
+            img(src='/images/logo.png')
             
       .buttons
         button#signin-out='Sign in'
-        img#profile(src='/images/test-pfp.png' onclick="window.location.href = '/profile'")
+        img#profile(onclick="window.location.href = '/profile'" style="display:none")
       
     .page
       block content

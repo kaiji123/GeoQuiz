@@ -2,6 +2,8 @@ var express = require('express')
 var router = express.Router()
 var database = require('./database.js')
 var quizgen = require('../quiz-generator.js')
+var profilePicture = require('./profile-picture.js')
+
 var fs = require('fs').promises
 
 const NodeGeocoder = require('node-geocoder')
@@ -14,7 +16,6 @@ const options = {
 }
 
 const geocoder = NodeGeocoder(options)
-
 
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) =>{
@@ -45,6 +46,17 @@ router.post('/add-user', async (req, res) => {
     else{
         res.sendStatus(200)
     }
+})
+
+router.get('/profile-picture/:id', async(req, res) =>{
+    let id = req.params.id
+    console.log('fetching profile picture for ' + id)
+    let pixels = await database.getProfilePicture(id)
+    
+    //turn our json into an image
+    let data = profilePicture.renderProfilePicture(JSON.parse(pixels), 500)
+    res.setHeader('content-type', 'image/png');
+    res.send(data)
 })
 
 router.delete('/users', function(req, res){
@@ -115,6 +127,5 @@ locFromCoords = (coords) => {
         geocoder.reverse(coords).then((loc) => resolve(loc))
     })
 }
-
 
 module.exports = router

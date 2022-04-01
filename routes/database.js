@@ -1,4 +1,5 @@
 var mysql = require('mysql2');
+var profilePicture = require('./profile-picture.js')
 
 function makeConnection() {
     return mysql.createConnection({
@@ -67,17 +68,18 @@ async function getLeaderboard(){
 
 }
 
-
-
 //adds a user to the users table
 async function addUser(userId, name) {
     var connection = makeConnection()
-    let sql = "INSERT INTO users(userId, name) VALUES (" + userId + ", '" + name + "')"
+
+    //randomly generated profile image in our format
+    let pfp = JSON.stringify(profilePicture.generateProfilePicture())
+    console.log(pfp)
+
+    let sql = "INSERT INTO users(userId, name, pfp) VALUES (" + userId + ", '" + name + "', '" + pfp + "')"
 
     try{
         const [rows, fields] = await connection.promise().query(sql)
-        console.log(rows.values);
-
         connection.end();
         return 200
     }
@@ -123,7 +125,6 @@ async function deleteUser(userId){
 async function getGDPR(id){
     var conn = makeConnection()
     let sql = "SELECT gdpr FROM users WHERE userId = " + id
-    console.log(sql)
     try {
         const [rows, fields] = await conn.promise().query(sql);
         console.log(rows)
@@ -145,6 +146,21 @@ async function setGDPR(id, val){
         const [rows, fields] = await conn.promise().query(sql);
         conn.end()
         return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
+async function getProfilePicture(id){
+    var conn = makeConnection()
+    let sql = "SELECT pfp FROM users WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return rows[0].pfp
 
     }
     catch(err){
@@ -224,6 +240,7 @@ module.exports = {
     getScores,
     getGDPR,
     setGDPR,
+    getProfilePicture,
     selectUsersPoints,
     getUsers
 }

@@ -1,10 +1,12 @@
 const {createCanvas} = require('canvas')
 const fs = require('fs')
 
-function generateProfilePicture(res){
+const DEFAULT_RES = 8
+
+function generateProfilePicture(res = DEFAULT_RES){
     //generate 3*6 then mirror
-    let color = randomColor()
-    let img = [];
+    let colour = randomColour()
+    let img = {'colour': colour, 'pixels':[]};
 
     //for each column:
     for(y = 0; y < res; y++){
@@ -20,28 +22,27 @@ function generateProfilePicture(res){
         row = row.concat(half)
         half.reverse();
         row = row.concat(half)
-        img.push(row)
+        img.pixels.push(row)
     }
-    saveImg(img, 600)
+    return img
 }
 
 //image pixels and image size
-function saveImg(img, size){
+function renderProfilePicture(img, size=500){
     //create a new render context
     const canvas = createCanvas(size, size)
     const ctx = canvas.getContext('2d')
 
     //calculate pixel res and tilesize
-    let res = img.length
+    let res = img.pixels.length
     let tileSize = size / res
-    let color = randomColor();
+    let colour = img.colour;
 
     for(y = 0; y < res; y++){
-        let line = '';
         for(x = 0; x < res; x++){
-            if(img[y][x]){
-                ctx.fillStyle = color
-                
+            if(img.pixels[y][x]){
+                console.log(colour)
+                ctx.fillStyle = colour 
             }
             else{
                 ctx.fillStyle = '#fff'
@@ -50,11 +51,14 @@ function saveImg(img, size){
         }
     }
 
-    const buffer = canvas.toBuffer('image/png')
-    fs.writeFileSync('./image.png', buffer)
+    //var buffer = canvas.toBuffer('image/png')
+    //fs.writeFileSync('./image.png', buffer)
+
+    const data = canvas.toBuffer('image/png')
+    return data
 }
 
-function randomColor(){
+function randomColour(){
     let r = Math.floor((Math.random() * 255)).toString(16)
     let g = Math.floor((Math.random() * 255)).toString(16)
     let b = Math.floor((Math.random() * 255)).toString(16)
@@ -62,11 +66,13 @@ function randomColor(){
     //very quick darkening
     let tooLight = 250;
     if(r > tooLight && g > tooLight && b > tooLight){
-        r = 0
+        r = '00'
     }
 
     return '#' + r + g + b;
 }
 
-
-generateProfilePicture(8)
+module.exports ={
+    generateProfilePicture,
+    renderProfilePicture
+}

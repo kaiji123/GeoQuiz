@@ -1,19 +1,20 @@
+//
+// This file handles anything sign in/sign out related
+//
+
 $(function(){
     //only try and render google login if we're on the login page
-    if(window.location.pathname == '/login'){
-        renderGLogin()
-    }
-    setHeaderButton()
-})
-
-window.onresize = renderGLogin;
-
-//called when login api loads
-function onLoad(){
     gapi.load('auth2', function() {
         gapi.auth2.init();
     });
-}
+    if(window.location.pathname == '/login'){
+        renderGLogin()
+    }
+
+    setHeaderContent()
+})
+
+window.onresize = renderGLogin;
 
 //renders google login at an appropriate size
 function renderGLogin(){
@@ -58,25 +59,29 @@ function signOut() {
     auth2.signOut().then(function () {
         //clear session storage and reset button
         sessionStorage.clear()
-        setHeaderButton()
+        setHeaderContent()
         window.location.href = "/"
     })
 }
 
 //edits header content based on user login status
-function setHeaderButton(){
+function setHeaderContent(){
     let headerButton = $('#signin-out')
     //check if a user is logged in
     if(!sessionStorage.getItem('id')){
         headerButton.html("Sign in")
+
         headerButton.click(function(){
             window.location.href='/login'
         })
     }
     else{
         headerButton.html("Sign out")
+        $('#profile').attr('src', '/api/profile-picture/' + sessionStorage.id)
+        $('#profile').toggle();
         headerButton.click(function(){
-                window.location.href='/'
+                signOut()
+                //window.location.href='/'
         })
     }
 }

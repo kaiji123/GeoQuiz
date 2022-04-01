@@ -10,12 +10,10 @@ function showUser(){
         $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
 
         $('#signin-out').html("Sign Out")
-        $('#signin-out').click(signOut)
     
     }
     else{
         $('#username').append('Guest');
-        $('#profile').toggle();
     }   
 }
 
@@ -72,31 +70,13 @@ $(function(){
     getTextSize();
     showUser();
     showClientLocation();
-   
-    //showProfile();
-    
+       
     //check if user has signed gdpr
     if(sessionStorage.getItem('gdpr') == 0){
         toggleGDPR();
     }
 
-    
 })
-
-//check if a user is logged in and if they are display the profile button
-function showProfile(){
-     if(sessionStorage.getItem("user") != null){
-         const profileBtn = document.createElement('profileBtn')
-         profileBtn.innerText = 'Profile'
-
-         profileBtn.addEventListener('click', () => {
-             window.location.href = "/profile"
-         })
-
-         profileBtn.className = "header"
-         document.body.appendChild(profileBtn) 
-     }
- }
 
 function setTextSize(size){
     sessionStorage.setItem("size", size);
