@@ -37,5 +37,9 @@ router.get('/leaderboard', function(req, res, nect){
   res.render('leaderboard')
 });
 
+router.get('/review', function(req, res, nect){
+  res.render('review')
+});
+
 
 module.exports = router;
