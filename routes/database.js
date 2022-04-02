@@ -96,6 +96,27 @@ async function userExists(userId){
 
     try{
         const[rows, fields] = await conn.promise().query(sql)
+        
+        //faulty code
+        exists = Object.values(rows[0])[0] == 1 ? true : false
+
+        
+        console.log(rows)
+        console.log(exists)
+        return exists
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
+async function userExist2(userId,username){
+    var conn = makeConnection()
+    let sql = "SELECT EXISTS(SELECT 1 FROM users WHERE userId = " + userId + " AND name = '"+ username +"')"
+
+    try{
+        const[rows, fields] = await conn.promise().query(sql)
         exists = Object.values(rows[0])[0] == 1 ? true : false
         return exists
     }
@@ -236,6 +257,7 @@ module.exports = {
     addUser,
     deleteUser,
     userExists,
+    userExist2,
     addScore,
     getScores,
     getGDPR,

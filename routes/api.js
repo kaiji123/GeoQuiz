@@ -3,6 +3,7 @@ var router = express.Router()
 var database = require('./database.js')
 var quizgen = require('../quiz-generator.js')
 var profilePicture = require('./profile-picture.js')
+var jwt = require('jsonwebtoken')
 
 var fs = require('fs').promises
 
@@ -37,14 +38,38 @@ router.post('/add-user', async (req, res) => {
     let id = req.body.id
     let name = req.body.name
 
-    let exists = await database.userExists(id)
+    let exists =  await database.userExists(id)
+
+    console.log("check database")
+    console.log(exists)
 
     if(!exists){
+        console.log("it doesnt exist brother")
         var status = await database.addUser(id, name)
         res.sendStatus(status)
     }
     else{
-        res.sendStatus(200)
+        // check the user with correct credentials exists
+        let check = await database.userExist2(id, name);
+
+        let user = {username: name , googleId: id}
+
+        //if correct send success status
+        if (check){
+           
+            //jwt authentication
+            console.log("user exists")
+            const token = jwt.sign(user,"my secret key")
+           
+
+            //send token response
+            res.json(token)
+
+        }else{
+            console.log("bad user")
+            res.sendStatus(403)
+        }
+        
     }
 })
 
@@ -59,9 +84,13 @@ router.get('/profile-picture/:id    ', async(req, res) =>{
     res.send(data)
 })
 
-router.delete('/users', function(req, res){
+router.delete('/users', authenticateToken, function(req, res){
   data = req.body
   let userId = data.id
+
+  // add a layer of security
+
+  //to do cascading delete
   res.send(database.deleteUser(userId))
 })
 
@@ -128,4 +157,35 @@ locFromCoords = (coords) => {
     })
 }
 
+
+
+//authentication middleware 
+function authenticateToken(req,res, next){
+
+    //check if request has authorization header
+    const header = req.headers['authorization']
+    console.log(header)
+    token = header && header.split(' ')[1]
+   
+
+    //if token does not exist 
+    if (token == null){
+        console.log("no token :(")
+        return res.sendStatus(401)
+    }
+
+
+    console.log("token exists")
+
+    //verifying the token
+    jwt.verify(token, "my secret key", (err,user) => {
+        if (err){
+            console.log("nope")
+            return res.sendStatus(403)
+        }else{
+            console.log("yes")
+            next()
+        }
+    })
+}
 module.exports = router

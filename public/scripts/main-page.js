@@ -1,5 +1,6 @@
 //check if a user is logged in and display their name
 function showUser(){
+    
     //check if a user is logged in + set header to username
     if(sessionStorage.getItem("user") != null){
         window.onLoadCallback = function(){

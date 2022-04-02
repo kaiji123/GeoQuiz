@@ -20,11 +20,11 @@ function registerDelete(){
 
 
 async function deleteUser(id){
-
+    const token = sessionStorage.getItem("token")
     
     const res = await fetch('/api/users', {
         method: 'Delete',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer '+token },
         body: JSON.stringify({
             'id': id,
         })

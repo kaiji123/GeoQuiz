@@ -44,13 +44,31 @@ function onSignIn(googleUser) {
 
         //query the api with the user's id and add them to the db if they're new
         addUserIfNew(id, name).then((res) => {
-            //once the user has been added/verified, check their gdpr status
-            return checkGDPR(profile.getId())
+                // if have a bad response then do not login and stay on the login page
+                if (res === 403){
+                    return
+                }
+
+                else{
+                    //get the token and set it in the session storage
+                    res.json().then(data=>{
+                        sessionStorage.setItem("token", data)
+
+                        //once the user has been added/verified, check their gdpr status
+                        //if the user has correct credentials then checkGDPR and use the promise to change the url
+                        checkGDPR(profile.getId()).then((gdpr) => {
+                            sessionStorage.setItem('gdpr', gdpr)
+                        
+                            window.location.href = "/"
+                        })
+                    })
+                    
+                  
+                    
+            }
+         
         })
-        .then((gdpr) => {
-            sessionStorage.setItem('gdpr', gdpr)
-            window.location.href = "/"
-        })
+      
         
 }
 
