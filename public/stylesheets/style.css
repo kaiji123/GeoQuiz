@@ -122,7 +122,8 @@ p{
 }
 
 #profile:hover{
-    cursor: pointer;    
+    cursor: pointer;  
+    filter:grayscale();
 }
 
 /*Main page class*/

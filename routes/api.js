@@ -40,18 +40,15 @@ router.post('/add-user', async (req, res) => {
 
     let exists =  await database.userExists(id)
 
-    console.log("check database")
     console.log(exists)
 
     if(!exists){
-        console.log("it doesnt exist brother")
         var status = await database.addUser(id, name)
         res.sendStatus(status)
     }
     else{
         // check the user with correct credentials exists
         let check = await database.userExist2(id, name);
-
         let user = {username: name , googleId: id}
 
         //if correct send success status
@@ -84,6 +81,14 @@ router.get('/profile-picture/:id', async(req, res) =>{
     res.send(data)
 })
 
+router.post('/reset-pfp', async(req, res) => {
+    let id = req.body.id
+    let pfp = JSON.stringify(profilePicture.generateProfilePicture())
+
+    let status = await database.setProfilePicture(id, pfp)
+    res.sendStatus(status)
+})
+
 router.delete('/users', authenticateToken, function(req, res){
   data = req.body
   let userId = data.id
@@ -93,7 +98,6 @@ router.delete('/users', authenticateToken, function(req, res){
   //to do cascading delete
   res.send(database.deleteUser(userId))
 })
-
 
 router.get('/scores', async (req, res) => {
     let scores = await database.getScores()

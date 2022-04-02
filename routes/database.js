@@ -190,6 +190,21 @@ async function getProfilePicture(id){
     }
 }
 
+async function setProfilePicture(id, pfp){
+    var conn = makeConnection()
+    let sql = "UPDATE users SET pfp = '" + pfp + "' WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
 async function deleteScore(id){
     var conn = makeConnection()
     let sql = "DELETE FROM scores WHERE scoreId = " + id
@@ -263,6 +278,7 @@ module.exports = {
     getGDPR,
     setGDPR,
     getProfilePicture,
+    setProfilePicture,
     selectUsersPoints,
     getUsers
 }

@@ -41,13 +41,12 @@ function renderProfilePicture(img, size=500){
     for(y = 0; y < res; y++){
         for(x = 0; x < res; x++){
             if(img.pixels[y][x]){
-                console.log(colour)
                 ctx.fillStyle = colour 
             }
             else{
-                ctx.fillStyle = '#fff'
+                ctx.fillStyle = '#ffffff'
             }
-            ctx.fillRect((x*tileSize), (y*tileSize), tileSize, tileSize)
+            ctx.fillRect((x*tileSize), (y*tileSize), tileSize + 1, tileSize + 1)
         }
     }
 
@@ -64,11 +63,15 @@ function randomColour(){
     let b = Math.floor((Math.random() * 255)).toString(16)
     
     //very quick darkening
-    let tooLight = 250;
+    let tooLight = 200;
     if(r > tooLight && g > tooLight && b > tooLight){
         r = '00'
     }
 
+    r = r.padStart(2, '0')
+    g = g.padStart(2, '0')
+    b = b.padStart(2, '0')
+    console.log(r + ',' + g + ',' + b)
     return '#' + r + g + b;
 }
 

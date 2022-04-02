@@ -8,10 +8,7 @@ function showUser(){
                 client_id: process.env.CLIENT_ID
                 });
         }
-        $('#username').append(sessionStorage.getItem("user").split(' ')[0]);
-
-        $('#signin-out').html("Sign Out")
-    
+        $('#username').append(sessionStorage.getItem("user").split(' ')[0]);    
     }
     else{
         $('#username').append('Guest');
