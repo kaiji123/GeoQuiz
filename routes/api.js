@@ -165,7 +165,7 @@ function authenticateToken(req,res, next){
     //check if request has authorization header
     const header = req.headers['authorization']
     console.log(header)
-    token = header && header.split(' ')[1]
+    let token = header && header.split(' ')[1]
    
 
     //if token does not exist 
