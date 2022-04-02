@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var database = require('./database.js')
-var quizgen = require('../quiz-generator.js')
+var quizgen = require('./quiz-gen-v2.js')
 var profilePicture = require('./profile-picture.js')
 var jwt = require('jsonwebtoken')
 
@@ -73,7 +73,7 @@ router.post('/add-user', async (req, res) => {
     }
 })
 
-router.get('/profile-picture/:id    ', async(req, res) =>{
+router.get('/profile-picture/:id', async(req, res) =>{
     let id = req.params.id
     console.log('fetching profile picture for ' + id)
     let pixels = await database.getProfilePicture(id)
@@ -139,7 +139,7 @@ router.post('/support', async (req, res) => {
 router.post('/quiz', async (req, res) => {
     var coords = req.body
 
-    quizgen.generateQuizCache().then((data) => {
+    quizgen.generateQuiz().then((data) => {
         res.send(data)
     })
 })

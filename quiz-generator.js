@@ -3,12 +3,11 @@ const fs = require('fs')
 const pos = require('pos')
 
 const QUIZ_LENGTH = 10
-
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 let allowedData = ["rating", "photos", "reviews", "reviews"]  //extra weighting for reviews
 
-let backupWords = ['Amazing!', 'nice', 'horrible,', 'staff', 'food', 'drink', 'Disappointing']
+
 //generate a quiz object with random questions, based on cached data (much cheaper)
 function generateQuizCache(){
     //read in cached api data
