@@ -1,6 +1,9 @@
+var endFX = new Audio('../sounds/end.wav')
+
 $(function(){
     showScore();
     startConfetti();
+    endFX.play()
 })
 
 //gets a user's most recent score and displays it

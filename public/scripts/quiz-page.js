@@ -3,6 +3,11 @@ var quizLength;
 var quizHtml = []
 var score = 0;
 
+//sound effects
+var rightFX = new Audio('../sounds/right.wav');
+var wrongFX = new Audio('../sounds/wrong.wav');
+
+
 //constantly increasing timer
 var timer = 0
 var quizStarted = false
@@ -110,6 +115,7 @@ function nextQuestion(el, right){
         score++;
         $(el).addClass('right')
         $(el).find('.tick').css('visibility', 'visible')
+        rightFX.play()
     }
     else{
         $(el).addClass('wrong')
@@ -117,6 +123,7 @@ function nextQuestion(el, right){
 
         $('#rightanswer').addClass('right')
         $('#rightanswer').find('.tick').css('visibility', 'visible')
+        wrongFX.play()
 
     }
     
@@ -125,18 +132,18 @@ function nextQuestion(el, right){
 
     //stop timer animation
     $('#timer').css('animation', "")
-    
-    if(currentQuestion + 1 >= quizLength){
-        finish(score);
-    }
-    else{
-        setTimeout(() => {
+
+    setTimeout(() => {
+        if(currentQuestion + 1 >= quizLength){
+            finish(score);
+        }
+        else{
             currentQuestion++
             $('#quiz').html(quizHtml[currentQuestion]);
             timer = 0
             $('#timer').css('animation', "anim 10s linear forwards")
-        }, 2000)
-    }  
+        }
+    }, 2000)
 }
 
 //called when the quiz is finished

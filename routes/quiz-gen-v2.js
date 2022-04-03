@@ -4,7 +4,6 @@ const pos = require('pos')
 const QUIZ_LENGTH = 10
 
 let allowedQTypes = ['rating', 'photos', 'reviews', 'reviews']
-allowedQTypes = ['reviews']
 
 async function generateQuiz(){
     //places are indexed by place id
@@ -40,7 +39,7 @@ function generateQuestion(placeId, places, type){
         case 'photos':
             return photoQuestion(place, places)
         case 'reviews':
-            if (Math.random() < 0){//0.5){
+            if (Math.random() < 0.5){
                 return reviewQuestion(place, places)
             }
             else{
