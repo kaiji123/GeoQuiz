@@ -6,6 +6,7 @@ const QUIZ_LENGTH = 10
 const API_KEY = 'AIzaSyChzAGrXXV8gklFuucKcuT_dY0lOg5Fd84'
 
 let allowedData = ["rating", "photos", "reviews", "reviews"]  //extra weighting for reviews
+const backupWords = ['Amazing!', 'nice', 'horrible,', 'staff', 'food', 'drink', 'Disappointing']  //in case we run out of random words
 
 
 //generate a quiz object with random questions, based on cached data (much cheaper)
