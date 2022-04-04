@@ -6,6 +6,10 @@ block content
     script(src='/scripts/quiz-page.js')
 
     .container-left
+        .mascot
+            a(href='/quiz')
+                //img(src='/images/cute_globe.png')
+                //img(src='/images/sad_globe.png')
     #quiz-container
         #quiz 
             h1='Loading your quiz...'
@@ -15,8 +19,8 @@ block content
         svg( width='160px' height='160px')
             defs
                 lineargradient#GradientColor
-                    stop(offset='0%' stop-color='#d2b48c')
-                    stop(offset='100%' stop-color='#a0522d')
+                    stop(offset='0%' stop-color='#ffffff')
+                    stop(offset='100%' stop-color='#2066fc')
             circle#timer( cx='80' cy='80' r='70' stroke-linecap='round')
         
             

@@ -17,7 +17,7 @@ body {
 
     height: 100vh;
     font-family: var(--default-font);
-    background-color: lightblue;
+    background-color: #9ec8ff;
 }
 
 .navbar{
@@ -45,7 +45,7 @@ button, input[type=submit]{
     font-family: var(--default-font);
     font-weight: bold;
 
-    border-radius: 2px;
+    border-radius: 1%;
     border: 1.5px solid black;
     filter: drop-shadow(1px 1px 1px black);
     transition: 0.3s;
@@ -75,7 +75,7 @@ p{
     position: absolute;
     width: 100%;
     height: 75px;
-    background-color: rgb(141, 206, 227);
+    background-color: #7ab1ff;
     border-bottom: 0.5px solid rgb(0, 0, 0);
     filter: drop-shadow(1.25px 1.25px 1.25px black);
 }
@@ -110,7 +110,7 @@ p{
 #signin-out{
     position: relative;
     padding: 0px 5px;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 #profile{
@@ -118,7 +118,7 @@ p{
     max-height: 50px;
     border-radius: 50%;
     border: 3px solid black;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 #profile:hover{

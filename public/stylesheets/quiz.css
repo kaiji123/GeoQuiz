@@ -14,22 +14,21 @@ circle{
 }
 
 #progress-bar {
-
+    margin-left: 2%;
     height: 20px;
     bottom: 0px;
     margin-top: 20px;
-    background-color: beige;
+    background-color: #ffffff;
 }
 
 #inner-bar {
     transition: 0.3s;
     width: 0%;
     height: 100%;
-    background-color:#a0522d;
+    background-color:#2066fc;
     text-align: center;
     line-height: 32px;
-    color: black;
-    
+
 } 
 
 .container-left{
@@ -59,10 +58,12 @@ circle{
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 100px 100px;
+    column-gap: 2%;
+    row-gap: 5%;
 }
 
 .answer{
-    background-color: navajowhite;
+    background-color: rgb(255, 255, 255);
     border: 2px solid black;
     width: 100%;
     height: 100%;
@@ -112,7 +113,10 @@ circle{
     display: inline;
     visibility: hidden;
 }
+ .happy{
+     max-height: 400px;
 
+ }
 /*End of quiz stuff*/
 .quiz-end{
     width: 50%;

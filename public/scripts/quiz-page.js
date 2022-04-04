@@ -116,6 +116,8 @@ function nextQuestion(el, right){
         $(el).addClass('right')
         $(el).find('.tick').css('visibility', 'visible')
         rightFX.play()
+        html = '<img class="happy" src="/public/images/cute_globe.png" >'
+        
     }
     else{
         $(el).addClass('wrong')
