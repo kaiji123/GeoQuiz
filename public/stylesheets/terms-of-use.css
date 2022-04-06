@@ -2,6 +2,10 @@
   position: relative;
   z-index: 1;
   padding-top: 10px;
-  padding-left: 20px;
-  font-size: 18px;
+  padding-left: 2vh;
+  font-size: 100%;
+}
+
+p{
+  font-size: 100%;
 }
