@@ -7,45 +7,79 @@ var score = 0;
 var rightFX = new Audio('../sounds/right.wav');
 var wrongFX = new Audio('../sounds/wrong.wav');
 
+//emojis
+var emojis = {
+    'happy':'😁',
+    'mid':'😥',
+    'sad':'😭'
+}
+
 
 //constantly increasing timer
 var timer = 0
 var quizStarted = false
 
+var debug = false
+
 //document ready function - run on page load
 $(function(){
-    //start main loop
-    window.requestAnimationFrame(loop)
+   setTimeout(init, 3000)
+   let countdown = 3
+   $('#countdown').html(countdown)
 
-    //get client coordinates and generate a quiz for that location
-    if('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            //get lat and lon coords and fetch a quiz
-            var coords = {lat: position.coords.latitude, lon:position.coords.longitude};
-            fetchQuiz(coords).then((data) => {
-                if(data == []){
-                    console.log('Failed to load quiz');
-                }
-                else{
-                    //generate markup for the quiz
-                    quizLength = data.length
-                    quizHtml = genQuizHtml(data);
-                    
-                    //start the quiz by rendering the first question
-                    $('#quiz').html(quizHtml[0]);
-                    $('#timer').css('animation', "anim 10s linear forwards")
 
-                    quizStarted = true
-                    
-                }
-            });
-        });
-    }
-    else{
-        console.log('ERROR: Location services not available.');
-    }
+   setInterval(() =>{
+        countdown--
+        if(countdown > 0) $('#countdown').html(countdown)
+   }, 1000)
+
 })
 
+function init(){
+ //enable debug for jack's user account
+ if(sessionStorage.id == '106017767078900462768'){
+    let debugStyle = `
+        font-weight: bold;
+        background-color: #9ec8ff;
+        color: black;
+        border: 5px solid black;
+        font-size: 30px;
+    `
+    console.log('%c DEBUG MODE ON ', debugStyle)
+    debug = true
+}
+//start main loop
+window.requestAnimationFrame(loop)
+
+
+//get client coordinates and generate a quiz for that location
+if('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+        //get lat and lon coords and fetch a quiz
+        var coords = {lat: position.coords.latitude, lon:position.coords.longitude};
+        fetchQuiz(coords).then((data) => {
+            if(data == []){
+                console.log('Failed to load quiz');
+            }
+            else{
+                //generate markup for the quiz
+                quizLength = data.length
+                quizHtml = genQuizHtml(data);
+                
+                //start the quiz by rendering the first question
+                $('#quiz').html(quizHtml[0]);
+                $('#timer').css('animation', "anim 10s linear forwards")
+
+                quizStarted = true
+                
+            }
+        });
+    });
+}
+else{
+    console.log('ERROR: Location services not available.');
+}
+}
 //fetch a quiz from the API
 async function fetchQuiz(coords){
     const res = await fetch('/api/quiz', {
@@ -176,8 +210,22 @@ function finish(score){
 //increases the width of the progress bar
 function advanceProgressBar() {
     var barWidth = $('#progress-bar').width()
-    var progressWidth = barWidth * ((currentQuestion + 1)/quizLength)
+    var progressPercentage = (currentQuestion + 1)/quizLength
+    var progressWidth = barWidth * (progressPercentage)
     $('#inner-bar').css('width', progressWidth + 'px')
+    $('#emoji').css('margin-left', (progressPercentage * 100) + '%')
+
+    var scorePercentage = score/(currentQuestion + 1)
+    if(scorePercentage > 0.7){
+        $('#emoji').html(emojis.happy)
+    }
+    else if(scorePercentage <= 0.7 && scorePercentage > 0.3){
+        $('#emoji').html(emojis.mid)
+    }
+    else{
+        $('#emoji').html(emojis.sad)
+
+    }
 }
 
 /*
@@ -200,7 +248,9 @@ function loop() {
     deltaTime = start - end;
     
     //code goes here
-    timer += deltaTime
+    if(!debug){
+        timer += deltaTime
+    }
 
     if(timer > 10000 & quizStarted){
         nextQuestion()

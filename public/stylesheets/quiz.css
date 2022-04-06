@@ -1,3 +1,8 @@
+#countdown{
+    font-size: 100px;
+    font-weight: bold;
+}
+
 circle{
     fill:none;
     stroke-width: 8%;
@@ -31,6 +36,21 @@ circle{
 
 } 
 
+#emoji{
+    width: 50px;
+    height: 50px;
+    transition: 0.3s;
+    font-size: 2em;
+    animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+    0%{transform:scale(1.0)}
+    50%{transform:scale(1.1)}
+    100%{transform:scale(1.0)}
+    
+}
+
 .container-left{
     width:40%;
 }
@@ -49,6 +69,7 @@ circle{
     align-items: stretch;
 
 }
+
 #quiz-container{
     width: 100%;
 }
@@ -58,8 +79,8 @@ circle{
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 100px 100px;
-    column-gap: 2%;
-    row-gap: 5%;
+    column-gap: 1vw;
+    row-gap: 1vw;
 }
 
 .answer{
