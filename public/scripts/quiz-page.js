@@ -216,6 +216,8 @@ function nextQuestion(el, right) {
             $('#quiz').html(quizHtml[currentQuestion]);
             timer = 0
             $('#timer').css('animation', "anim 10s linear forwards")
+
+            //register a new set of key listeners 
             register();
         }
     }, 2000)
