@@ -136,14 +136,14 @@ p{
 
 /*Footer style*/
 .footer{
-    height: 75px;
+    height: 50px;
     margin-left: 2.5%;
     position: relative;
     
 }
 
 .footer a{
-    line-height: 75px;
+    line-height: 50px;
     text-decoration: none;
     color: black;
     margin-right: 20px;
@@ -159,3 +159,36 @@ p{
 }
 
 a {text-decoration: none; }
+
+button:focus-visible{
+    background-color: yellow;
+    outline-color: red;
+    outline-offset: 1px;
+}
+
+.footer a:focus-visible{
+    background-color: yellow;
+    outline-color: red;
+    outline-offset: 1px;
+}
+
+input:focus-visible{
+    background-color: yellow;
+    outline-color: red;
+    outline-offset: 1px;
+}
+
+textarea:focus-visible{
+    background-color: yellow;
+    outline-color: red;
+    outline-offset: 1px;
+}
+
+#g-signin:focus-visible{
+    outline-color: red;
+    outline-offset: 2px;
+}
+
+a:focus-visible{
+    outline-color: red;
+}
