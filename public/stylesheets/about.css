@@ -3,7 +3,7 @@
 
     display: flex;
     flex-direction:column;
-    justify-content: space-around;
+    justify-content: space-around; 
     align-items: stretch;
     width: 100%;
     padding: 20px;
@@ -16,7 +16,6 @@
     width: 100%;
     display: flex;
     flex-direction:column;
-    justify-content: space-around;
     align-items: stretch;
     padding: 20px;
     background-color: #e68387;
@@ -28,9 +27,8 @@
     width: 100%;
     display: flex;
     flex-direction:column;
-    justify-content:space-around;
     align-items: stretch;
-    padding: 20px;
+    justify-content: space-around;
     background-color: #7fd889;
     
 }
@@ -40,7 +38,6 @@
     width: 100%;
     display: flex;
     flex-direction:column;
-    justify-content: space-around;
     align-items: stretch;
     background-color: #9ec8ff;
     
