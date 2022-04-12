@@ -35,19 +35,18 @@ function handleKey(event){
 
     //get buttons
     var buttons = document.getElementById("buttons")
-    console.log(buttons)
-    console.log(buttons[0])
+   
 
     let children = buttons.childNodes
-    console.log(children)
+ 
 
 
     //check the key and move to next question
     for(let i = 0;  i< 4 ; i++){
         if (parseInt(event.key) == i+1){
-            console.log(children[i])
+            
             let isRight = children[i].id === "rightanswer"
-            console.log(isRight)
+          
 
             document.removeEventListener('keydown', handleKey);
             nextQuestion(children[i], isRight)
@@ -180,8 +179,19 @@ function genQuizHtml(quiz) {
     return htmlArray
 }
 
+function disableButtons(buttons){
+    for(let i of buttons){
+        console.log
+        i.onclick = function(){}
+        console.log(i)
+    }
+}
 //called when the user clicks an answer
 function nextQuestion(el, right) {
+
+    var buttons = document.getElementById("buttons").childNodes
+    console.log(buttons)
+    disableButtons(buttons)
     //style element based on whether right answer clicked
     if (right) {
         score++;
