@@ -1,7 +1,7 @@
-HOSTNAME=db-mysql-lon1-72184-do-user-10942530-0.b.db.ondigitalocean.com
+HOSTNAME=db-mysql-lon1-02958-do-user-11329334-0.b.db.ondigitalocean.com
 DBPORT=25060
 DBUSER=doadmin
-DBPASSWORD=R45mUKjM0QGNmejm
+DBPASSWORD=AVNS_yNcHm_4Tiq2Oboz
 DBDATABASE=defaultdb
 CLIENT_ID=50356069479-gejcilfv0kbn9q5i67q56pf17cil63vv.apps.googleusercontent.com
 GEOCODE_KEY=AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ
