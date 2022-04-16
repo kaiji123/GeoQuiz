@@ -83,8 +83,9 @@ circle{
 }
 
 .answer{
-    background-color: rgb(255, 255, 255);
-    border: 2px solid black;
+    background: var(--button-color);
+    color: var(--text-color);
+    border: var(--buttonborder-color);
     border-radius: 5px;
     box-shadow: 3px 3px black;
     width: 100%;
