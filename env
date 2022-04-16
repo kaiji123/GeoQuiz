@@ -4,3 +4,5 @@ DBUSER=doadmin
 DBPASSWORD=R45mUKjM0QGNmejm
 DBDATABASE=defaultdb
 CLIENT_ID=50356069479-gejcilfv0kbn9q5i67q56pf17cil63vv.apps.googleusercontent.com
+GEOCODE_KEY=AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ
+JWT_KEY=uRruCFLiUS

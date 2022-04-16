@@ -64,17 +64,19 @@
 }
 
 table{
-    background-color:rgb(2, 4, 5);
+    background-color: var(--table-border);
     width: 90%;
     margin-left: 10%;
 }
 
 th{
     background-color:#6b9efd;
+    color: black;
 }
 
 tr{
-    background-color: white;
+    background-color: var(--button-color);
+    color: var(--text-color);
     transition: 0.1s;
     text-align: center;
 }
@@ -101,7 +103,7 @@ tr:hover{
     padding: 5px 10px;
     font-weight: bold;
     border-radius: 3px;
-    transition: 0.3s;
+    transition: 0s;
 }
   
 .scale:hover{
@@ -132,5 +134,11 @@ cursor: pointer;
     .start-quiz{
         max-width: 80%;
         min-width: 50%;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .scaling{
+        display: none;
     }
 }

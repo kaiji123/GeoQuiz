@@ -1,0 +1,56 @@
+:root {
+    --background-color: #9ec8ff;
+    --text-color: #000000d8;
+    --link-color: #543fd7;
+    --header-color:#7ab1ff;
+    --headerborder-color: 0.5px solid rgb(0, 0, 0);
+    --logo-color: invert(0);
+    --button-color:#ffffff;
+    --signinbutton-color:#ffffff;
+    --buttonborder-color: 1.5px solid rgb(0, 0, 0);
+    --profile-border: 3px solid black;
+    --table-border: rgb(0, 0, 0);
+    --social-login: antiquewhite;
+    --social-border: 0px solid rgb(50, 51, 52);
+    --form-color: #ffffff;
+}
+
+html[data-theme='light'] {
+    --background-color: #9ec8ff;
+    --text-color: #000000d8;
+    --link-color: #543fd7;
+    --header-color:#7ab1ff;
+    --headerborder-color: 0.5px solid rgb(0, 0, 0);
+    --logo-color: invert(0);
+    --button-color:#ffffff;
+    --signinbutton-color:#ffffff;
+    --buttonborder-color: 1.5px solid rgb(0, 0, 0);
+    --profile-border: 3px solid black;
+    --table-border: rgb(0, 0, 0);
+    --social-login: antiquewhite;
+    --social-border: 0px solid rgb(50, 51, 52);
+    --form-color: #ffffff;
+}
+
+html[data-theme='dark'] {
+    --background-color: #000000;
+    --text-color: #F7F8F8;
+    --link-color: #82f7ff;
+    --header-color:#1A1A1B;
+    --headerborder-color: 1px solid rgb(50, 51, 52);
+    --logo-color: invert(1);
+    --button-color:#1A1A1B;
+    --signinbutton-color:#000000;
+    --buttonborder-color: 1.5px solid rgb(50, 51, 52);
+    --profile-border: 3px solid rgb(50, 51, 52);
+    --table-border: rgb(100,102,104);
+    --social-login: #1A1A1B;
+    --social-border: 1.5px solid rgb(50, 51, 52);
+    --form-color: #1A1A1B;
+
+}
+
+[data-theme='light'] .d-block-light,
+[data-theme='dark'] .d-block-dark {
+    display: block !important;
+}
