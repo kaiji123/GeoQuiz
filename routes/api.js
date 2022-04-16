@@ -18,6 +18,9 @@ const options = {
 
 const geocoder = NodeGeocoder(options)
 
+
+
+
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) => {
     let id = req.body.id
@@ -32,6 +35,10 @@ router.post('/set-gdpr', async (req, res) => {
     res.sendStatus(status)
 
 })
+
+
+
+
 
 //adds a user to the database if they don't already exist
 router.post('/add-user', async (req, res) => {
@@ -73,6 +80,15 @@ router.post('/add-user', async (req, res) => {
     }
 })
 
+/**
+ * @swagger
+ * /profile-picture:
+ *    get:
+ *      description: Use to fetch a profile picture
+ *      responses:
+ *        '200':
+ *         description: Successfully fetched profile picture
+ */
 router.get('/profile-picture/:id', async (req, res) => {
     let id = req.params.id
     console.log('fetching profile picture for ' + id)
@@ -92,6 +108,18 @@ router.post('/reset-pfp', async (req, res) => {
     res.sendStatus(status)
 })
 
+
+/**
+ * @swagger
+ * /users:
+ *    delete:
+ *      description: Use to delete user account 
+ *      requestBody:
+ *          required: true
+ *      responses:
+ *          '200':
+ *              description: Successfully deleted user
+ */
 router.delete('/users', authenticateToken, function (req, res) {
 
     data = req.body
