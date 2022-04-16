@@ -28,21 +28,15 @@ function register() {
 }
 
 
-
 //handle keys for from 1 to 4
 function handleKey(event){
 
-
     //get buttons
-    var buttons = document.getElementById("buttons")
-   
-
+    var buttons = document.getElementById("buttons")   
     let children = buttons.childNodes
- 
-
 
     //check the key and move to next question
-    for(let i = 0;  i< 4 ; i++){
+    for(let i=0; i<4; i++){
         if (parseInt(event.key) == i+1){
             
             let isRight = children[i].id === "rightanswer"
@@ -54,12 +48,22 @@ function handleKey(event){
         }
     }
 }
+
 //document ready function - run on page load
 $(function () {
+    //enable debug for jack's user account
+    if (sessionStorage.id == '106017767078900462768') {
+        console.log('DEBUG MODE ON ')
+        debug = true
+    }
+    if(debug){
+        init()
+        return
+    }
+
     setTimeout(init, 3000)
     let countdown = 3
     $('#countdown').html(countdown)
-
 
     setInterval(() => {
         countdown--
@@ -69,18 +73,7 @@ $(function () {
 })
 
 function init() {
-    //enable debug for jack's user account
-    if (sessionStorage.id == '106017767078900462768') {
-        let debugStyle = `
-        font-weight: bold;
-        background-color: #9ec8ff;
-        color: black;
-        border: 5px solid black;
-        font-size: 30px;
-    `
-        console.log('%c DEBUG MODE ON ', debugStyle)
-        debug = true
-    }
+    
     //start main loop
     window.requestAnimationFrame(loop)
 
@@ -181,16 +174,13 @@ function genQuizHtml(quiz) {
 
 function disableButtons(buttons){
     for(let i of buttons){
-        console.log
         i.onclick = function(){}
-        console.log(i)
     }
 }
 //called when the user clicks an answer
 function nextQuestion(el, right) {
 
     var buttons = document.getElementById("buttons").childNodes
-    console.log(buttons)
     disableButtons(buttons)
     //style element based on whether right answer clicked
     if (right) {

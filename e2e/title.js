@@ -1,6 +1,6 @@
 
-describe('Demo test Ecosia.org', function() {
-    test('search for nightwatch', function(browser) {
+describe('title test', function() {
+    test('test', function(browser) {
       browser
         .url('https://geo-quiz.xyz')
         .waitForElementVisible('body')
@@ -8,3 +8,16 @@ describe('Demo test Ecosia.org', function() {
         .end();
     })
   });
+
+  describe('play button visible', function (){
+    it('demo test', function(browser) {
+      browser
+        .url('https://geo-quiz.xyz')
+        .waitForElementVisible('body')
+        .assert.elementPresent("#leaderboard")
+        .assert.visible(".upper")
+        .click(".start-quiz")
+        .end()
+    });
+  
+  })

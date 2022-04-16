@@ -12,7 +12,7 @@ const NodeGeocoder = require('node-geocoder')
 //node geocoder configuration
 const options = {
     provider: 'google',
-    apiKey: 'AIzaSyBsco_UzL1CA7GKB5mXD4_IYuOjTTLY7tQ',
+    apiKey: process.env.GEOCODE_KEY,
     formatter: null
 }
 
@@ -56,7 +56,7 @@ router.post('/add-user', async (req, res) => {
            
             //jwt authentication
             console.log("user exists")
-            const token = jwt.sign(user,"my secret key")
+            const token = jwt.sign(user,process.env.JWT_KEY)
            
 
             //send token response
@@ -182,7 +182,7 @@ function authenticateToken(req,res, next){
     console.log("token exists")
 
     //verifying the token
-    jwt.verify(token, "my secret key", (err,user) => {
+    jwt.verify(token, proces.env.JWT_KEY, (err,user) => {
         if (err){
             console.log("nope")
             return res.sendStatus(403)

@@ -5,7 +5,7 @@ block content
     script(src='/scripts/scaling.js')
     script(src='/scripts/quiz-page.js')
 
-    .container-left
+    .buffer
         .mascot
             a(href='/quiz')
                 //img(src='/images/cute_globe.png')
@@ -18,8 +18,8 @@ block content
         #progress-bar
             #inner-bar
             #emoji='😁'
-    .container-right
-        svg( width='160px' height='160px')
+    .buffer
+        svg.timer( width='160px' height='160px')
             defs
                 lineargradient#GradientColor
                     stop(offset='0%' stop-color='#ffffff')
