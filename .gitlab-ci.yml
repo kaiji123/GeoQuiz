@@ -30,7 +30,7 @@ build :
     - .prep
   script:
    
-    - npm install
+    - npm ci --cache .npm --prefer-offline
 
 
 
