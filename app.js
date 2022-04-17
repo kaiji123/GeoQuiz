@@ -41,17 +41,18 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       version: "1.0.0",
-      title: "Customer API",
-      description: "Customer API Information",
-      contact: {
-        name: "Amazing Developer"
-      },
-      servers: ["http://localhost:3000"]
-    }
+      title: "GEOquiz API",
+      description: "You can find out more about GEOquiz at "
+      + "[GEOquiz](https://geo-quiz.xyz/about).",
+      termsOfUse: "https://geo-quiz.xyz/terms-of-use",
+      support: "https://geo-quiz.xyz/support"
+    },
+    servers: ["http://localhost:3000"]
   },
    
   apis: ['./routes/*.js']
-};
+}
+
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
