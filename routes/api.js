@@ -20,7 +20,15 @@ const geocoder = NodeGeocoder(options)
 
 
 
-
+/**
+ * @swagger
+ * /get-gdpr:
+ *    post:
+ *      description: Use to check if users have signed the GDPR
+ *      responses:
+ *        '200':
+ *         description: Successfully signed GDPR
+ */
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) => {
     let id = req.body.id
@@ -28,6 +36,15 @@ router.post('/get-gdpr', async (req, res) => {
     res.send(gdpr)
 })
 
+/**
+ * @swagger
+ * /set-gdpr:
+ *    post:
+ *      description: Use to set user's GDPR status to 1
+ *      responses:
+ *        '200':
+ *         description: Successfully set GDPR status to 1
+ */
 //sets a user's gdpr status to 1
 router.post('/set-gdpr', async (req, res) => {
     let id = req.body.id
@@ -39,7 +56,15 @@ router.post('/set-gdpr', async (req, res) => {
 
 
 
-
+/**
+ * @swagger
+ * /add-user:
+ *    post:
+ *      description: Use to add a user to the database if they don't already exist
+ *      responses:
+ *        '200':
+ *         description: Successfully checked user credentials
+ */
 //adds a user to the database if they don't already exist
 router.post('/add-user', async (req, res) => {
     let id = req.body.id
@@ -100,6 +125,15 @@ router.get('/profile-picture/:id', async (req, res) => {
     res.send(data)
 })
 
+/**
+ * @swagger
+ * /reset-pfp:
+ *    post:
+ *      description: Use to reset a user's profile picture
+ *      responses:
+ *        '200':
+ *         description: Successfully reset profile picture
+ */
 router.post('/reset-pfp', async (req, res) => {
     let id = req.body.id
     let pfp = JSON.stringify(profilePicture.generateProfilePicture())
@@ -137,17 +171,44 @@ router.delete('/users', authenticateToken, function (req, res) {
     
 })
 
+/**
+ * @swagger
+ * /scores:
+ *    get:
+ *      description: Use to fetch scores
+ *      responses:
+ *        '200':
+ *         description: Successfully fetched scores
+ */
 router.get('/scores', async (req, res) => {
     let scores = await database.getScores()
     res.send(scores)
 })
 
+/**
+ * @swagger
+ * /leaderboard:
+ *    get:
+ *      description: Use to fetch the leaderboard
+ *      responses:
+ *        '200':
+ *         description: Successfully fetched leaderboard
+ */
 router.get('/leaderboard', async (req, res) => {
     let leaderboard = await database.getLeaderboard()
     res.send(leaderboard)
 
 })
 
+/**
+ * @swagger
+ * /save-score:
+ *    post:
+ *      description: Use to add a user's score to the database
+ *      responses:
+ *        '200':
+ *         description: Successfully saved score
+ */
 //save a user's score to the database
 router.post('/save-score', (req, res) => {
     let data = req.body
@@ -160,6 +221,15 @@ router.post('/save-score', (req, res) => {
     })
 })
 
+/**
+ * @swagger
+ * /support:
+ *    post:
+ *      description: Use to receive and handle support queries
+ *      responses:
+ *        '200':
+ *         description: Successfully received support query
+ */
 //receieve and handle support queries
 router.post('/support', async (req, res) => {
     json = req.body
@@ -177,6 +247,15 @@ router.post('/support', async (req, res) => {
         })
 })
 
+/**
+ * @swagger
+ * /quiz:
+ *    post:
+ *      description: Use to generate a quiz
+ *      responses:
+ *        '200':
+ *         description: Successfully generated a quiz
+ */
 //will return a quiz when passed a location
 router.post('/quiz', async (req, res) => {
     var coords = req.body
@@ -186,6 +265,15 @@ router.post('/quiz', async (req, res) => {
     })
 })
 
+/**
+ * @swagger
+ * /location:
+ *    post:
+ *      description: Use to retrieve the address from given coordinates
+ *      responses:
+ *        '200':
+ *         description: Successfully converted coordinates to address
+ */
 //returns an address from given coordinates
 router.post('/location', async (req, res) => {
     var coords = req.body
