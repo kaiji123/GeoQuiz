@@ -24,8 +24,14 @@ function registerDelete(){
     $('#delete').click(function(){
         let id = sessionStorage.getItem('id')
         deleteUser(id).then(res => {
-            if (res.status != 403 && res.status != 401){
+            if (res.status == 200){
                 signOut()
+            }
+            else{
+
+                //debug
+                console.log(res)
+                alert("invalid token")
             }
            
         })

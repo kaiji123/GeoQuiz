@@ -18,70 +18,89 @@ const options = {
 
 const geocoder = NodeGeocoder(options)
 
+
+
+
 //checks if users have signed the GDPR
-router.post('/get-gdpr', async (req, res) =>{
+router.post('/get-gdpr', async (req, res) => {
     let id = req.body.id
     let gdpr = await database.getGDPR(id)
     res.send(gdpr)
 })
 
 //sets a user's gdpr status to 1
-router.post('/set-gdpr', async (req, res) =>{
+router.post('/set-gdpr', async (req, res) => {
     let id = req.body.id
     let status = await database.setGDPR(id, 1)
     res.sendStatus(status)
 
 })
 
+
+
+
+
 //adds a user to the database if they don't already exist
 router.post('/add-user', async (req, res) => {
     let id = req.body.id
     let name = req.body.name
 
-    let exists =  await database.userExists(id)
+    let exists = await database.userExists(id)
 
     console.log(exists)
 
-    if(!exists){
+    if (!exists) {
         var status = await database.addUser(id, name)
-        res.sendStatus(status)
+
+        let user = { username: name, googleId: id }
+        const token = jwt.sign(user, process.env.JWT_KEY)
+        res.json(token)
     }
-    else{
+    else {
         // check the user with correct credentials exists
         let check = await database.userExist2(id, name);
-        let user = {username: name , googleId: id}
+        let user = { username: name, googleId: id }
 
         //if correct send success status
-        if (check){
-           
+        if (check) {
+
             //jwt authentication
             console.log("user exists")
-            const token = jwt.sign(user,process.env.JWT_KEY)
-           
+            const token = jwt.sign(user, process.env.JWT_KEY)
+
 
             //send token response
             res.json(token)
 
-        }else{
+        } else {
             console.log("bad user")
             res.sendStatus(403)
         }
-        
+
     }
 })
 
-router.get('/profile-picture/:id', async(req, res) =>{
+/**
+ * @swagger
+ * /profile-picture:
+ *    get:
+ *      description: Use to fetch a profile picture
+ *      responses:
+ *        '200':
+ *         description: Successfully fetched profile picture
+ */
+router.get('/profile-picture/:id', async (req, res) => {
     let id = req.params.id
     console.log('fetching profile picture for ' + id)
     let pixels = await database.getProfilePicture(id)
-    
+
     //turn our json into an image
     let data = profilePicture.renderProfilePicture(JSON.parse(pixels), 500)
     res.setHeader('content-type', 'image/png');
     res.send(data)
 })
 
-router.post('/reset-pfp', async(req, res) => {
+router.post('/reset-pfp', async (req, res) => {
     let id = req.body.id
     let pfp = JSON.stringify(profilePicture.generateProfilePicture())
 
@@ -89,14 +108,33 @@ router.post('/reset-pfp', async(req, res) => {
     res.sendStatus(status)
 })
 
-router.delete('/users', authenticateToken, function(req, res){
-  data = req.body
-  let userId = data.id
 
-  // add a layer of security
+/**
+ * @swagger
+ * /users:
+ *    delete:
+ *      description: Use to delete user account 
+ *      requestBody:
+ *          required: true
+ *      responses:
+ *          '200':
+ *              description: Successfully deleted user
+ */
+router.delete('/users', authenticateToken, function (req, res) {
 
-  //to do cascading delete
-  res.send(database.deleteUser(userId))
+    data = req.body
+    let userId = data.id
+
+
+
+    // add a layer of security
+
+    //to do cascading delete
+    let datares = database.deleteUser(userId)
+
+
+    res.sendStatus(200)
+    
 })
 
 router.get('/scores', async (req, res) => {
@@ -107,7 +145,7 @@ router.get('/scores', async (req, res) => {
 router.get('/leaderboard', async (req, res) => {
     let leaderboard = await database.getLeaderboard()
     res.send(leaderboard)
-   
+
 })
 
 //save a user's score to the database
@@ -117,7 +155,7 @@ router.post('/save-score', (req, res) => {
     let googleId = data.id
     let percentage = data.percentage
 
-    database.addScore(googleId, score, percentage).then((status) =>{
+    database.addScore(googleId, score, percentage).then((status) => {
         res.sendStatus(status)
     })
 })
@@ -126,17 +164,17 @@ router.post('/save-score', (req, res) => {
 router.post('/support', async (req, res) => {
     json = req.body
     fs.readFile('./support/requests.json')
-    .then((raw) => {
-        data = JSON.parse(raw)
-        data.push(json)
-        return fs.writeFile('./support/requests.json', JSON.stringify(data))
-    })
-    .then(() => {
-        res.send(req.body)
-    })
-    .catch((err) =>{
-        console.log(err)
-    }) 
+        .then((raw) => {
+            data = JSON.parse(raw)
+            data.push(json)
+            return fs.writeFile('./support/requests.json', JSON.stringify(data))
+        })
+        .then(() => {
+            res.send(req.body)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 })
 
 //will return a quiz when passed a location
@@ -164,16 +202,19 @@ locFromCoords = (coords) => {
 
 
 //authentication middleware 
-function authenticateToken(req,res, next){
+function authenticateToken(req, res, next) {
 
+
+    data = req.body
+    let userId = data.id
     //check if request has authorization header
     const header = req.headers['authorization']
     console.log(header)
     let token = header && header.split(' ')[1]
-   
+
 
     //if token does not exist 
-    if (token == null){
+    if (token == null) {
         console.log("no token :(")
         return res.sendStatus(401)
     }
@@ -182,14 +223,26 @@ function authenticateToken(req,res, next){
     console.log("token exists")
 
     //verifying the token
-    jwt.verify(token, proces.env.JWT_KEY, (err,user) => {
-        if (err){
+
+    
+    jwt.verify(token, process.env.JWT_KEY, (err,decoded) => {
+        console.log("hello jwt")
+        if (err) {
             console.log("nope")
             return res.sendStatus(403)
-        }else{
+        } else {
             console.log("yes")
-            next()
+            console.log(decoded)
+            if (userId == decoded.googleId){
+                console.log("userid checked")
+                next()
+            }
+            else{
+                res.sendStatus(403)
+            }
+           
         }
     })
+    
 }
 module.exports = router
