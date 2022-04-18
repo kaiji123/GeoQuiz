@@ -22,14 +22,32 @@ const geocoder = NodeGeocoder(options)
 
 /**
  * @swagger
- * /get-gdpr:
+ * /api-docs/get-gdpr:
  *    post:
- *      summary: Use to check if users have signed the GDPR
+ *      tags:
+ *          - User
+ *      summary: Check if user has signed the GDPR
  *      responses:
  *        200:
  *         description: Successfully signed GDPR
+ *         content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          data:
+ *                             type: array
+ *                             items:
+ *                              type: object
+ *                              properties:
+ *                                  clientId:
+ *                                      type: integer
+ *                                      description: The user ID.
+ *                                      example: 111843877506203660742                 
  *        400:
- *          description: GDPR not signed
+ *          description: Invalid or missing user ID
+ *        404:
+ *          description: Requested resource not found
  */
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) => {
@@ -40,14 +58,18 @@ router.post('/get-gdpr', async (req, res) => {
 
 /**
  * @swagger
- * /set-gdpr:
+ * /api-docs/set-gdpr:
  *    post:
- *      summary: Use to set user's GDPR status to 1
+ *      tags:
+ *          - User
+ *      summary: Set user's GDPR status to 1
  *      responses:
  *        200:
  *         description: Successfully set GDPR status to 1
  *        400:
  *          description: Invalid status value
+ *        404:
+ *          description: Requested resource not found
  */
 //sets a user's gdpr status to 1
 router.post('/set-gdpr', async (req, res) => {
@@ -64,15 +86,24 @@ router.post('/set-gdpr', async (req, res) => {
  * @swagger
  * /add-user:
  *    post:
- *      summary: Use to add a user to the database if they don't already exist
- *      parameters:
- *          name: userId
- *          in: formData
- *          description: User's personal id
+ *      tags:
+ *          - User
+ *      summary: Add a user to the database if they don't already exist
+ *      requestBody:
  *          required: true
- *          type: integer
- *      produces:
- *        application/json
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          userId:
+ *                              type: integer
+ *                              description: The user's unique ID number
+ *                              example: 111843877506203660743
+ *                          name:
+ *                              type: string
+ *                              description: The user's name
+ *                              example: Suprise
  *      responses:
  *        200:
  *         description: Successfully added user
@@ -121,12 +152,23 @@ router.post('/add-user', async (req, res) => {
 
 /**
  * @swagger
- * /profile-picture/{}:
+ * /api-docs/profile-picture/{userId}:
  *    get:
- *      summary: Use to fetch a profile picture
+ *      tags:
+ *          - User
+ *      summary: Fetch a profile picture
+ *      parameters:
+ *          - in: path
+ *            name: clientId
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully fetched profile picture
+ *        400:
+ *          description: Invalid or missing parameter
  *      
  */
 router.get('/profile-picture/:id', async (req, res) => {
@@ -142,12 +184,16 @@ router.get('/profile-picture/:id', async (req, res) => {
 
 /**
  * @swagger
- * /reset-pfp:
+ * /api-docs/reset-pfp:
  *    post:
- *      summary: Use to reset a user's profile picture
+ *      tags:
+ *          - User
+ *      summary: Reset a user's profile picture
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully reset profile picture
+ *        400:
+ *          description: Invalid or missing parameters
  */
 router.post('/reset-pfp', async (req, res) => {
     let id = req.body.id
@@ -160,15 +206,17 @@ router.post('/reset-pfp', async (req, res) => {
 
 /**
  * @swagger
- * /users:
+ * /api-docs/users:
  *    delete:
- *      summary: Use to delete user account 
+ *      tags:
+ *          - User
+ *      summary: Delete user account 
  *      requestBody:
  *          required: true
  *      responses:
- *          '200':
+ *          200:
  *              description: Successfully deleted user
- *          '400':
+ *          400:
  *              description: User not found
  */
 router.delete('/users', authenticateToken, function (req, res) {
@@ -190,12 +238,16 @@ router.delete('/users', authenticateToken, function (req, res) {
 
 /**
  * @swagger
- * /scores:
+ * /api-docs/scores:
  *    get:
- *      summary: Use to fetch scores
+ *      tags:
+ *          - Quiz
+ *      summary: Fetch scores
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully fetched scores
+ *        404:
+ *          description: Requested resource does not exist
  */
 router.get('/scores', async (req, res) => {
     let scores = await database.getScores()
@@ -206,10 +258,14 @@ router.get('/scores', async (req, res) => {
  * @swagger
  * /leaderboard:
  *    get:
- *      summary: Use to fetch the leaderboard
+ *      tags:
+ *          - Quiz
+ *      summary: Fetch the leaderboard
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully fetched leaderboard
+ *        404:
+ *          description: Leaderboard not found
  */
 router.get('/leaderboard', async (req, res) => {
     let leaderboard = await database.getLeaderboard()
@@ -219,14 +275,16 @@ router.get('/leaderboard', async (req, res) => {
 
 /**
  * @swagger
- * /save-score:
+ * /api-docs/save-score:
  *    post:
- *      summary: Use to add a user's score to the database
+ *      tags:
+ *          - User
+ *      summary: Add a user's score to the database
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully saved score
- *        '400':
- *         description: Score did not save
+ *        400:
+ *         description: Invalid or missing parameters
  */
 //save a user's score to the database
 router.post('/save-score', (req, res) => {
@@ -244,11 +302,13 @@ router.post('/save-score', (req, res) => {
  * @swagger
  * /support:
  *    post:
- *      summary: Use to receive and handle support queries
+ *      tags:
+ *          - Quiz
+ *      summary: Receive and handle support queries
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully received support query
- *        '400':
+ *        400:
  *         description: Invalid query
  */
 //receieve and handle support queries
@@ -272,11 +332,13 @@ router.post('/support', async (req, res) => {
  * @swagger
  * /quiz:
  *    post:
- *      summary: Use to generate a quiz
+ *      tags:
+ *          - Quiz
+ *      summary: Generate a quiz
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully generated a quiz
- *        '400':
+ *        400:
  *         description: Location not found
  */
 //will return a quiz when passed a location
@@ -290,13 +352,15 @@ router.post('/quiz', async (req, res) => {
 
 /**
  * @swagger
- * /location:
+ * /api-docs/location:
  *    post:
- *      summary: Use to retrieve the address from given coordinates
+ *      tags:
+ *          - Quiz
+ *      summary: Retrieve the address from given coordinates
  *      responses:
- *        '200':
+ *        200:
  *         description: Successfully converted coordinates to address
- *        '400':
+ *        400:
  *         description: Invalid coordinates
  */
 //returns an address from given coordinates
