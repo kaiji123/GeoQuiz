@@ -269,6 +269,10 @@ function advanceProgressBar() {
     }
 }
 
+function showQuizQuestions(){
+    document.write(quizHtml)
+};
+
 /*
  function circle(){
      var progress =$(outer).width()
@@ -301,4 +305,8 @@ function loop() {
     //loop end calculations
     end = Date.now()
     window.requestAnimationFrame(loop)
+}
+
+module.exports = {
+    showQuizQuestions
 }

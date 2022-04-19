@@ -1,1 +1,6 @@
 extends layout
+block content
+    script(src='/scripts/quiz-page.js')
+
+    .container
+        button(onclick='showQuizQuestions()').buttons='questions'
