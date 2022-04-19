@@ -47,7 +47,11 @@ const swaggerOptions = {
       termsOfUse: "https://geo-quiz.xyz/terms-of-use",
       support: "https://geo-quiz.xyz/support"
     },
-    servers: ["http://localhost:3000"]
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'Development server',
+      }]
   },
    
   apis: ['./routes/*.js']

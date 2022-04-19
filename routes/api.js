@@ -19,22 +19,32 @@ const options = {
 const geocoder = NodeGeocoder(options)
 
 
-//GDPR
 /**
  * @swagger
- * /api-docs/get-gdpr:
+ * definitions:
+ *  User : # <----------
+ *     type : object
+ *     required: 
+ *        - id
+ *     properties:
+ *        id:
+ *          description: the user's google id number
+ *          type: integer
+ *          example: 0
+ */
+
+/**
+ * @swagger
+ * /api/get-gdpr:
  *    post:
  *      tags:
  *          - User
- *      summary: Check if user has signed the GDPR          
+ *      summary: Check if user has signed the GDPR
  *      parameters:
- *          - in: query
- *            name: userId
- *            required: true
- *            description: Numeric ID of the user to retrieve
- *            schema:
- *              type: integer
- *            example: 111843877506203660742     
+ *          - in : body
+ *            description: the user to set gdpr
+ *            schema:  
+ *              $ref: '#/definitions/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully signed GDPR                 
@@ -46,7 +56,10 @@ const geocoder = NodeGeocoder(options)
 //checks if users have signed the GDPR
 router.post('/get-gdpr', async (req, res) => {
     let id = req.body.id
+    console.log("hello")
+    console.log(req.body)
     let gdpr = await database.getGDPR(id)
+    console.log(gdpr)
     res.send(gdpr)
 })
 //GDPR
@@ -57,21 +70,14 @@ router.post('/get-gdpr', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Set user's GDPR status to 1
+ *      consumes: 
+ *          - application/json
  *      parameters:
- *          - in: query
- *            name: gdpr
- *            required: true
- *            description: Status value of GDPR
- *            schema:
- *              type: integer
- *            example: 1
- *          - in: query
- *            name: userId
- *            required: true
- *            description: Numeric ID of the user to retrieve
- *            schema:
- *              type: integer
- *            example: 111843877506203660742 
+ *          - in : body
+ *            name: user
+ *            description: the user to set gdpr
+ *            schema:  
+ *              $ref: '#/definitions/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully set GDPR status to 1
