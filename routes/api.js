@@ -19,31 +19,25 @@ const options = {
 const geocoder = NodeGeocoder(options)
 
 
-
+//GDPR
 /**
  * @swagger
  * /api-docs/get-gdpr:
  *    post:
  *      tags:
  *          - User
- *      summary: Check if user has signed the GDPR
+ *      summary: Check if user has signed the GDPR          
+ *      parameters:
+ *          - in: query
+ *            name: userId
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *            example: 111843877506203660742     
  *      responses:
  *        200:
- *         description: Successfully signed GDPR
- *         content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          data:
- *                             type: array
- *                             items:
- *                              type: object
- *                              properties:
- *                                  clientId:
- *                                      type: integer
- *                                      description: The user ID.
- *                                      example: 111843877506203660742                 
+ *         description: Successfully signed GDPR                 
  *        400:
  *          description: Invalid or missing user ID
  *        404:
@@ -55,7 +49,7 @@ router.post('/get-gdpr', async (req, res) => {
     let gdpr = await database.getGDPR(id)
     res.send(gdpr)
 })
-
+//GDPR
 /**
  * @swagger
  * /api-docs/set-gdpr:
@@ -63,6 +57,21 @@ router.post('/get-gdpr', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Set user's GDPR status to 1
+ *      parameters:
+ *          - in: query
+ *            name: gdpr
+ *            required: true
+ *            description: Status value of GDPR
+ *            schema:
+ *              type: integer
+ *            example: 1
+ *          - in: query
+ *            name: userId
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *            example: 111843877506203660742 
  *      responses:
  *        200:
  *         description: Successfully set GDPR status to 1
@@ -81,7 +90,7 @@ router.post('/set-gdpr', async (req, res) => {
 
 
 
-
+//users
 /**
  * @swagger
  * /add-user:
@@ -89,21 +98,21 @@ router.post('/set-gdpr', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Add a user to the database if they don't already exist
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          userId:
- *                              type: integer
- *                              description: The user's unique ID number
- *                              example: 111843877506203660743
- *                          name:
- *                              type: string
- *                              description: The user's name
- *                              example: Suprise
+ *      parameters:
+ *          - in: query
+ *            name: userId
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *            example: 111843877506203660743
+ *          - in: query
+ *            name: name
+ *            required: true
+ *            description: Name of user to add
+ *            schema:
+ *              type: string
+ *            example: Jane Doe
  *      responses:
  *        200:
  *         description: Successfully added user
@@ -149,7 +158,7 @@ router.post('/add-user', async (req, res) => {
 
     }
 })
-
+//PFPs
 /**
  * @swagger
  * /api-docs/profile-picture/{userId}:
@@ -159,11 +168,12 @@ router.post('/add-user', async (req, res) => {
  *      summary: Fetch a profile picture
  *      parameters:
  *          - in: path
- *            name: clientId
+ *            name: userId
  *            required: true
  *            description: Numeric ID of the user to retrieve
  *            schema:
  *              type: integer
+ *            example: 111843877506203660742
  *      responses:
  *        200:
  *         description: Successfully fetched profile picture
@@ -181,7 +191,7 @@ router.get('/profile-picture/:id', async (req, res) => {
     res.setHeader('content-type', 'image/png');
     res.send(data)
 })
-
+//PFPs
 /**
  * @swagger
  * /api-docs/reset-pfp:
@@ -189,6 +199,18 @@ router.get('/profile-picture/:id', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Reset a user's profile picture
+ *      parameters:
+ *         - in: query
+ *           name: userId
+ *           required: true
+ *           description: Numeric ID of the user to retrieve
+ *           schema:
+ *              type: integer
+ *           example: 111843877506203660742
+ *         - in: query
+ *           name: pfp
+ *           required: true
+ *           description: New profile picture
  *      responses:
  *        200:
  *         description: Successfully reset profile picture
@@ -211,6 +233,14 @@ router.post('/reset-pfp', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Delete user account 
+ *      parameters:
+ *         - in: query
+ *           name: userId
+ *           required: true
+ *           description: Numeric ID of the user
+ *           schema:
+ *              type: integer
+ *           example: 111843877506203660742
  *      requestBody:
  *          required: true
  *      responses:
@@ -264,6 +294,15 @@ router.get('/scores', async (req, res) => {
  *      responses:
  *        200:
  *         description: Successfully fetched leaderboard
+ *         content:
+ *          application/json:
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      type: array
+ *                      items:
+ *                          type: string
+ *                          example: [[1, Jack Jazrawy-Brown, 142506], [2, Faiez Raja, 159]]
  *        404:
  *          description: Leaderboard not found
  */
@@ -272,7 +311,7 @@ router.get('/leaderboard', async (req, res) => {
     res.send(leaderboard)
 
 })
-
+//scores
 /**
  * @swagger
  * /api-docs/save-score:
@@ -280,6 +319,14 @@ router.get('/leaderboard', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Add a user's score to the database
+ *      parameters:
+ *         - in: query
+ *           name: userId
+ *           required: true
+ *           description: Numeric ID of the user to retrieve
+ *           schema:
+ *              type: integer
+ *           example: 111843877506203660742
  *      responses:
  *        200:
  *         description: Successfully saved score
@@ -335,6 +382,14 @@ router.post('/support', async (req, res) => {
  *      tags:
  *          - Quiz
  *      summary: Generate a quiz
+ *      parameters:
+ *         - in: cookie
+ *           name: coords
+ *           required: true
+ *           description: Coordinates of users location
+ *           schema:
+ *              type: integer
+ *           example: 52.4429616,-1.9403622
  *      responses:
  *        200:
  *         description: Successfully generated a quiz
@@ -357,6 +412,14 @@ router.post('/quiz', async (req, res) => {
  *      tags:
  *          - Quiz
  *      summary: Retrieve the address from given coordinates
+ *      parameters:
+ *         - in: cookie
+ *           name: coords
+ *           required: true
+ *           description: Coordinates of users location
+ *           schema:
+ *              type: integer
+ *           example: 52.4429616,-1.9403622
  *      responses:
  *        200:
  *         description: Successfully converted coordinates to address
