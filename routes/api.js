@@ -118,20 +118,16 @@ router.post('/set-gdpr', async (req, res) => {
  *          - User
  *      summary: Add a user to the database if they don't already exist
  *      parameters:
- *          - in: query
+ *          - in: body
  *            name: userId
  *            required: true
  *            description: Numeric ID of the user to retrieve
  *            schema:
- *              type: integer
- *            example: 111843877506203660743
- *          - in: query
- *            name: name
- *            required: true
- *            description: Name of user to add
- *            schema:
- *              type: string
- *            example: Jane Doe
+ *              properties:
+ *                  id:
+ *                      type: integer
+ *                  name:
+ *                      type: string
  *      responses:
  *        200:
  *         description: Successfully added user
