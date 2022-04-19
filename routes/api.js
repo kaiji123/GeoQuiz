@@ -23,14 +23,13 @@ const geocoder = NodeGeocoder(options)
  * @swagger
  * definitions:
  *  User : # <----------
- *     type : object
  *     required: 
  *        - id
  *     properties:
  *        id:
  *          description: the user's google id number
  *          type: integer
- *          example: 0
+ *          
  */
 
 /**
@@ -42,6 +41,7 @@ const geocoder = NodeGeocoder(options)
  *      summary: Check if user has signed the GDPR
  *      parameters:
  *          - in : body
+ *            name: user
  *            description: the user to set gdpr
  *            schema:  
  *              $ref: '#/definitions/User'  # <----------
@@ -65,7 +65,7 @@ router.post('/get-gdpr', async (req, res) => {
 //GDPR
 /**
  * @swagger
- * /api-docs/set-gdpr:
+ * /api/set-gdpr:
  *    post:
  *      tags:
  *          - User
