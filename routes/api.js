@@ -21,14 +21,13 @@ const geocoder = NodeGeocoder(options)
 
 /**
  * @swagger
- * 
- * components:
  * securitySchemes:
- * bearerAuth:            # arbitrary name for the security scheme
- *  type: http
- *  scheme: bearer
- *  bearerFormat: JWT 
- *          
+ *      bearerAuth:            
+ *          type: https
+ *          scheme: bearer
+ *          bearerFormat: JWT
+ * security:
+ *   - bearerAuth:[]             
  */
 
 
@@ -42,7 +41,6 @@ const geocoder = NodeGeocoder(options)
  *        id:
  *          description: the user's google id number
  *          type: integer
- *          
  */
 
 /**
@@ -52,6 +50,8 @@ const geocoder = NodeGeocoder(options)
  *      tags:
  *          - User
  *      summary: Check if user has signed the GDPR
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in : body
  *            name: user
@@ -112,7 +112,7 @@ router.post('/set-gdpr', async (req, res) => {
 //users
 /**
  * @swagger
- * /add-user:
+ * /api/add-user:
  *    post:
  *      tags:
  *          - User
