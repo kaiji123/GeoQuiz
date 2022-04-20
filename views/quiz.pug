@@ -5,11 +5,11 @@ block content
     script(src='/scripts/scaling.js')
     script(src='/scripts/quiz-page.js')
 
-    .buffer
-        .mascot
-            a(href='/quiz')
-                //img(src='/images/cute_globe.png')
-                //img(src='/images/sad_globe.png')
+    .buffer-left
+        #mascot-happy
+                img(src='/images/cute_globe.png' style='height: 400%; width:500%;')
+        #mascot-sad
+                img(src='/images/sad_globe.png' style='height: 400%; width: 500%; ')
     #quiz-container
         #quiz 
             h1='Get ready...'

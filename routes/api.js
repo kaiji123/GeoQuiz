@@ -250,7 +250,7 @@ router.get('/profile-picture/:id', async (req, res) => {
  *        400:
  *          description: Invalid or missing parameters
  */
-router.post('/reset-pfp', async (req, res) => {
+router.post('/reset-pfp', authenticateToken, async (req, res) => {
     let id = req.body.id
     let pfp = JSON.stringify(profilePicture.generateProfilePicture())
 
@@ -349,7 +349,7 @@ router.get('/leaderboard', async (req, res) => {
 //scores
 /**
  * @swagger
- * /api-docs/save-score:
+ * /api/save-score:
  *    post:
  *      tags:
  *          - User
@@ -369,7 +369,7 @@ router.get('/leaderboard', async (req, res) => {
  *         description: Invalid or missing parameters
  */
 //save a user's score to the database
-router.post('/save-score', (req, res) => {
+router.post('/save-score',authenticateToken, (req, res) => {
     let data = req.body
     let score = data.score
     let googleId = data.id
@@ -382,7 +382,7 @@ router.post('/save-score', (req, res) => {
 
 /**
  * @swagger
- * /support:
+ * /api/support:
  *    post:
  *      tags:
  *          - Quiz
@@ -412,7 +412,7 @@ router.post('/support', async (req, res) => {
 
 /**
  * @swagger
- * /quiz:
+ * /api/quiz:
  *    post:
  *      tags:
  *          - Quiz
@@ -467,7 +467,7 @@ router.post('/quiz', async (req, res) => {
  *         description: Invalid coordinates
  */
 //returns an address from given coordinates
-router.post('/location', async (req, res) => {
+router.post('/location', authenticateToken, async (req, res) => {
     var coords = req.body
 
     locFromCoords(coords).then((loc) => res.send(loc[0]))

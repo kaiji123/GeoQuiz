@@ -51,6 +51,8 @@ function handleKey(event){
 
 //document ready function - run on page load
 $(function () {
+    $('#mascot-sad img').hide();
+    $('#mascot-happy img').hide();
     //enable debug for jack's user account
     if (sessionStorage.id == '106017767078900462768') {
         console.log('DEBUG MODE ON ')
@@ -77,7 +79,7 @@ function init() {
     //start main loop
     window.requestAnimationFrame(loop)
 
-
+   
     //get client coordinates and generate a quiz for that location
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -117,16 +119,17 @@ async function fetchQuiz(coords) {
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(coords),
     });
+   
     return await res.json();
 }
 
 //takes a JSON quiz and generates html
 function genQuizHtml(quiz) {
     var htmlArray = [];
-
+    
     quiz.forEach((q) => {
         var html = '<h1>' + q.question + '</h1>';
-
+        
         //create content for special question types
         if (q.type == 'text') {
             html += '<h3>"' + q.metadata + '"</h3>';
@@ -179,7 +182,7 @@ function disableButtons(buttons){
 }
 //called when the user clicks an answer
 function nextQuestion(el, right) {
-
+    
     var buttons = document.getElementById("buttons").childNodes
     disableButtons(buttons)
     //style element based on whether right answer clicked
@@ -187,8 +190,10 @@ function nextQuestion(el, right) {
         score++;
         $(el).addClass('right')
         $(el).find('.tick').css('visibility', 'visible')
+        $('#mascot-happy img').show();
+        
         rightFX.play()
-        html = '<img class="happy" src="/public/images/cute_globe.png" >'
+        
 
     }
     else {
@@ -197,7 +202,10 @@ function nextQuestion(el, right) {
 
         $('#rightanswer').addClass('right')
         $('#rightanswer').find('.tick').css('visibility', 'visible')
+        $('#mascot-sad img').show();
+        //$('#mascot-sad img').hide();
         wrongFX.play()
+        
 
     }
 
@@ -216,7 +224,8 @@ function nextQuestion(el, right) {
             $('#quiz').html(quizHtml[currentQuestion]);
             timer = 0
             $('#timer').css('animation', "anim 10s linear forwards")
-
+            $('#mascot-happy img').hide();
+            $('#mascot-sad img').hide();
             //register a new set of key listeners 
             register();
         }
@@ -273,13 +282,6 @@ function showQuizQuestions(){
     document.write(quizHtml)
 };
 
-/*
- function circle(){
-     var progress =$(outer).width()
-     var progressWidth = progress * ((currentQuestion + 1)/quizLength)
-     $('circle').css('stroke-dashoffset', progressWidth + 'px')
- }
- */
 
 
 //main quiz loop - deltaTime = how long the last loop took in ms

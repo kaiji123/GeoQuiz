@@ -9,7 +9,6 @@ circle{
     stroke: url(#GradientColor);
     stroke-dasharray: 472;
     stroke-dashoffset: 0;
-    
 }
 
 
@@ -54,8 +53,10 @@ circle{
     
 }
 
-.buffer{
-    width: 40%;
+.buffer-left{
+    width: 10%;
+    position:absolute;
+    margin-top: -1%;
 }
 
 #quiz{
@@ -70,7 +71,8 @@ circle{
 }
 
 #quiz-container{
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
 }
  
 #buttons{
@@ -124,9 +126,9 @@ circle{
 
 
 #google-image{
-    max-height: 200px;
-    width: 40%;
-    margin: 0px 30%;
+    max-height: 30%;
+    max-width: 50%;
+    margin: 0px 40%;
     height: auto;
 
     border: 2px solid black;
@@ -138,11 +140,16 @@ circle{
     display: inline;
     visibility: hidden;
 }
-.happy{
-    max-height: 400px;
+#mascot-happy img{
+    margin-top: 30%;
+    margin-left: -150%;
+
 
 }
-
+#mascot-sad img{
+    margin-left: -150%;
+    margin-bottom: 20%;
+}
 /*End of quiz stuff*/
 .quiz-end{
     width: 50%;
