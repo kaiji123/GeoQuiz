@@ -59,6 +59,9 @@ const swaggerOptions = {
       {
         url: 'http://localhost:3000',
         description: 'Development server',
+      },{
+        url: 'https://geo-quiz.xyz',
+        description: 'Production server'
       }]
   },
    
