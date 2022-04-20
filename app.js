@@ -40,7 +40,6 @@ app.use('/api', apiRouter);
 const swaggerOptions = {
   
   swaggerDefinition: {
-    swagger: "3.0.0",
     openapi: "3.0.0",
     info: {
       version: "3.0.0",

@@ -53,12 +53,12 @@ const geocoder = NodeGeocoder(options)
  *      summary: Check if user has signed the GDPR
  *      security:
  *          - bearerAuth: []
- *      parameters:
- *          - in : body
- *            name: user
- *            description: the user to set gdpr
- *            schema:  
- *              $ref: '#/definitions/User'  # <----------
+ *      requestBody:
+ *          description: the user to set gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/definitions/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully signed GDPR                 
@@ -68,7 +68,7 @@ const geocoder = NodeGeocoder(options)
  *          description: Requested resource not found
  */
 //checks if users have signed the GDPR
-router.post('/get-gdpr', async (req, res) => {
+router.post('/get-gdpr',authenticateToken,  async (req, res) => {
     let id = req.body.id
     console.log("hello")
     console.log(req.body)
@@ -84,14 +84,12 @@ router.post('/get-gdpr', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Set user's GDPR status to 1
- *      consumes: 
- *          - application/json
- *      parameters:
- *          - in : body
- *            name: user
- *            description: the user to set gdpr
- *            schema:  
- *              $ref: '#/definitions/User'  # <----------
+ *      requestBody:
+ *          description: the user to set gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/definitions/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully set GDPR status to 1
@@ -118,17 +116,20 @@ router.post('/set-gdpr', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Add a user to the database if they don't already exist
- *      parameters:
- *          - in: body
- *            name: userId
- *            required: true
- *            description: Numeric ID of the user to retrieve
- *            schema:
- *              properties:
- *                  id:
- *                      type: integer
- *                  name:
- *                      type: string
+ *      requestBody:
+ *          description: the user to set gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      required: 
+ *                          - id
+ *                          - name
+ *                      properties:
+ *                          id :
+ *                              type: integer
+ *                          name:
+ *                              type: string
+ *                      
  *      responses:
  *        200:
  *         description: Successfully added user
@@ -244,7 +245,7 @@ router.post('/reset-pfp', async (req, res) => {
 
 /**
  * @swagger
- * /api-docs/users:
+ * /api/users:
  *    delete:
  *      tags:
  *          - User
@@ -496,6 +497,7 @@ function authenticateToken(req, res, next) {
                 next()
             }
             else{
+                console.log("invalid token")
                 res.sendStatus(403)
             }
            
