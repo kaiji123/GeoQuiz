@@ -104,7 +104,7 @@ function setHeaderContent(){
 async function checkGDPR(id){
     const res = await fetch('/api/get-gdpr', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': id
         })

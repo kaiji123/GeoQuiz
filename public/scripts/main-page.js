@@ -46,7 +46,7 @@ function showClientLocation(){
 function acceptGDPR(){
     fetch('/api/set-gdpr', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': sessionStorage.getItem('id')
         })

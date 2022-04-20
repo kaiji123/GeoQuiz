@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken')
 var fs = require('fs').promises
 
 const NodeGeocoder = require('node-geocoder')
+const { NOTFOUND } = require('dns')
 
 //node geocoder configuration
 const options = {
@@ -42,6 +43,7 @@ const geocoder = NodeGeocoder(options)
  *        id:
  *          description: the user's google id number
  *          type: integer
+ *          example: 0
  */
 
 /**
@@ -84,6 +86,8 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
  *      tags:
  *          - User
  *      summary: Set user's GDPR status to 1
+ *      security:
+ *          - bearerAuth: []
  *      requestBody:
  *          description: the user to set gdpr
  *          content: 
@@ -99,7 +103,7 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
  *          description: Requested resource not found
  */
 //sets a user's gdpr status to 1
-router.post('/set-gdpr', async (req, res) => {
+router.post('/set-gdpr',authenticateToken, async (req, res) => {
     let id = req.body.id
     let status = await database.setGDPR(id, 1)
     res.sendStatus(status)
@@ -117,7 +121,7 @@ router.post('/set-gdpr', async (req, res) => {
  *          - User
  *      summary: Add a user to the database if they don't already exist
  *      requestBody:
- *          description: the user to set gdpr
+ *          description: the user to add
  *          content: 
  *              application/json:
  *                  schema:  
@@ -126,8 +130,10 @@ router.post('/set-gdpr', async (req, res) => {
  *                          - name
  *                      properties:
  *                          id :
+ *                              description: user's google id 
  *                              type: integer
  *                          name:
+ *                              description: username
  *                              type: string
  *                      
  *      responses:
@@ -178,14 +184,14 @@ router.post('/add-user', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /api/profile-picture/{userId}:
+ * /api/profile-picture/{id}:
  *    get:
  *      tags:
  *          - User
  *      summary: Fetch a profile picture
  *      parameters:
  *          - in: path
- *            name: userId
+ *            name: id
  *            required: true
  *            description: Numeric ID of the user to retrieve
  *            schema:
@@ -196,17 +202,27 @@ router.post('/add-user', async (req, res) => {
  *         description: Successfully fetched profile picture
  *        400:
  *          description: Invalid or missing parameter
+ *        404: 
+ *          description: user not found
  *      
  */
 router.get('/profile-picture/:id', async (req, res) => {
     let id = req.params.id
     console.log('fetching profile picture for ' + id)
+
+
+    let exists = await database.userExists(id)
+    if (!exists){
+        res.send(404)
+    }
+    else{
     let pixels = await database.getProfilePicture(id)
 
     //turn our json into an image
     let data = profilePicture.renderProfilePicture(JSON.parse(pixels), 500)
     res.setHeader('content-type', 'image/png');
     res.send(data)
+    }
 })
 //PFPs
 /**
@@ -426,19 +442,24 @@ router.post('/quiz', async (req, res) => {
 
 /**
  * @swagger
- * /api-docs/location:
+ * /api/location:
  *    post:
  *      tags:
  *          - Quiz
  *      summary: Retrieve the address from given coordinates
- *      parameters:
- *         - in: cookie
- *           name: coords
- *           required: true
- *           description: Coordinates of users location
- *           schema:
- *              type: integer
- *           example: 52.4429616,-1.9403622
+ *      requestBody:
+ *          description: the user to set gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      type: object
+ *                      properties:
+ *                          lat: 
+ *                              type: number
+ *                              example: 52.4429616
+ *                          lon:
+ *                              type: number
+ *                              example: -1.9403622
  *      responses:
  *        200:
  *         description: Successfully converted coordinates to address
@@ -448,6 +469,7 @@ router.post('/quiz', async (req, res) => {
 //returns an address from given coordinates
 router.post('/location', async (req, res) => {
     var coords = req.body
+
     locFromCoords(coords).then((loc) => res.send(loc[0]))
 })
 
