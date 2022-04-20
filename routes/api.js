@@ -268,14 +268,17 @@ router.post('/reset-pfp', authenticateToken, async (req, res) => {
  *      summary: Delete user account 
  *      security:
  *          - bearerAuth: []
- *      parameters:
- *         - in: query
- *           name: userId
- *           required: true
- *           description: Numeric ID of the user
- *           schema:
- *              type: integer
- *           example: 111843877506203660742
+ *      requestBody:
+ *          description: the user to delete
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      required: 
+ *                          - id
+ *                      properties:
+ *                          id :
+ *                              description: user's google id 
+ *                              type: integer
  *      requestBody:
  *          required: true
  *      responses:
@@ -284,7 +287,7 @@ router.post('/reset-pfp', authenticateToken, async (req, res) => {
  *          400:
  *              description: User not found
  */
-router.delete('/users', authenticateToken, function (req, res) {
+router.delete('/users', authenticateToken, async function (req, res) {
 
     data = req.body
     let userId = data.id
@@ -294,7 +297,7 @@ router.delete('/users', authenticateToken, function (req, res) {
     // add a layer of security
 
     //to do cascading delete
-    let datares = database.deleteUser(userId)
+    let datares = await database.deleteUser(userId)
 
 
     res.sendStatus(200)
