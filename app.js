@@ -38,9 +38,12 @@ app.use('/api', apiRouter);
 
 
 const swaggerOptions = {
+  
   swaggerDefinition: {
+    swagger: "3.0.0",
+    openapi: "3.0.0",
     info: {
-      version: "1.0.0",
+      version: "3.0.0",
       title: "GEOquiz API",
       description: "You can find out more about GEOquiz at "
       + "[GEOquiz](https://geo-quiz.xyz/about).",

@@ -21,9 +21,10 @@ const geocoder = NodeGeocoder(options)
 
 /**
  * @swagger
- * securitySchemes:
+ * components:
+ *  securitySchemes:
  *      bearerAuth:            
- *          type: https
+ *          type: http
  *          scheme: bearer
  *          bearerFormat: JWT
  * security:
@@ -176,7 +177,7 @@ router.post('/add-user', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /api-docs/profile-picture/{userId}:
+ * /api/profile-picture/{userId}:
  *    get:
  *      tags:
  *          - User
@@ -209,7 +210,7 @@ router.get('/profile-picture/:id', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /api-docs/reset-pfp:
+ * /api/reset-pfp:
  *    post:
  *      tags:
  *          - User
@@ -248,6 +249,8 @@ router.post('/reset-pfp', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Delete user account 
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *         - in: query
  *           name: userId
@@ -283,7 +286,7 @@ router.delete('/users', authenticateToken, function (req, res) {
 
 /**
  * @swagger
- * /api-docs/scores:
+ * /api/scores:
  *    get:
  *      tags:
  *          - Quiz
@@ -301,7 +304,7 @@ router.get('/scores', async (req, res) => {
 
 /**
  * @swagger
- * /leaderboard:
+ * /api/leaderboard:
  *    get:
  *      tags:
  *          - Quiz
