@@ -279,8 +279,6 @@ router.post('/reset-pfp', authenticateToken, async (req, res) => {
  *                          id :
  *                              description: user's google id 
  *                              type: integer
- *      requestBody:
- *          required: true
  *      responses:
  *          200:
  *              description: Successfully deleted user

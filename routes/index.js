@@ -42,4 +42,10 @@ router.get('/review', function(req, res, nect){
 });
 
 
+router.get('/achievements', function(req, res, nect){
+  res.render('achievements')
+});
+
+
+
 module.exports = router;

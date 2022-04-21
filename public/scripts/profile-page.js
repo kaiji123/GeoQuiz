@@ -8,6 +8,10 @@ $(function(){
     $('#get-new-pfp').click(function(){
         resetProfilePic()
     })
+
+    $('#achievements').click(function(){
+        window.location.href = "/achievements" 
+    })
 })
 
 //displays the username
