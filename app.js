@@ -57,10 +57,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'http://localhost:3000/api',
         description: 'Development server',
       },{
-        url: 'https://geo-quiz.xyz',
+        url: 'https://geo-quiz.xyz/api',
         description: 'Production server'
       }]
   },

@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken')
 var fs = require('fs').promises
 
 const NodeGeocoder = require('node-geocoder')
-const { NOTFOUND } = require('dns')
+
 
 //node geocoder configuration
 const options = {
@@ -35,20 +35,50 @@ const geocoder = NodeGeocoder(options)
 
 /**
  * @swagger
- * definitions:
- *  User : # <----------
- *     required: 
- *        - id
- *     properties:
- *        id:
- *          description: the user's google id number
- *          type: integer
- *          example: 0
+ * components:
+ *  schemas:
+ *      User : # <----------
+ *          type: object
+ *          required: 
+ *              - id
+ *          properties:
+ *              id:
+ *                  description: the user's google id number
+ *                  type: integer
+ *                  example: 0
+ *      Query : # <----------
+ *          required: 
+ *              - email
+ *              - query
+ *          properties:
+ *              email:
+ *                  description: the user's email
+ *                  type: string
+ *                  example: James@gmail.com
+ *              query:
+ *                  description: user's query
+ *                  type: string
+ *                  example: the website is broken
+ *      Location:
+ *          type: object
+ *          required:
+ *              - lat
+ *              - lon
+ *          properties:
+ *              lat: 
+ *                  description: the latitude of location
+ *                  type: number
+ *                  example: 52.4429616
+ *              lon:
+ *                  description: the longitude of location
+ *                  type: number
+ *                  example: -1.9403622
+ *          
  */
 
 /**
  * @swagger
- * /api/get-gdpr:
+ * /get-gdpr:
  *    post:
  *      tags:
  *          - User
@@ -56,14 +86,14 @@ const geocoder = NodeGeocoder(options)
  *      security:
  *          - bearerAuth: []
  *      requestBody:
- *          description: the user to set gdpr
+ *          description: the user to get gdpr
  *          content: 
  *              application/json:
  *                  schema:  
- *                      $ref: '#/definitions/User'  # <----------
+ *                      $ref: '#/components/schemas/User'  # <----------
  *      responses:
  *        200:
- *         description: Successfully signed GDPR                 
+ *         description: Successfully received GDPR status                 
  *        400:
  *          description: Invalid or missing user ID
  *        404:
@@ -81,7 +111,7 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
 //GDPR
 /**
  * @swagger
- * /api/set-gdpr:
+ * /set-gdpr:
  *    post:
  *      tags:
  *          - User
@@ -93,7 +123,7 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
  *          content: 
  *              application/json:
  *                  schema:  
- *                      $ref: '#/definitions/User'  # <----------
+ *                      $ref: '#/components/schemas/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully set GDPR status to 1
@@ -115,11 +145,11 @@ router.post('/set-gdpr',authenticateToken, async (req, res) => {
 //users
 /**
  * @swagger
- * /api/add-user:
+ * /add-user:
  *    post:
  *      tags:
  *          - User
- *      summary: Add a user to the database if they don't already exist
+ *      summary: Add a user to the database if they don't already exist otherwise login
  *      requestBody:
  *          description: the user to add
  *          content: 
@@ -184,7 +214,7 @@ router.post('/add-user', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /api/profile-picture/{id}:
+ * /profile-picture/{id}:
  *    get:
  *      tags:
  *          - User
@@ -227,23 +257,19 @@ router.get('/profile-picture/:id', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /api/reset-pfp:
+ * /reset-pfp:
  *    post:
  *      tags:
  *          - User
  *      summary: Reset a user's profile picture
- *      parameters:
- *         - in: query
- *           name: userId
- *           required: true
- *           description: Numeric ID of the user to retrieve
- *           schema:
- *              type: integer
- *           example: 111843877506203660742
- *         - in: query
- *           name: pfp
- *           required: true
- *           description: New profile picture
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to reset profile picture
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/User'  # <----------
  *      responses:
  *        200:
  *         description: Successfully reset profile picture
@@ -261,7 +287,7 @@ router.post('/reset-pfp', authenticateToken, async (req, res) => {
 
 /**
  * @swagger
- * /api/users:
+ * /users:
  *    delete:
  *      tags:
  *          - User
@@ -304,7 +330,7 @@ router.delete('/users', authenticateToken, async function (req, res) {
 
 /**
  * @swagger
- * /api/scores:
+ * /scores:
  *    get:
  *      tags:
  *          - Quiz
@@ -322,7 +348,7 @@ router.get('/scores', async (req, res) => {
 
 /**
  * @swagger
- * /api/leaderboard:
+ * /leaderboard:
  *    get:
  *      tags:
  *          - Quiz
@@ -350,7 +376,7 @@ router.get('/leaderboard', async (req, res) => {
 //scores
 /**
  * @swagger
- * /api/save-score:
+ * /save-score:
  *    post:
  *      tags:
  *          - User
@@ -383,11 +409,17 @@ router.post('/save-score',authenticateToken, (req, res) => {
 
 /**
  * @swagger
- * /api/support:
+ * /support:
  *    post:
  *      tags:
  *          - Quiz
  *      summary: Receive and handle support queries
+ *      requestBody:
+ *          description: the user to get gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/Query'  # <----------
  *      responses:
  *        200:
  *         description: Successfully received support query
@@ -413,19 +445,17 @@ router.post('/support', async (req, res) => {
 
 /**
  * @swagger
- * /api/quiz:
+ * /quiz:
  *    post:
  *      tags:
  *          - Quiz
  *      summary: Generate a quiz
- *      parameters:
- *         - in: cookie
- *           name: coords
- *           required: true
- *           description: Coordinates of users location
- *           schema:
- *              type: integer
- *           example: 52.4429616,-1.9403622
+ *      requestBody:
+ *          description: location to generate quiz
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/Location'  # <----------
  *      responses:
  *        200:
  *         description: Successfully generated a quiz
@@ -443,7 +473,7 @@ router.post('/quiz', async (req, res) => {
 
 /**
  * @swagger
- * /api/location:
+ * /location:
  *    post:
  *      tags:
  *          - Quiz
