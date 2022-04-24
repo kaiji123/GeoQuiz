@@ -73,6 +73,25 @@ const geocoder = NodeGeocoder(options)
  *                  description: the longitude of location
  *                  type: number
  *                  example: -1.9403622
+ *      Score:
+ *          type: object
+ *          required:
+ *              - score
+ *              - percentage
+ *              - id
+ *          properties:
+ *              score: 
+ *                  description: the latitude of location
+ *                  type: integer
+ *                  example: 5
+ *              percentage:
+ *                  description: the percentage of your score
+ *                  type: number
+ *                  example: 60
+ *              id:
+ *                  description: user id
+ *                  type: integer
+ *                  example: 1
  *          
  */
 
@@ -381,14 +400,14 @@ router.get('/leaderboard', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Add a user's score to the database
- *      parameters:
- *         - in: query
- *           name: userId
- *           required: true
- *           description: Numeric ID of the user to retrieve
- *           schema:
- *              type: integer
- *           example: 111843877506203660742
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to reset profile picture
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/Score'  # <----------
  *      responses:
  *        200:
  *         description: Successfully saved score
