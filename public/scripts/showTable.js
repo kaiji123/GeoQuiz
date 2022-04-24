@@ -1,7 +1,7 @@
 //show leaderboard table in homepage
 function showTable(){
-    //create GET request to /api/top5 to get top 5 users in homepage
-    fetch('/api/leaderboard',{
+    //create GET request to /api/v1/top5 to get top 5 users in homepage
+    fetch(API_VERSION +'/leaderboard',{
     method: 'GET',
     headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
     

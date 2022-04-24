@@ -1,8 +1,8 @@
 var express = require('express')
 var router = express.Router()
-var database = require('./database.js')
-var quizgen = require('./quiz-gen-v2.js')
-var profilePicture = require('./profile-picture.js')
+var database = require('../../database.js')
+var quizgen = require('../../quiz-gen-v2.js')
+var profilePicture = require('../../profile-picture.js')
 var jwt = require('jsonwebtoken')
 
 var fs = require('fs').promises
@@ -400,8 +400,6 @@ router.get('/leaderboard', async (req, res) => {
  *      tags:
  *          - User
  *      summary: Add a user's score to the database
- *      security:
- *          - bearerAuth: []
  *      requestBody:
  *          description: the user to reset profile picture
  *          content: 
@@ -517,7 +515,7 @@ router.post('/quiz', async (req, res) => {
  *         description: Invalid coordinates
  */
 //returns an address from given coordinates
-router.post('/location', authenticateToken, async (req, res) => {
+router.post('/location', async (req, res) => {
     var coords = req.body
 
     locFromCoords(coords).then((loc) => res.send(loc[0]))

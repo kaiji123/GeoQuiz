@@ -114,7 +114,7 @@ function init() {
 }
 //fetch a quiz from the API
 async function fetchQuiz(coords) {
-    const res = await fetch('/api/quiz', {
+    const res = await fetch(API_VERSION + '/quiz', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(coords),
@@ -238,7 +238,7 @@ function finish(score) {
     //save score
     if (sessionStorage.id != null) {
         //send score to db
-        fetch('/api/save-score', {
+        fetch(API_VERSION + '/save-score', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify({

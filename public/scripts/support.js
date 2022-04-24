@@ -10,7 +10,7 @@ function sendSupport(){
         'query': query
     }
 
-    fetch('/api/support',{
+    fetch(API_VERSION +'/support',{
         method: 'POST',
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         body: JSON.stringify(json),

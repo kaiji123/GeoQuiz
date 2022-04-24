@@ -15,7 +15,7 @@ require('dotenv').config()
 
 //one router per page
 var indexRouter = require('./routes/index');
-var apiRouter   = require('./routes/api.js');
+var apiRouter   = require('./routes/api/v1/api.js');
 port = 3000
 
 
@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 
 
 const swaggerOptions = {
@@ -57,10 +57,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api',
+        url: 'http://localhost:3000/api/v1',
         description: 'Development server',
       },{
-        url: 'https://geo-quiz.xyz/api',
+        url: 'https://geo-quiz.xyz/api/v1',
         description: 'Production server'
       }]
   },

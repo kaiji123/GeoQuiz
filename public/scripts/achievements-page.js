@@ -45,7 +45,7 @@ function show(data)
 async function getScores(){
     const token = sessionStorage.getItem("token")
     
-    const res = await fetch('/api/scores', {
+    const res = await fetch(API_VERSION + '/scores', {
         method: 'GET',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ token }
     })

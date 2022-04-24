@@ -92,7 +92,7 @@ function setHeaderContent(){
     }
     else{
         headerButton.html("Sign out")
-        $('#profile').attr('src', '/api/profile-picture/' + sessionStorage.id)  //set image to api route for pfps
+        $('#profile').attr('src', API_VERSION +'/profile-picture/' + sessionStorage.id)  //set image to api route for pfps
         $('#profile').toggle();
         headerButton.click(function(){
                 signOut()
@@ -102,7 +102,7 @@ function setHeaderContent(){
 
 //if gdpr is not signed, set a session variable to specify it must be signed
 async function checkGDPR(id){
-    const res = await fetch('/api/get-gdpr', {
+    const res = await fetch(API_VERSION + '/get-gdpr', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
@@ -116,7 +116,7 @@ async function checkGDPR(id){
 
 //sends an id to the api to check if a user exists
 async function addUserIfNew(id, name){
-    const res = await fetch('/api/add-user', {
+    const res = await fetch(API_VERSION +'/add-user', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
