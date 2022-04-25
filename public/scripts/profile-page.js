@@ -4,9 +4,13 @@ $(function(){
     showRank()
     registerDelete();
 
-    $('#profile-pic').attr('src', '/api/profile-picture/' + sessionStorage.id)
+    $('#profile-pic').attr('src', API_VERSION + '/profile-picture/' + sessionStorage.id)
     $('#get-new-pfp').click(function(){
         resetProfilePic()
+    })
+
+    $('#achievements').click(function(){
+        window.location.href ="/achievements" 
     })
 })
 
@@ -39,7 +43,7 @@ function registerDelete(){
 }
 
 function resetProfilePic(){
-    fetch('/api/reset-pfp',{
+    fetch(API_VERSION + '/reset-pfp',{
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -61,7 +65,7 @@ function resetProfilePic(){
 //show leaderboard table in homepage
 function showRank(){
     //create GET request to /api/top5 to get top 5 users in homepage
-    fetch('/api/leaderboard',{
+    fetch(API_VERSION +'/leaderboard',{
         method: 'GET'
     })
     .then(res => res.json())
@@ -85,7 +89,7 @@ function showRank(){
 async function deleteUser(id){
     const token = sessionStorage.getItem("token")
     
-    const res = await fetch('/api/users', {
+    const res = await fetch(API_VERSION +'/users', {
         method: 'Delete',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ token },
         body: JSON.stringify({

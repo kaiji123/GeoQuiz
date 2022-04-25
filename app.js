@@ -5,13 +5,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+
+var cors = require('cors')
+
+
 require('dotenv').config()
 
 
 
 //one router per page
 var indexRouter = require('./routes/index');
-var apiRouter   = require('./routes/api.js');
+var apiRouter   = require('./routes/api/v1/api.js');
 port = 3000
 
 
@@ -21,6 +25,8 @@ port = 3000
 
 
 var app = express();
+
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,24 +40,36 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+
+//use this for version 1 of our api
+app.use('/api/v1', apiRouter);
 
 
 const swaggerOptions = {
+  
   swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
-      version: "1.0.0",
-      title: "Customer API",
-      description: "Customer API Information",
-      contact: {
-        name: "Amazing Developer"
-      },
-      servers: ["http://localhost:3000"]
-    }
+      version: "3.0.0",
+      title: "GEOquiz API",
+      description: "You can find out more about GEOquiz at "
+      + "[GEOquiz](https://geo-quiz.xyz/about).",
+      termsOfUse: "https://geo-quiz.xyz/terms-of-use",
+      support: "https://geo-quiz.xyz/support"
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000/api/v1',
+        description: 'Development server',
+      },{
+        url: 'https://geo-quiz.xyz/api/v1',
+        description: 'Production server'
+      }]
   },
    
   apis: ['./routes/*.js']
-};
+}
+
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 

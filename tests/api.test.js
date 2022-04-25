@@ -13,11 +13,11 @@ const app = require('../app.js');
 const database = require("../routes/database.js")
 
 // api/integration tests
-describe('GET /api/leaderboard', () => {
+describe('GET /leaderboard', () => {
     it('Should return a leaderboard object', done => {
       chai
         .request(app)
-        .get('/api/leaderboard')
+        .get('/api/v1/leaderboard')
         .then((res) => {
           res.should.have.status(200);
           expect(res.body).to.be.an('array')
@@ -31,7 +31,7 @@ describe('GET /api/leaderboard', () => {
 
 
 //  location test
-describe('POST /api/location', () => {
+describe('POST /api/v1/location', () => {
   it('Should return a JSON object containing city and country', done => {
     chai
       .request(app)
@@ -47,7 +47,7 @@ describe('POST /api/location', () => {
 
 
 // api/integration tests
-describe('POST /api/save-score', () => {
+describe('POST /api/v1/save-score', () => {
   it('Should save a score to the database', done => {
     const prev = database.getScores()
 
