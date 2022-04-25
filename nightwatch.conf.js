@@ -18,6 +18,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: "chrome",
         chromeOptions: {
+          args: ["--no-sandbox"]
         },
       },
     },

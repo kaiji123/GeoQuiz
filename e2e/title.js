@@ -17,6 +17,8 @@ describe('title test', function() {
         .assert.elementPresent("#leaderboard")
         .assert.visible(".upper")
         .click(".start-quiz")
+        .waitForElementVisible('body')
+        .assert.elementPresent("#quiz")
         .end()
     });
   

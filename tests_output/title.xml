@@ -4,7 +4,7 @@
             tests="0">
 
   <testsuite name="title"
-    errors="1" failures="0" hostname="" id="" package="title" skipped="1"
+    errors="1" failures="0" hostname="" id="" package="title" skipped="2"
     tests="0" time="0.000" timestamp="">
   
 
@@ -24,7 +24,12 @@
   
     
     <testcase
-      name="search for nightwatch" classname="title">
+      name="test" classname="title">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="demo test" classname="title">
       <skipped />
     </testcase>
     
