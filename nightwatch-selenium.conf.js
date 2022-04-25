@@ -26,7 +26,7 @@ module.exports = {
       selenium_host: "${SELENIUM_HOST}",
 
       screenshots: {
-        enabled: true,
+        enabled: false,
         path: "tests_output/",
         on_failure: true
       },
@@ -35,7 +35,7 @@ module.exports = {
         browserName: "chrome",
         chromeOptions: {
           w3c: false,
-          args: ["--no-sandbox", '--disable-dev-shm-usage']
+          args: ["--no-sandbox"]
         }
       }
     }
