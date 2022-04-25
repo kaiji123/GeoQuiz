@@ -1,4 +1,4 @@
-/*
+
 const toggle = document.getElementById("data-theme");
 
 const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -19,4 +19,3 @@ toggle.onclick = function() {
   document.documentElement.setAttribute('data-theme', targetTheme)
   localStorage.setItem('theme', targetTheme);
 };
-*/
