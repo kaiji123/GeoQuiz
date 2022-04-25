@@ -31,6 +31,7 @@
 @media screen and (max-width: 800px) {
   .page{
     flex-direction: column;
+    padding: 0px 50px;
   }
   .login{
     width: 100%;

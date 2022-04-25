@@ -1,11 +1,22 @@
 .container {
   position: relative;
   z-index: 1;
-  padding-top: 10px;
+  padding-top: 0px;
   padding-left: 2vh;
   font-size: 100%;
 }
 
 p{
   font-size: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .page{
+    flex-direction: column;
+    padding: 0px 50px;
+  }
+
+  .container {
+    padding-left: 0vh;
+  }
 }

@@ -14,6 +14,12 @@ function showScore(){
     $('#score').html(score + '/10')
 }
 
+function tweet() {
+  var queryString = window.location.search
+  var score = new URLSearchParams(queryString).get("score")
+  window.location.href = `//twitter.com/intent/tweet?text=I%20got%20${score}/10%20on%20GeoQuiz!%20Click%20the%20link%20to%20try%20and%20beat%20my%20score` + `%3A&url=http%3A%2F%2Fgeo-quiz.xyz%2F`
+}
+
 function startConfetti(){
   
     var myCanvas = document.getElementById("my-canvas")
