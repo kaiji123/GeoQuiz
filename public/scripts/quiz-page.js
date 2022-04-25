@@ -308,7 +308,3 @@ function loop() {
     end = Date.now()
     window.requestAnimationFrame(loop)
 }
-
-module.exports = {
-    showQuizQuestions
-}
