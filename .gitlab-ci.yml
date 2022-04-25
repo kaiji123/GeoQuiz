@@ -83,6 +83,7 @@ e2e:
   script:
     - npm run selenium "/e2e/main.js"
     - npm run selenium "/e2e/title.js"
+    - npm run selenium "/e2e/homepage.js"
   artifacts:
     when: always
     paths:

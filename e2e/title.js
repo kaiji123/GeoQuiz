@@ -16,9 +16,7 @@ describe('title test', function() {
         .waitForElementVisible('body')
         .assert.elementPresent("#leaderboard")
         .assert.visible(".upper")
-        .click(".start-quiz")
-        .waitForElementVisible('body')
-        .assert.elementPresent("#quiz")
+        .pause(3*1000)
         .end()
     });
   
