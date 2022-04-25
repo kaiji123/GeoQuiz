@@ -81,7 +81,7 @@ e2e:
   variables:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
-    - mount -t tmpfs -o rw,nosuid,nodev,noexec,relatime,size=512M tmpfs /dev/shm
+    - mount -t tmpfs -o rw,nosuid,nodev,noexec,relatime,size=900M tmpfs /dev/shm
     - npm run selenium "/e2e/main.js"
     - npm run selenium "/e2e/title.js"
     - npm run selenium "/e2e/homepage.js"
