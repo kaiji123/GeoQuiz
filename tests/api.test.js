@@ -35,7 +35,7 @@ describe('POST /api/v1/location', () => {
   it('Should return a JSON object containing city and country', done => {
     chai
       .request(app)
-      .post('/api/location')
+      .post('/api/v1/location')
       .send({ lat: 45.767, lon: 4.833 })
       .then((err, res) => {
         res.should.have.status(200)
@@ -53,7 +53,7 @@ describe('POST /api/v1/save-score', () => {
 
     chai
       .request(app)
-      .post('/api/save-score')
+      .post('/api/v1/save-score')
       .send({ score: 6, id: "1", percentage: 60 })
       .then((err, res) => {
         res.should.have.status(200);
