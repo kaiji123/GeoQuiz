@@ -4,6 +4,5 @@ module.exports = {
         browser.pause(1000)
         browser.click(".start-quiz")
         //additional steps
-        browser.end();
     },
 };
