@@ -3,10 +3,8 @@
 //
 
 $(function(){
+    onLoadCallback()
     //only try and render google login if we're on the login page
-    gapi.load('auth2', function() {
-        gapi.auth2.init();
-    });
     if(window.location.pathname == '/login'){
         renderGLogin()
     }
@@ -14,6 +12,13 @@ $(function(){
     setHeaderContent()
 })
 
+
+
+function onLoadCallback(){
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+}
 window.onresize = renderGLogin;
 
 //renders google login at an appropriate size
