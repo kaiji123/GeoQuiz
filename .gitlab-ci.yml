@@ -81,6 +81,7 @@ e2e:
   variables:
     SELENIUM_HOST: selenium__standalone-chrome
   script:
+    - -v /dev/shm:/dev/shm
     - npm run selenium "/e2e/main.js"
     - npm run selenium "/e2e/title.js"
     - npm run selenium "/e2e/homepage.js"
