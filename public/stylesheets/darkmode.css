@@ -1,7 +1,7 @@
 :root {
     --background-color: #9ec8ff;
     --text-color: #000000d8;
-    --link-color: #543fd7;
+    --link-color: blue;
     --header-color:#7ab1ff;
     --headerborder-color: 0.5px solid rgb(0, 0, 0);
     --logo-color: invert(0);
@@ -13,12 +13,13 @@
     --social-login: antiquewhite;
     --social-border: 0px solid rgb(50, 51, 52);
     --form-color: #ffffff;
+    --tableheader-color: #6b9efd;
 }
 
 html[data-theme='light'] {
     --background-color: #9ec8ff;
     --text-color: #000000d8;
-    --link-color: #543fd7;
+    --link-color: blue;
     --header-color:#7ab1ff;
     --headerborder-color: 0.5px solid rgb(0, 0, 0);
     --logo-color: invert(0);
@@ -30,6 +31,7 @@ html[data-theme='light'] {
     --social-login: antiquewhite;
     --social-border: 0px solid rgb(50, 51, 52);
     --form-color: #ffffff;
+    --tableheader-color: #6b9efd;
 }
 
 html[data-theme='dark'] {
@@ -47,6 +49,7 @@ html[data-theme='dark'] {
     --social-login: #1A1A1B;
     --social-border: 1.5px solid rgb(50, 51, 52);
     --form-color: #1A1A1B;
+    --tableheader-color: #000000;
 
 }
 

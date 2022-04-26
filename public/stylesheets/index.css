@@ -70,8 +70,8 @@ table{
 }
 
 th{
-    background-color:#6b9efd;
-    color: black;
+    background-color: var(--tableheader-color);
+    color: var(--text-color);
 }
 
 tr{

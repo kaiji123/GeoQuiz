@@ -216,5 +216,11 @@ textarea:focus-within{
 
 a:focus-visible{
     outline-color: red;
+    background-color: yellow;
     color:black;
+}
+
+:focus-visible{
+    -webkit-filter: yellow;
+    filter: yellow;
 }
