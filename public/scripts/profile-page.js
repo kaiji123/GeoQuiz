@@ -45,7 +45,7 @@ function registerDelete(){
 function resetProfilePic(){
     fetch(API_VERSION + '/reset-pfp',{
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': sessionStorage.getItem('id')
         })

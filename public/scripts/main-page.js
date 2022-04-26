@@ -27,7 +27,7 @@ function showClientLocation(){
             //create new POST request to location api using fetch (at the moment it just bounces back data)
             fetch(API_VERSION +'/location',{
                 method: 'POST',
-                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
                 body: JSON.stringify(coords)
             })
             .then(res => res.json())

@@ -432,7 +432,7 @@ router.post('/save-score',authenticateToken, (req, res) => {
  *          - Quiz
  *      summary: Receive and handle support queries
  *      requestBody:
- *          description: the user to get gdpr
+ *          description: the support query
  *          content: 
  *              application/json:
  *                  schema:  

@@ -12,7 +12,7 @@ function sendSupport(){
 
     fetch(API_VERSION +'/support',{
         method: 'POST',
-        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify(json),
     })
     .then((res) => {
