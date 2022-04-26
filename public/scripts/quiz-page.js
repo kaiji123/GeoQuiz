@@ -172,6 +172,7 @@ function genQuizHtml(quiz) {
 
         htmlArray.push(html);
     })
+    localStorage.setItem('htmlArray', JSON.stringify(htmlArray));
     return htmlArray
 }
 
@@ -279,9 +280,6 @@ function advanceProgressBar() {
     }
 }
 
-function showQuizQuestions(){
-    document.write(quizHtml)
-};
 
 
 

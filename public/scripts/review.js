@@ -1,7 +1,9 @@
-var {showQuizQuestions} = require('./quiz-page.js');
-
-
 //document ready function - run on page load
 $(function () {
-    showQuizQuestions();
+    showQuizQuestions()
 })
+
+function showQuizQuestions(){
+    var retrievedObject = localStorage.getItem('htmlArray');
+    document.write(retrievedObject)
+}
