@@ -27,7 +27,7 @@ function showClientLocation(){
             //create new POST request to location api using fetch (at the moment it just bounces back data)
             fetch(API_VERSION +'/location',{
                 method: 'POST',
-                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
                 body: JSON.stringify(coords)
             })
             .then(res => res.json())
@@ -44,8 +44,8 @@ function showClientLocation(){
 
 //set the user's gdpr status
 function acceptGDPR(){
-    fetch(API_VERSION +'/set-gdpr', {
-        method: 'POST',
+    fetch(API_VERSION +'/gdpr', {
+        method: 'PUT',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': sessionStorage.getItem('id')

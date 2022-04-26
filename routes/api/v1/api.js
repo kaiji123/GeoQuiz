@@ -130,8 +130,8 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
 //GDPR
 /**
  * @swagger
- * /set-gdpr:
- *    post:
+ * /gdpr:
+ *    put:
  *      tags:
  *          - User
  *      summary: Set user's GDPR status to 1
@@ -152,7 +152,7 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
  *          description: Requested resource not found
  */
 //sets a user's gdpr status to 1
-router.post('/set-gdpr',authenticateToken, async (req, res) => {
+router.put('/gdpr',authenticateToken, async (req, res) => {
     let id = req.body.id
     let status = await database.setGDPR(id, 1)
     res.sendStatus(status)
@@ -432,7 +432,7 @@ router.post('/save-score',authenticateToken, (req, res) => {
  *          - Quiz
  *      summary: Receive and handle support queries
  *      requestBody:
- *          description: the user to get gdpr
+ *          description: the support query
  *          content: 
  *              application/json:
  *                  schema:  

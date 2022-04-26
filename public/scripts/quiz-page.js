@@ -116,7 +116,7 @@ function init() {
 async function fetchQuiz(coords) {
     const res = await fetch(API_VERSION + '/quiz', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify(coords),
     });
    
@@ -172,6 +172,7 @@ function genQuizHtml(quiz) {
 
         htmlArray.push(html);
     })
+    localStorage.setItem('htmlArray', JSON.stringify(htmlArray));
     return htmlArray
 }
 
@@ -235,12 +236,13 @@ function nextQuestion(el, right) {
 //called when the quiz is finished
 function finish(score) {
     var percentage = (score / quizLength) * 100
+
     //save score
     if (sessionStorage.id != null) {
         //send score to db
         fetch(API_VERSION + '/save-score', {
             method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
             body: JSON.stringify({
                 'score': score,
                 'percentage': percentage,
@@ -278,9 +280,6 @@ function advanceProgressBar() {
     }
 }
 
-function showQuizQuestions(){
-    document.write(quizHtml)
-};
 
 
 

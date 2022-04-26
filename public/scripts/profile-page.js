@@ -45,7 +45,7 @@ function registerDelete(){
 function resetProfilePic(){
     fetch(API_VERSION + '/reset-pfp',{
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': sessionStorage.getItem('id')
         })
@@ -81,8 +81,14 @@ function showRank(){
         })
 
         let rank = index + 1
-        let score = lbEntry.total
-        $('#rank').html(`Global ranking: ${rank}<br>Total score: ${score}`)
+      
+        if (lbEntry == undefined){
+            $('#rank').html(`You have not played a game, please start a quiz`)
+        }else{
+            let score = lbEntry.total
+            $('#rank').html(`Global ranking: ${rank}<br>Total score: ${score}`)
+        }
+        
     });
 }
 

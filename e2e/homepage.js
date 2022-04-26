@@ -1,9 +1,8 @@
 module.exports = {
     'example flow': function (browser) {
         browser.url("https://geo-quiz.xyz/")
-        browser.pause(1000)
-        browser.click(".start-quiz")
+        browser.waitForElementVisible('.start-quiz')
+        browser.click('#scale1')
         //additional steps
-        browser.end();
     },
 };

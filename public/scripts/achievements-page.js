@@ -11,12 +11,19 @@ function show(data)
     let userid = sessionStorage.getItem("id")
     console.log(userid)
     total = 0 
+    let perfect_total= 0
     for (let i = 0 ; i < data.length; i++){
         if (data[i].userId === userid){
             total = total + data[i].score
+            console.log(data[i].score)
+            if (data[i].score === 10){
+
+                perfect_total = perfect_total +1 
+            }
         }
     }
     console.log("this is my total"  + total)
+    console.log("perfect " +perfect_total)
 
     let scores = [1,5,10,15,20,25,30,40,60,100]
     
@@ -26,7 +33,7 @@ function show(data)
         let text = document.createElement("p")
         text.innerHTML = "Achieve "+ data + " points"
         div.appendChild(text)
-        if (total > data){
+        if (total >= data){
             div.className = "achieved"
         }
         else
@@ -35,6 +42,24 @@ function show(data)
         }
         container.appendChild(div)
     })
+
+    let perfects = [1,3,10,20,30]
+    perfects.forEach(data => {
+        let div= document.createElement("div")
+        let text = document.createElement("p")
+        text.innerHTML = "Had "+ data + " perfect games"
+        div.appendChild(text)
+        if (perfect_total >= data){
+            div.className = "achieved"
+        }
+        else
+        {
+            div.className = "not-achieved"
+        }
+        container.appendChild(div)
+    })
+
+   
 
 
 
