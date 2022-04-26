@@ -119,7 +119,7 @@ const geocoder = NodeGeocoder(options)
  *          description: Requested resource not found
  */
 //checks if users have signed the GDPR
-router.post('/get-gdpr',authenticateToken,  async (req, res) => {
+router.post('/get-gdpr', authenticateToken, async (req, res) => {
     let id = req.body.id
     console.log("hello")
     console.log(req.body)
@@ -152,11 +152,44 @@ router.post('/get-gdpr',authenticateToken,  async (req, res) => {
  *          description: Requested resource not found
  */
 //sets a user's gdpr status to 1
-router.put('/gdpr',authenticateToken, async (req, res) => {
+router.put('/gdpr', authenticateToken, async (req, res) => {
     let id = req.body.id
+    // let user choose gdpr status
     let status = await database.setGDPR(id, 1)
     res.sendStatus(status)
 
+})
+
+
+/**
+ * @swagger
+ * /gdpr/{id}:
+ *    delete:
+ *      tags:
+ *          - User
+ *      summary: delete gdpr
+ *      security:
+ *          - bearerAuth: []
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *              example: 102333127248222698957
+ *      responses:
+ *        200:
+ *         description: Successfully fetched scores
+ *        404:
+ *         description: Requested resource does not exist
+ *        401: 
+ *         description: Unauthorized action
+ */
+ router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
+    let deleteId = req.params.id
+    let status = await database.setGDPR(deleteId, 0)
+    res.send(status)
 })
 
 
@@ -261,16 +294,16 @@ router.get('/profile-picture/:id', async (req, res) => {
 
 
     let exists = await database.userExists(id)
-    if (!exists){
+    if (!exists) {
         res.send(404)
     }
-    else{
-    let pixels = await database.getProfilePicture(id)
+    else {
+        let pixels = await database.getProfilePicture(id)
 
-    //turn our json into an image
-    let data = profilePicture.renderProfilePicture(JSON.parse(pixels), 500)
-    res.setHeader('content-type', 'image/png');
-    res.send(data)
+        //turn our json into an image
+        let data = profilePicture.renderProfilePicture(JSON.parse(pixels), 500)
+        res.setHeader('content-type', 'image/png');
+        res.send(data)
     }
 })
 //PFPs
@@ -344,7 +377,7 @@ router.delete('/users', authenticateToken, async function (req, res) {
 
 
     res.sendStatus(200)
-    
+
 })
 
 /**
@@ -413,7 +446,7 @@ router.get('/leaderboard', async (req, res) => {
  *         description: Invalid or missing parameters
  */
 //save a user's score to the database
-router.post('/save-score',authenticateToken, (req, res) => {
+router.post('/save-score', authenticateToken, (req, res) => {
     let data = req.body
     let score = data.score
     let googleId = data.id
@@ -553,8 +586,8 @@ function authenticateToken(req, res, next) {
 
     //verifying the token
 
-    
-    jwt.verify(token, process.env.JWT_KEY, (err,decoded) => {
+
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
         console.log("hello jwt")
         if (err) {
             console.log("nope")
@@ -562,17 +595,74 @@ function authenticateToken(req, res, next) {
         } else {
             console.log("yes")
             console.log(decoded)
-            if (userId == decoded.googleId){
+            if (userId == decoded.googleId) {
                 console.log("userid checked")
                 next()
             }
-            else{
+            else {
                 console.log("invalid token")
                 res.sendStatus(403)
             }
-           
+
         }
     })
-    
+
+}
+
+
+//authentication admins
+function authenticateAdmin(req, res, next) {
+    console.log("hello")
+
+    data = req.body
+    let userId = data.id
+    //check if request has authorization header
+    const header = req.headers['authorization']
+    console.log(header)
+    let token = header && header.split(' ')[1]
+
+
+    //if token does not exist 
+    if (token == null) {
+        console.log("no token :(")
+        return res.sendStatus(401)
+    }
+
+
+    console.log("token exists")
+
+    //verifying the token
+
+
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+        console.log("hello jwt")
+        if (err) {
+            console.log("nope")
+            return res.sendStatus(403)
+        } else {
+            console.log("yes")
+            console.log(decoded)
+
+         
+
+            //database fetch admins 
+            database.getAdmins(decoded.googleId).then(data => {
+                console.log(typeof(data))
+                console.log(data.length)
+                if (data.length){
+                    next()
+                }
+                else{
+                    console.log('your are not admin')
+                    res.send(401)
+                }
+            })
+
+
+
+
+        }
+    })
+
 }
 module.exports = router

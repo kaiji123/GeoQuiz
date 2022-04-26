@@ -257,7 +257,24 @@ async function getUsers(){
     try{
         const [rows, fields] = await conn.promise().query(sql)
         console.log(rows)
-        connection.end()
+        conn.end()
+        
+        return rows
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
+async function getAdmins(id){
+    var conn = makeConnection()
+
+    let sql = "SELECT * FROM admins WHERE userID = " + id
+    try{
+        const [rows, fields] = await conn.promise().query(sql)
+        console.log(rows)
+        conn.end()
         
         return rows
     }
@@ -268,6 +285,7 @@ async function getUsers(){
 }
 
 module.exports = {
+    getAdmins,
     getLeaderboard,
     addUser,
     deleteUser,
