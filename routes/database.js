@@ -63,6 +63,7 @@ async function getLeaderboard(){
         connection.end();
         return leaderboard;
     } catch (err) {
+        console.log(err)
         return 502;
     }
 
