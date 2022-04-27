@@ -333,6 +333,10 @@ router.get('/profile-picture/:id', async (req, res) => {
         res.send(data)
     }
 })
+
+
+
+
 //PFPs
 /**
  * @swagger
@@ -367,11 +371,44 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
 
 /**
  * @swagger
+ * /profile-picture:
+ *    post:
+ *      tags:
+ *          - User
+ *      summary: Reset a user's profile picture
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to reset profile picture
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/User'  # <----------
+ *      responses:
+ *        200:
+ *         description: Successfully reset profile picture
+ *        400:
+ *          description: Invalid or missing parameters
+ */
+router.post('/profile-picture', authenticateToken, async (req, res) => {
+    let id = req.body.id
+    let pfp = JSON.stringify(profilePicture.generateProfilePicture())
+
+    let status = await database.setProfilePicture(id, pfp)
+    res.sendStatus(status)
+})
+
+
+
+/**
+ * @swagger
  * /profile-picture/{id}:
  *    delete:
  *      tags:
  *          - User
- *      summary: delete profile picture
+ *      summary: delete user's profile picture
+ *      security:
+ *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -388,7 +425,7 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *        401: 
  *         description: Unauthorized user
  */
-router.delete('/profile-picture/:id', async (req, res) => {
+router.delete('/profile-picture/:id', authenticateAdmin,async (req, res) => {
     let id = req.params.id
     let status = await database.deleteProfilePic(id)
     res.sendStatus(status)
