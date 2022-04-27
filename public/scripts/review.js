@@ -4,6 +4,7 @@ $(function () {
 })
 
 function showQuizQuestions(){
-    var retrievedObject = localStorage.getItem('htmlArray');
+    var retrievedObject = localStorage.getItem('htmlArray')
     document.write(retrievedObject)
+    localStorage.removeItem('htmlArray')
 }
