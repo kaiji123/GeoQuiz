@@ -372,8 +372,6 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *      tags:
  *          - User
  *      summary: delete profile picture
- *      security:
- *          - bearerAuth: []
  *      parameters:
  *          - in: path
  *            name: id
@@ -390,7 +388,7 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *        401: 
  *         description: Unauthorized user
  */
-router.delete('/profile-picture/:id', authenticateAdmin, async (req, res) => {
+router.delete('/profile-picture/:id', async (req, res) => {
     let id = req.params.id
     let status = await database.deleteProfilePic(id)
     res.sendStatus(status)

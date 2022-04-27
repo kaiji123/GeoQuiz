@@ -95,7 +95,7 @@ async function deleteProfilePic(id){
     var conn = makeConnection()
 
     
-    let sql = "UPDATE users SET pfp = " + pfp + " WHERE userId = " + id
+    let sql = "UPDATE users SET pfp = '" + pfp + "' WHERE userId = " + id
     try {
         const [rows, fields] = await conn.promise().query(sql);
         conn.end()

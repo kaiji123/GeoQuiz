@@ -64,7 +64,7 @@ function resetProfilePic(){
 
 //show leaderboard table in homepage
 function showRank(){
-    //create GET request to /api/top5 to get top 5 users in homepage
+    //create GET request to /api/v1/top5 to get top 5 users in homepage
     fetch(API_VERSION +'/leaderboard',{
         method: 'GET'
     })
