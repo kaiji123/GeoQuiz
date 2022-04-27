@@ -160,6 +160,23 @@ async function getGDPR(id){
     }
 }
 
+async function getGDPRs(){
+    var conn = makeConnection()
+    let sql = "SELECT userId, gdpr FROM users"
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        console.log(rows)
+        conn.end()
+
+        return rows
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
 async function setGDPR(id, val){
     var conn = makeConnection()
     let sql = "UPDATE users SET gdpr = " + val + " WHERE userId = " + id
@@ -295,6 +312,7 @@ module.exports = {
     getScores,
     getGDPR,
     setGDPR,
+    getGDPRs,
     getProfilePicture,
     setProfilePicture,
     selectUsersPoints,

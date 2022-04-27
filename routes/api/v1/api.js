@@ -95,6 +95,33 @@ const geocoder = NodeGeocoder(options)
  *          
  */
 
+
+/**
+ * @swagger
+ * /gdpr:
+ *    get:
+ *      tags:
+ *          - User
+ *      summary: get all gdprs
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *        200:
+ *         description: Successfully received GDPR status                 
+ *        401: 
+ *          description: Unauthorized user
+ *        403:
+ *          description: Forbidden action
+ */
+//checks if users have signed the GDPR
+router.get('/gdpr', authenticateAdmin, async (req, res) => {
+    console.log("getting all gdprs with admin")
+    let gdpr = await database.getGDPRs();
+    console.log(gdpr)
+    res.send(gdpr)
+})
+
+
 /**
  * @swagger
  * /get-gdpr:
@@ -180,11 +207,11 @@ router.put('/gdpr', authenticateToken, async (req, res) => {
  *              example: 102333127248222698957
  *      responses:
  *        200:
- *         description: Successfully fetched scores
+ *         description: Successfully deleted gdpr
  *        404:
  *         description: Requested resource does not exist
  *        401: 
- *         description: Unauthorized action
+ *         description: Unauthorized user
  */
  router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
     let deleteId = req.params.id
