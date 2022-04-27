@@ -4,7 +4,6 @@ const pos = require('pos')
 const QUIZ_LENGTH = 10
 
 let allowedQTypes = ['rating', 'photos', 'reviews', 'reviews']
-allowedQTypes = ['photos']
 async function generateQuiz(){
     //places are indexed by place id
     let data = await fs.promises.readFile('./selly.json')
