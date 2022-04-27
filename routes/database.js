@@ -87,7 +87,25 @@ async function addUser(userId, name) {
         console.log(err)
         return 502
     }
+}
 
+
+async function deleteProfilePic(id){
+    let pfp = JSON.stringify({'color': 'black', 'pixels': []})
+    var conn = makeConnection()
+
+    
+    let sql = "UPDATE users SET pfp = " + pfp + " WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
 }
 
 async function userExists(userId){
@@ -316,6 +334,7 @@ module.exports = {
     getProfilePicture,
     setProfilePicture,
     selectUsersPoints,
-    getUsers
+    getUsers,
+    deleteProfilePic
 }
 

@@ -336,8 +336,8 @@ router.get('/profile-picture/:id', async (req, res) => {
 //PFPs
 /**
  * @swagger
- * /reset-pfp:
- *    post:
+ * /profile-picture:
+ *    put:
  *      tags:
  *          - User
  *      summary: Reset a user's profile picture
@@ -355,13 +355,49 @@ router.get('/profile-picture/:id', async (req, res) => {
  *        400:
  *          description: Invalid or missing parameters
  */
-router.post('/reset-pfp', authenticateToken, async (req, res) => {
+router.put('/profile-picture', authenticateToken, async (req, res) => {
     let id = req.body.id
     let pfp = JSON.stringify(profilePicture.generateProfilePicture())
 
     let status = await database.setProfilePicture(id, pfp)
     res.sendStatus(status)
 })
+
+
+
+/**
+ * @swagger
+ * /profile-picture/{id}:
+ *    delete:
+ *      tags:
+ *          - User
+ *      summary: delete profile picture
+ *      security:
+ *          - bearerAuth: []
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *              example: 102333127248222698957
+ *      responses:
+ *        200:
+ *         description: Successfully deleted gdpr
+ *        404:
+ *         description: Requested resource does not exist
+ *        401: 
+ *         description: Unauthorized user
+ */
+router.delete('/profile-picture/:id', authenticateAdmin, async (req, res) => {
+    let id = req.params.id
+    let status = await database.deleteProfilePic(id)
+    res.sendStatus(status)
+})
+
+
+
 
 
 /**

@@ -43,8 +43,8 @@ function registerDelete(){
 }
 
 function resetProfilePic(){
-    fetch(API_VERSION + '/reset-pfp',{
-        method: 'POST',
+    fetch(API_VERSION + '/profile-picture',{
+        method: 'PUT',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
             'id': sessionStorage.getItem('id')
@@ -52,8 +52,8 @@ function resetProfilePic(){
     })
     .then(res => {
         if(res.status = 200){
-            $('#profile-pic').attr('src', '/api/profile-picture/' + sessionStorage.id + '?t=' + new Date().getTime())
-            $('#profile').attr('src', '/api/profile-picture/' + sessionStorage.id + '?t=' + new Date().getTime())
+            $('#profile-pic').attr('src', API_VERSION+ '/profile-picture/' + sessionStorage.id + '?t=' + new Date().getTime())
+            $('#profile').attr('src', API_VERSION +'/profile-picture/' + sessionStorage.id + '?t=' + new Date().getTime())
 
         }
         else{

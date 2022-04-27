@@ -107,7 +107,7 @@ function setHeaderContent(){
 
 //if gdpr is not signed, set a session variable to specify it must be signed
 async function checkGDPR(id){
-    const res = await fetch(API_VERSION + '/gdpr', {
+    const res = await fetch(API_VERSION + '/get-gdpr', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
         body: JSON.stringify({
