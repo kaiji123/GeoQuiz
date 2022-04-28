@@ -717,7 +717,7 @@ router.post('/support', async (req, res) => {
  *          - bearerAuth: []
  *      responses:
  *        200:
- *         description: Successfully received support query
+ *         description: Successfully deleted support query
  *        400:
  *         description: Invalid query
  */
@@ -754,9 +754,9 @@ router.delete('/support',authenticateAdmin, async (req, res) => {
  *                      $ref: '#/components/schemas/Query'  # <----------
  *      responses:
  *        200:
- *         description: Successfully received support query
+ *         description: Successfully changed support queries
  *        400:
- *         description: Invalid query
+ *         description: Bad query
  */
 router.put('/support', async (req, res) => {
     json = req.body
