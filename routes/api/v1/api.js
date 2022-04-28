@@ -212,7 +212,7 @@ router.put('/gdpr', authenticateToken, async (req, res) => {
  *        401: 
  *         description: Unauthorized user
  */
- router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
+router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
     let deleteId = req.params.id
     let status = await database.setGDPR(deleteId, 0)
     res.send(status)
@@ -394,15 +394,15 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *        401:
  *          description: Unauthorized
  */
-router.put('/profile-picture/:id/colour', authenticateAdmin,async (req, res) => {
-    let id= req.params.id
+router.put('/profile-picture/:id/colour', authenticateAdmin, async (req, res) => {
+    let id = req.params.id
 
     let profile = await database.getProfilePicture(id)
     let profilejson = JSON.parse(profile)
-    
+
     //generate color
-    let col = profilePicture.randomColour() 
-    profilejson.colour =  col
+    let col = profilePicture.randomColour()
+    profilejson.colour = col
 
     let pfp = JSON.stringify(profilejson)
 
@@ -469,14 +469,14 @@ router.post('/profile-picture', authenticateToken, async (req, res) => {
  *        401: 
  *         description: Unauthorized user
  */
-router.delete('/profile-picture/:id', authenticateAdmin,async (req, res) => {
+router.delete('/profile-picture/:id', authenticateAdmin, async (req, res) => {
     let id = req.params.id
-    
-    
+
+
     let exists = await database.userExists(id)
     if (!exists) {
         res.send(404)
-    }else{
+    } else {
         let status = await database.deleteProfilePic(id)
         res.sendStatus(status)
     }
@@ -522,13 +522,13 @@ router.delete('/users', authenticateToken, async function (req, res) {
     data = req.body
     let userId = data.id
 
-    
+
     let exists = await database.userExists(userId)
     if (!exists) {
         res.send(404)
     }
-    else{
-           // add a layer of security
+    else {
+        // add a layer of security
 
         //to do cascading delete
         let datares = await database.deleteUser(userId)
@@ -573,19 +573,19 @@ router.delete('/users', authenticateToken, async function (req, res) {
  *          401:
  *              description: Unauthorized user
  */
-router.put('/users', authenticateAdmin,async function(req, res){
+router.put('/users', authenticateAdmin, async function (req, res) {
     let id = req.body.id
     let userName = req.body.name
-      
+
     let exists = await database.userExists(id)
     if (!exists) {
         res.send(404)
     }
-    else{
-        let status  = await database.setUsername(id, userName)
+    else {
+        let status = await database.setUsername(id, userName)
         res.sendStatus(status)
     }
-  
+
 })
 
 
@@ -703,6 +703,56 @@ router.post('/support', async (req, res) => {
         })
 })
 
+
+
+
+//delete all request queries
+router.delete('/support', async (req, res) => {
+    fs.readFile('./support/requests.json')
+        .then((raw) => {
+
+            return fs.writeFile('./support/requests.json', JSON.stringify([]))
+        })
+        .then(() => {
+            res.send(req.body)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+
+router.put('/support', async (req, res) => {
+    json = req.body
+
+    fs.readFile('./support/requests.json')
+        .then((raw) => {
+            return fs.writeFile('./support/requests.json', JSON.stringify([json]))
+        })
+        .then(() => {
+            res.send(req.body)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+
+
+router.get('/support', async (req, res) => {
+    json = req.body
+
+    fs.readFile('./support/requests.json')
+        .then((raw) => {
+            res.send(raw)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+
+
 /**
  * @swagger
  * /quiz:
@@ -767,13 +817,13 @@ router.post('/location', async (req, res) => {
         console.log(loc[0])
 
         //check if city is already in database
-        database.getCity(loc[0].city).then((gets)=>{
+        database.getCity(loc[0].city).then((gets) => {
             console.log(gets)
 
             //if city doesnt exist insert 
-            if (!gets[0]){
+            if (!gets[0]) {
                 console.log("inserting")
-                database.addCity(loc[0].city).then((rows)=> {
+                database.addCity(loc[0].city).then((rows) => {
                     console.log(rows)
                 })
             }
@@ -782,7 +832,7 @@ router.post('/location', async (req, res) => {
             res.send(loc[0])
         });
     })
-    
+
 })
 
 
@@ -839,9 +889,9 @@ router.delete('/location', async (req, res) => {
     var city = req.body.city
 
     let exists = await database.getCity(city)
-    if (!exists){
+    if (!exists) {
         res.sendStatus(404)
-    }else{
+    } else {
         let deleted = await database.deleteCity(city)
         res.sendStatus(deleted)
     }
@@ -886,13 +936,13 @@ router.put('/location', async (req, res) => {
     let id = req.body.id
     var city = req.body.city
 
-    
+
     let updated = await database.updateCity(id, city)
-    
+
     res.sendStatus(updated)
- 
-  
-   
+
+
+
 })
 
 
@@ -989,16 +1039,16 @@ function authenticateAdmin(req, res, next) {
             console.log("yes")
             console.log(decoded)
 
-         
+
 
             //database fetch admins 
             database.getAdmins(decoded.googleId).then(data => {
-                console.log(typeof(data))
+                console.log(typeof (data))
                 console.log(data.length)
-                if (data.length){
+                if (data.length) {
                     next()
                 }
-                else{
+                else {
                     console.log('your are not admin')
                     res.send(401)
                 }
