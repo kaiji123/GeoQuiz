@@ -746,19 +746,26 @@ router.delete('/support',authenticateAdmin, async (req, res) => {
  *      tags:
  *          - Quiz
  *      summary: Change support queries
+ *      security:
+ *          - bearerAuth: []
  *      requestBody:
  *          description: List of support queries to change to 
  *          content: 
  *              application/json:
  *                  schema:  
- *                      $ref: '#/components/schemas/Query'  # <----------
+ *                      properties:
+ *                          queries:
+ *                              type: array
+ *                              description: Array of queries to change to
+ *                              items: 
+ *                                  $ref: '#/components/schemas/Query'  # <----------
  *      responses:
  *        200:
  *         description: Successfully changed support queries
  *        400:
  *         description: Bad query
  */
-router.put('/support', async (req, res) => {
+router.put('/support', authenticateAdmin, async (req, res) => {
     json = req.body
 
     fs.readFile('./support/requests.json')
@@ -775,12 +782,31 @@ router.put('/support', async (req, res) => {
 
 
 
+
+
+
+
+/**
+ * @swagger
+ * /support:
+ *    get:
+ *      tags:
+ *          - Quiz
+ *      summary: Get support queries
+ *      responses:
+ *        200:
+ *         description: Successfully changed support queries
+ *        400:
+ *         description: Bad query
+ */
 router.get('/support', async (req, res) => {
     json = req.body
 
     fs.readFile('./support/requests.json')
         .then((raw) => {
-            res.send(raw)
+            return JSON.parse(raw)
+        }).then(data => {
+            res.send(data)
         })
         .catch((err) => {
             console.log(err)
