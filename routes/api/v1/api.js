@@ -384,9 +384,11 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *                      $ref: '#/components/schemas/User'  # <----------
  *      responses:
  *        200:
- *         description: Successfully reset profile picture
+ *          description: Successfully reset profile picture
  *        400:
  *          description: Invalid or missing parameters
+ *        401: 
+ *          description: Unauthorized user
  */
 router.post('/profile-picture', authenticateToken, async (req, res) => {
     let id = req.body.id
