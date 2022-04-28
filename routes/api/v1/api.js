@@ -44,7 +44,7 @@ const geocoder = NodeGeocoder(options)
  *              - id
  *          properties:
  *              id:
- *                  description: the user's google id number
+ *                  description: The user's google id number
  *                  type: integer
  *                  example: 0
  *      Query : # <----------
@@ -53,11 +53,11 @@ const geocoder = NodeGeocoder(options)
  *              - query
  *          properties:
  *              email:
- *                  description: the user's email
+ *                  description: The user's email
  *                  type: string
  *                  example: James@gmail.com
  *              query:
- *                  description: user's query
+ *                  description: User's query
  *                  type: string
  *                  example: the website is broken
  *      Location:
@@ -67,11 +67,11 @@ const geocoder = NodeGeocoder(options)
  *              - lon
  *          properties:
  *              lat: 
- *                  description: the latitude of location
+ *                  description: The latitude of location
  *                  type: number
  *                  example: 52.4429616
  *              lon:
- *                  description: the longitude of location
+ *                  description: The longitude of location
  *                  type: number
  *                  example: -1.9403622
  *      Score:
@@ -82,15 +82,15 @@ const geocoder = NodeGeocoder(options)
  *              - id
  *          properties:
  *              score: 
- *                  description: the latitude of location
+ *                  description: The latitude of location
  *                  type: integer
  *                  example: 5
  *              percentage:
- *                  description: the percentage of your score
+ *                  description: The percentage of your score
  *                  type: number
  *                  example: 60
  *              id:
- *                  description: user id
+ *                  description: User id
  *                  type: integer
  *                  example: 1
  *          
@@ -417,11 +417,11 @@ router.put('/profile-picture/:id/colour', authenticateAdmin, async (req, res) =>
  *    post:
  *      tags:
  *          - User
- *      summary: create a user's profile picture
+ *      summary: Create a user's profile picture
  *      security:
  *          - bearerAuth: []
  *      requestBody:
- *          description: the user to reset profile picture
+ *          description: The user to reset profile picture
  *          content: 
  *              application/json:
  *                  schema:  
@@ -497,7 +497,7 @@ router.delete('/profile-picture/:id', authenticateAdmin, async (req, res) => {
  *      security:
  *          - bearerAuth: []
  *      requestBody:
- *          description: the user to delete
+ *          description: User to delete
  *          content: 
  *              application/json:
  *                  schema:  
@@ -505,7 +505,7 @@ router.delete('/profile-picture/:id', authenticateAdmin, async (req, res) => {
  *                          - id
  *                      properties:
  *                          id :
- *                              description: user's google id 
+ *                              description: User's google id 
  *                              type: integer
  *      responses:
  *          200:
@@ -551,7 +551,7 @@ router.delete('/users', authenticateToken, async function (req, res) {
  *      security:
  *          - bearerAuth: []
  *      requestBody:
- *          description: the user to update
+ *          description: User to update
  *          content: 
  *              application/json:
  *                  schema:  
@@ -560,10 +560,10 @@ router.delete('/users', authenticateToken, async function (req, res) {
  *                          - name
  *                      properties:
  *                          id :
- *                              description: user's google id 
+ *                              description: User's google id 
  *                              type: integer
  *                          name: 
- *                              description: user's username
+ *                              description: User's username
  *                              type: string
  *      responses:
  *          200:
@@ -644,7 +644,7 @@ router.get('/leaderboard', async (req, res) => {
  *          - User
  *      summary: Add a user's score to the database
  *      requestBody:
- *          description: the user to reset profile picture
+ *          description: User to reset profile picture
  *          content: 
  *              application/json:
  *                  schema:  
@@ -675,7 +675,7 @@ router.post('/save-score', authenticateToken, (req, res) => {
  *          - Quiz
  *      summary: Receive and handle support queries
  *      requestBody:
- *          description: the support query
+ *          description: Support query
  *          content: 
  *              application/json:
  *                  schema:  
@@ -706,8 +706,23 @@ router.post('/support', async (req, res) => {
 
 
 
+/**
+ * @swagger
+ * /support:
+ *    delete:
+ *      tags:
+ *          - Quiz
+ *      summary: Delete support queries
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *        200:
+ *         description: Successfully received support query
+ *        400:
+ *         description: Invalid query
+ */
 //delete all request queries
-router.delete('/support', async (req, res) => {
+router.delete('/support',authenticateAdmin, async (req, res) => {
     fs.readFile('./support/requests.json')
         .then((raw) => {
 
@@ -722,6 +737,27 @@ router.delete('/support', async (req, res) => {
 })
 
 
+
+
+/**
+ * @swagger
+ * /support:
+ *    put:
+ *      tags:
+ *          - Quiz
+ *      summary: Change support queries
+ *      requestBody:
+ *          description: List of support queries to change to 
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/Query'  # <----------
+ *      responses:
+ *        200:
+ *         description: Successfully received support query
+ *        400:
+ *         description: Invalid query
+ */
 router.put('/support', async (req, res) => {
     json = req.body
 
@@ -761,7 +797,7 @@ router.get('/support', async (req, res) => {
  *          - Quiz
  *      summary: Generate a quiz
  *      requestBody:
- *          description: location to generate quiz
+ *          description: Location to generate quiz
  *          content: 
  *              application/json:
  *                  schema:  
@@ -789,7 +825,7 @@ router.post('/quiz', async (req, res) => {
  *          - Quiz
  *      summary: Retrieve the address from given coordinates
  *      requestBody:
- *          description: coordinates of the user
+ *          description: Coordinates of the user
  *          content: 
  *              application/json:
  *                  schema:  
@@ -868,14 +904,14 @@ router.get('/location', async (req, res) => {
  *          - Quiz
  *      summary: Delete city
  *      requestBody:
- *          description: the city to delete
+ *          description: City to delete
  *          content: 
  *              application/json:
  *                  schema:  
  *                      type: object
  *                      properties:
  *                          city:
- *                              description: city's name to delete
+ *                              description: City's name to delete
  *                              type: string
  *                              example: Birmingham
  *      responses:
@@ -911,18 +947,18 @@ router.delete('/location', async (req, res) => {
  *          - Quiz
  *      summary: Update the city
  *      requestBody:
- *          description: The city to update
+ *          description: City to update
  *          content: 
  *              application/json:
  *                  schema:  
  *                      type: object
  *                      properties:
  *                          id: 
- *                              description: id of the city
+ *                              description: Id of the city
  *                              type: integer
  *                              example: 1
  *                          city:
- *                              description: city's name
+ *                              description: City's name
  *                              type: string
  *                              example: Birmingham
  *      responses:
