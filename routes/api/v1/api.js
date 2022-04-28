@@ -101,7 +101,7 @@ const geocoder = NodeGeocoder(options)
  *    get:
  *      tags:
  *          - User
- *      summary: get all gdprs
+ *      summary: Get all gdprs
  *      security:
  *          - bearerAuth: []
  *      responses:
@@ -193,7 +193,7 @@ router.put('/gdpr', authenticateToken, async (req, res) => {
  *    delete:
  *      tags:
  *          - User
- *      summary: delete gdpr
+ *      summary: Delete gdpr
  *      security:
  *          - bearerAuth: []
  *      parameters:
