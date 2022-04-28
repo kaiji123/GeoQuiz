@@ -94,8 +94,6 @@ const geocoder = NodeGeocoder(options)
  *                  example: 1
  *          
  */
-
-
 /**
  * @swagger
  * /gdpr:
@@ -375,7 +373,7 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
  *    post:
  *      tags:
  *          - User
- *      summary: Reset a user's profile picture
+ *      summary: create a user's profile picture
  *      security:
  *          - bearerAuth: []
  *      requestBody:
@@ -413,13 +411,13 @@ router.post('/profile-picture', authenticateToken, async (req, res) => {
  *          - in: path
  *            name: id
  *            required: true
- *            description: Numeric ID of the user to retrieve
+ *            description: Numeric ID of the user to delete profile picture
  *            schema:
  *              type: integer
  *              example: 102333127248222698957
  *      responses:
  *        200:
- *         description: Successfully deleted gdpr
+ *         description: Successfully deleted profile picture
  *        404:
  *         description: Requested resource does not exist
  *        401: 
@@ -427,8 +425,16 @@ router.post('/profile-picture', authenticateToken, async (req, res) => {
  */
 router.delete('/profile-picture/:id', authenticateAdmin,async (req, res) => {
     let id = req.params.id
-    let status = await database.deleteProfilePic(id)
-    res.sendStatus(status)
+    
+    
+    let exists = await database.userExists(id)
+    if (!exists) {
+        res.send(404)
+    }else{
+        let status = await database.deleteProfilePic(id)
+        res.sendStatus(status)
+    }
+
 })
 
 
@@ -459,24 +465,84 @@ router.delete('/profile-picture/:id', authenticateAdmin,async (req, res) => {
  *          200:
  *              description: Successfully deleted user
  *          400:
+ *              description: Bad request
+ *          404:
  *              description: User not found
+ *          401: 
+ *              description: Unauthorized user
  */
 router.delete('/users', authenticateToken, async function (req, res) {
 
     data = req.body
     let userId = data.id
 
+    
+    let exists = await database.userExists(userId)
+    if (!exists) {
+        res.send(404)
+    }
+    else{
+           // add a layer of security
+
+        //to do cascading delete
+        let datares = await database.deleteUser(userId)
 
 
-    // add a layer of security
-
-    //to do cascading delete
-    let datares = await database.deleteUser(userId)
-
-
-    res.sendStatus(200)
-
+        res.sendStatus(datares)
+    }
 })
+
+
+
+
+/**
+ * @swagger
+ * /users:
+ *    put:
+ *      tags:
+ *          - User
+ *      summary: Update user' name 
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to update
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      required: 
+ *                          - id
+ *                          - name
+ *                      properties:
+ *                          id :
+ *                              description: user's google id 
+ *                              type: integer
+ *                          name: 
+ *                              description: user's username
+ *                              type: string
+ *      responses:
+ *          200:
+ *              description: Successfully deleted user
+ *          404:
+ *              description: User not found
+ *          401:
+ *              description: Unauthorized user
+ */
+router.put('/users', authenticateAdmin,async function(req, res){
+    let id = req.body.id
+    let userName = req.body.name
+      
+    let exists = await database.userExists(id)
+    if (!exists) {
+        res.send(404)
+    }
+    else{
+        let status  = await database.setUsername(id, userName)
+        res.sendStatus(status)
+    }
+  
+})
+
+
 
 /**
  * @swagger

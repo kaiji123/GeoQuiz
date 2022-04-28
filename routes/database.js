@@ -211,6 +211,21 @@ async function setGDPR(id, val){
     }
 }
 
+
+async function setUsername(id, name){
+    var conn = makeConnection()
+    let sql = "UPDATE users SET name = '" + name + "' WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
 async function getProfilePicture(id){
     var conn = makeConnection()
     let sql = "SELECT pfp FROM users WHERE userId = " + id
@@ -336,6 +351,7 @@ module.exports = {
     setProfilePicture,
     selectUsersPoints,
     getUsers,
-    deleteProfilePic
+    deleteProfilePic,
+    setUsername
 }
 
