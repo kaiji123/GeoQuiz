@@ -31,6 +31,88 @@ async function addScore(id, score, percentage) {
     }
 }
 
+
+//add a city
+async function addCity(city) {
+    var connection = makeConnection()
+
+    let sql = "INSERT INTO cities (cityId, city) VALUES (NULL, '" 
+        + city + "')"
+
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200;
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+//add a city
+async function getCity(city) {
+    var connection = makeConnection()
+
+
+    let sql = "SELECT * FROM cities WHERE city = '" + city+"'"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+//add a city
+async function getCities(name) {
+    var connection = makeConnection()
+
+
+    let sql = "SELECT * FROM cities"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+//add a city
+async function updateCity(id, city) {
+    var connection = makeConnection()
+
+
+    let sql =  "UPDATE cities SET city = '" + city + "' WHERE cityId = " + id
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+async function deleteCity(city){
+    var connection = makeConnection()
+    let sql = "DELETE FROM cities WHERE city = '" + city+"'"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
 //return an ordered list of users and their scores
 async function getLeaderboard(){
     var connection = makeConnection()
@@ -352,6 +434,11 @@ module.exports = {
     selectUsersPoints,
     getUsers,
     deleteProfilePic,
-    setUsername
+    setUsername,
+    addCity,
+    updateCity,
+    deleteCity,
+    getCity,
+    getCities
 }
 

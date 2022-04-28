@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken')
 var fs = require('fs').promises
 
 const NodeGeocoder = require('node-geocoder')
+const e = require('express')
 
 
 //node geocoder configuration
@@ -310,7 +311,7 @@ router.post('/add-user', async (req, res) => {
  *        400:
  *          description: Invalid or missing parameter
  *        404: 
- *          description: user not found
+ *          description: User not found
  *      
  */
 router.get('/profile-picture/:id', async (req, res) => {
@@ -365,6 +366,49 @@ router.put('/profile-picture', authenticateToken, async (req, res) => {
     res.sendStatus(status)
 })
 
+
+
+
+/**
+ * @swagger
+ * /profile-picture/{id}/colour:
+ *    put:
+ *      tags:
+ *          - User
+ *      summary: Reset a user's profile picture colour
+ *      security:
+ *          - bearerAuth: []
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *            example: 111843877506203660742
+ *      responses:
+ *        200:
+ *         description: Successfully reset profile picture
+ *        400:
+ *          description: Invalid or missing parameters
+ *        401:
+ *          description: Unauthorized
+ */
+router.put('/profile-picture/:id/colour', authenticateAdmin,async (req, res) => {
+    let id= req.params.id
+
+    let profile = await database.getProfilePicture(id)
+    let profilejson = JSON.parse(profile)
+    
+    //generate color
+    let col = profilePicture.randomColour() 
+    profilejson.colour =  col
+
+    let pfp = JSON.stringify(profilejson)
+
+    let status = await database.setProfilePicture(id, pfp)
+    res.sendStatus(status)
+})
 
 
 /**
@@ -695,7 +739,7 @@ router.post('/quiz', async (req, res) => {
  *          - Quiz
  *      summary: Retrieve the address from given coordinates
  *      requestBody:
- *          description: the user to set gdpr
+ *          description: coordinates of the user
  *          content: 
  *              application/json:
  *                  schema:  
@@ -717,8 +761,146 @@ router.post('/quiz', async (req, res) => {
 router.post('/location', async (req, res) => {
     var coords = req.body
 
-    locFromCoords(coords).then((loc) => res.send(loc[0]))
+
+    //convert coords to location
+    locFromCoords(coords).then((loc) => {
+        console.log(loc[0])
+
+        //check if city is already in database
+        database.getCity(loc[0].city).then((gets)=>{
+            console.log(gets)
+
+            //if city doesnt exist insert 
+            if (!gets[0]){
+                console.log("inserting")
+                database.addCity(loc[0].city).then((rows)=> {
+                    console.log(rows)
+                })
+            }
+
+            //send response
+            res.send(loc[0])
+        });
+    })
+    
 })
+
+
+
+
+
+
+/**
+ * @swagger
+ * /location:
+ *    get:
+ *      tags:
+ *          - Quiz
+ *      summary: Retrieve all cities that use the app
+ *      responses:
+ *        200:
+ *         description: Successfully received cities
+ *        400:
+ *         description: Invalid coordinates
+ */
+//returns an address from given coordinates
+router.get('/location', async (req, res) => {
+    let cities = await database.getCities();
+    res.send(cities)
+})
+
+
+/**
+ * @swagger
+ * /location:
+ *    delete:
+ *      tags:
+ *          - Quiz
+ *      summary: Delete city
+ *      requestBody:
+ *          description: the city to delete
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      type: object
+ *                      properties:
+ *                          city:
+ *                              description: city's name to delete
+ *                              type: string
+ *                              example: Birmingham
+ *      responses:
+ *        200:
+ *         description: Successfully deleted city
+ *        400:
+ *         description: Invalid city
+ */
+//returns an address from given coordinates
+router.delete('/location', async (req, res) => {
+    var city = req.body.city
+
+    let exists = await database.getCity(city)
+    if (!exists){
+        res.sendStatus(404)
+    }else{
+        let deleted = await database.deleteCity(city)
+        res.sendStatus(deleted)
+    }
+})
+
+
+
+
+
+
+
+/**
+ * @swagger
+ * /location:
+ *    put:
+ *      tags:
+ *          - Quiz
+ *      summary: Update the city
+ *      requestBody:
+ *          description: The city to update
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      type: object
+ *                      properties:
+ *                          id: 
+ *                              description: id of the city
+ *                              type: integer
+ *                              example: 1
+ *                          city:
+ *                              description: city's name
+ *                              type: string
+ *                              example: Birmingham
+ *      responses:
+ *        200:
+ *         description: Successfully updated city
+ *        400:
+ *         description: Invalid city
+ */
+//returns an address from given coordinates
+router.put('/location', async (req, res) => {
+    let id = req.body.id
+    var city = req.body.city
+
+    
+    let updated = await database.updateCity(id, city)
+    
+    res.sendStatus(updated)
+ 
+  
+   
+})
+
+
+
+
+
+
+
 
 //uses node geocoder to return location data from a set of coords
 locFromCoords = (coords) => {
@@ -780,8 +962,6 @@ function authenticateToken(req, res, next) {
 function authenticateAdmin(req, res, next) {
     console.log("hello")
 
-    data = req.body
-    let userId = data.id
     //check if request has authorization header
     const header = req.headers['authorization']
     console.log(header)
