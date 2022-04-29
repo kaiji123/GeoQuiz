@@ -20,8 +20,8 @@ function showScore(){
     else if (score <= 7 && score > 4) {
       $('#mascot-meh img').show();
     }
-    else if(score == 1){
-    //  $('#mascot-sad img').show()
+    else if(score <=4){
+      $('#mascot-sad img').show()
     }
     $('#score').html(score + '/10')
 }

@@ -236,15 +236,7 @@ function nextQuestion(el, right) {
 //called when the quiz is finished
 function finish(score) {
     var percentage = (score / quizLength) * 100
-    if (score > 7) {
-        $('#mascot-happy img').show();
-      }
-      else if (score <= 7 && score > 4) {
-        $('#mascot-meh img').show();
-      }
-      else if(score <= 4){
-       // $('#mascot-sad img').show();
-      }
+
     //save score
     if (sessionStorage.id != null) {
         //send score to db
