@@ -53,6 +53,7 @@ function handleKey(event){
 $(function () {
     $('#mascot-sad img').hide();
     $('#mascot-happy img').hide();
+    $('#mascot-meh img').hide();
     //enable debug for jack's user account
     if (sessionStorage.id == '106017767078900462768') {
         console.log('DEBUG MODE ON ')
@@ -128,11 +129,11 @@ function genQuizHtml(quiz) {
     var htmlArray = [];
     
     quiz.forEach((q) => {
-        var html = '<h1>' + q.question + '</h1>';
+        var html = '<h1 class="question">' + q.question + '</h1>';
         
         //create content for special question types
         if (q.type == 'text') {
-            html += '<h3>"' + q.metadata + '"</h3>';
+            html += '<h3 class="review">"' + q.metadata + '"</h3>';
         }
         else if (q.type == 'img') {
             var bytearray = q.metadata;
@@ -192,7 +193,7 @@ function nextQuestion(el, right) {
         $(el).addClass('right')
         $(el).find('.tick').css('visibility', 'visible')
         $('#mascot-happy img').show();
-        
+       // $('#mascot-sad img').hide();
         rightFX.play()
         
 
@@ -204,7 +205,6 @@ function nextQuestion(el, right) {
         $('#rightanswer').addClass('right')
         $('#rightanswer').find('.tick').css('visibility', 'visible')
         $('#mascot-sad img').show();
-        //$('#mascot-sad img').hide();
         wrongFX.play()
         
 
@@ -236,7 +236,15 @@ function nextQuestion(el, right) {
 //called when the quiz is finished
 function finish(score) {
     var percentage = (score / quizLength) * 100
-
+    if (score > 7) {
+        $('#mascot-happy img').show();
+      }
+      else if (score <= 7 && score > 4) {
+        $('#mascot-meh img').show();
+      }
+      else if(score <= 4){
+       // $('#mascot-sad img').show();
+      }
     //save score
     if (sessionStorage.id != null) {
         //send score to db
@@ -252,13 +260,15 @@ function finish(score) {
         }).then((res) => {
             //redirect
             window.location.href = '/score?score=' + score
+            
         })
     } else {
+        
         window.location.href = '/score?score=' + score
+        
 
     }
 }
-
 //increases the width of the progress bar
 function advanceProgressBar() {
     var barWidth = $('#progress-bar').width()

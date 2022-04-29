@@ -1,6 +1,10 @@
 var endFX = new Audio('../sounds/end.wav')
 
 $(function(){
+
+  $('#mascot-sad img').hide();
+  $('#mascot-happy img').hide();
+  $('#mascot-meh img').hide();
     showScore();
     startConfetti();
     endFX.play()
@@ -10,7 +14,15 @@ $(function(){
 function showScore(){
     var queryString = window.location.search
     var score = new URLSearchParams(queryString).get("score")
-
+    if (score > 7) {
+      $('#mascot-happy img').show();
+    }
+    else if (score <= 7 && score > 4) {
+      $('#mascot-meh img').show();
+    }
+    else if(score == 1){
+    //  $('#mascot-sad img').show()
+    }
     $('#score').html(score + '/10')
 }
 
@@ -21,7 +33,6 @@ function tweet() {
 }
 
 function startConfetti(){
-  
     var myCanvas = document.getElementById("my-canvas")
     console.log(myCanvas)
     var myConfetti = confetti.create(myCanvas, {
