@@ -2,41 +2,43 @@ extends layout
 block content
  .about
     link(rel='stylesheet' href='/stylesheets/about.css')
-    .container1 
-        h2 GeoQuiz is a fun and interactive way to learn about your local area!
+    .container1  
+        h1 GeoQuiz is a fun and interactive way to learn about your local area!
     .container2
-        h2
-            a(href='//twitter.com/intent/tweet?text=Lets%20compete%20and%20learn%20about%20our%20local%20areas%20%20with%20GeoQuiz!%3A&url=http%3A%2F%2Fgeo-quiz.xyz/%2F')
+        h1
+            a#share(href='//twitter.com/intent/tweet?text=Lets%20compete%20and%20learn%20about%20our%20local%20areas%20%20with%20GeoQuiz!%3A&url=http%3A%2F%2Fgeo-quiz.xyz/%2F')
              | Share with your friends to compete!
             a(href='//twitter.com/intent/tweet?text=Lets%20compete%20and%20learn%20about%20our%20local%20areas%20%20with%20GeoQuiz!%3A&url=http%3A%2F%2Fgeo-quiz.xyz/%2F')
                 img#tweet(src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png' width='60px' height='60px')
 
     .container3 
-        h2 Our team
+        h1 Our team
         .grid-container 
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://pbs.twimg.com/media/EY111kfXYAAfsSg.jpg' width='60px' height='80px')
             .div1 
               div Laila White
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrw6TFJfxQTpixJo4fe2VDEBKrNfyPUhkTdw&usqp=CAU' width='70px' height='70px')
             .div1 Jack Jazrawy-Brown
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://i.kym-cdn.com/entries/icons/original/000/017/535/Meme.jpg' width='60px' height='70px')
             .div1 Faiez Raja
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBwzQrtQGEuLsPktS09w7j-GIl7Pcequ4XOr7ugcW2Akd5rRs38TKMOiv6qeo2Di_1pf8&usqp=CAU' width='70px' height='70px')
             .div1 Jennifer Pham
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg' width='70px' height='70px')
             .div1 Kai Ji
             .div1 
-            img(src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' width='60px' height='60px')
+            img(src='https://static.vecteezy.com/system/resources/previews/002/275/846/original/asian-female-avatar-woman-icon-vector.jpg' width='70px' height='70px')
             .div1 Maria Merkulova
             .div1 
-            img#globe(src='/images/cute_globe.png' width='175px' height='175px')
-            .div1 Geonardo
+            img#globe(src='/images/cute_globe.png' width='175px' height='190px')
+            .div1 GeoNardo
         div
+
+         h2 Join our Mascot GeoNardo in completing our quizzes and unlock Achievements along the way!
 
         .button1
            button.contact(onclick='window.location.href="/support"')='Contact Us'
