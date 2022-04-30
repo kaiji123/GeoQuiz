@@ -70,7 +70,11 @@
 
 }
 
+#globe {
+ transform: translate(-50px,-75px);
+   
 
+}
 
 
 @media screen and (max-width: 800px) {
