@@ -608,6 +608,41 @@ router.get('/scores', async (req, res) => {
     res.send(scores)
 })
 
+
+//scores
+/**
+ * @swagger
+ * /scores:
+ *    post:
+ *      tags:
+ *          - Quiz
+ *      summary: Add a user's score to the database
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: User to reset profile picture
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/Score'  # <----------
+ *      responses:
+ *        200:
+ *         description: Successfully saved score
+ *        400:
+ *         description: Invalid or missing parameters
+ */
+//save a user's score to the database
+router.post('/scores', authenticateToken, (req, res) => {
+    let data = req.body
+    let score = data.score
+    let googleId = data.id
+    let percentage = data.percentage
+
+    database.addScore(googleId, score, percentage).then((status) => {
+        res.sendStatus(status)
+    })
+})
+
 /**
  * @swagger
  * /leaderboard:
@@ -635,37 +670,7 @@ router.get('/leaderboard', async (req, res) => {
     res.send(leaderboard)
 
 })
-//scores
-/**
- * @swagger
- * /scores:
- *    post:
- *      tags:
- *          - Quiz
- *      summary: Add a user's score to the database
- *      requestBody:
- *          description: User to reset profile picture
- *          content: 
- *              application/json:
- *                  schema:  
- *                      $ref: '#/components/schemas/Score'  # <----------
- *      responses:
- *        200:
- *         description: Successfully saved score
- *        400:
- *         description: Invalid or missing parameters
- */
-//save a user's score to the database
-router.post('/scores', authenticateToken, (req, res) => {
-    let data = req.body
-    let score = data.score
-    let googleId = data.id
-    let percentage = data.percentage
 
-    database.addScore(googleId, score, percentage).then((status) => {
-        res.sendStatus(status)
-    })
-})
 
 /**
  * @swagger
