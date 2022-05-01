@@ -69,6 +69,9 @@ deploy:
     - 'apk add --upgrade nodejs'
     - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
   script :
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'sudo apt update;'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'sudo apt install nodejs;'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'test -d /home/project || mkdir /home/project;'
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/project; rm -r team22-21;'
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'pm2 delete all;cd /home/project/team22-21;rm -r node_modules;npm install;pm2 start npm -- start;docker rm $(docker ps -a -q) || true;'
