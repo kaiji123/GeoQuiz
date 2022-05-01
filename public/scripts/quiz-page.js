@@ -240,7 +240,7 @@ function finish(score) {
     //save score
     if (sessionStorage.id != null) {
         //send score to db
-        fetch(API_VERSION + '/save-score', {
+        fetch(API_VERSION + '/scores', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
             body: JSON.stringify({

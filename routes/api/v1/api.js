@@ -638,10 +638,10 @@ router.get('/leaderboard', async (req, res) => {
 //scores
 /**
  * @swagger
- * /save-score:
+ * /scores:
  *    post:
  *      tags:
- *          - User
+ *          - Quiz
  *      summary: Add a user's score to the database
  *      requestBody:
  *          description: User to reset profile picture
@@ -656,7 +656,7 @@ router.get('/leaderboard', async (req, res) => {
  *         description: Invalid or missing parameters
  */
 //save a user's score to the database
-router.post('/save-score', authenticateToken, (req, res) => {
+router.post('/scores', authenticateToken, (req, res) => {
     let data = req.body
     let score = data.score
     let googleId = data.id
@@ -876,12 +876,9 @@ router.post('/location', async (req, res) => {
 
     //convert coords to location
     locFromCoords(coords).then((loc) => {
-        console.log(loc[0])
-
         //check if city is already in database
         database.getCity(loc[0].city).then((gets) => {
-            console.log(gets)
-
+  
             //if city doesnt exist insert 
             if (!gets[0]) {
                 console.log("inserting")
