@@ -139,8 +139,12 @@ deploy:
     - 'apk add --upgrade gettext'
     - 'apk add --upgrade nodejs'
     - envsubst < deploy/env.template > $CI_PROJECT_DIR/.env
+    - envsubst < deploy/apache.template > $CI_PROJECT_DIR/apache
+    - scp $CI_PROJECT_DIR/apache root@$SERVER_IPADDRESS:/etc/apache2/sites-available/
   script :
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'apt install nodejs;'
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS "test -d /etc/apache2 || (apt update && apt install -y apache2 && systemctl restart apache2 && ufw allow 'Apache Full')"
+    - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS "test -d /etc/letsencrypt/live/$DOMAIN || ( apt update && apt install -y python3-certbot-apache && certbot --apache -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL && rm -f /etc/apache2/sites-enabled/* && ln -s /etc/apache2/sites-available/$CI_PROJECT_DIR /etc/apache2/sites-enabled/$CI_PROJECT_DIR && systemctl restart apache2 && ufw allow 'Apache Full' && chmod +x+r -R /root/ )"
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'test -d /home/project || mkdir /home/project;'
     - ssh -o StrictHostKeyChecking=no root@$SERVER_IPADDRESS 'cd /home/project; rm -r team22-21;'
     - scp -r /builds/mod-team-project-2021/team22-21 root@$SERVER_IPADDRESS:/home/project
@@ -182,4 +186,5 @@ You need to create following CI variables on Gitlab.
 * DBPASSWORD - password of your database
 * DBDATABASE - database of your cluster (default is defaultdb)
 * EMAIL - your email
-* PRIVATE_KEY - your ssh key in which you log in to your server machine
+* SSH_PRIVATE_KEY - ssh private key from server machine
+* DOMAIN - domain of your web application
