@@ -16,7 +16,7 @@ Our project is built in nodejs, which serves as a main core for our application.
 * git (>= 2.31.1)
 * nodejs  (6.14.12)
 
-To fork our project , please use https://git-teaching.cs.bham.ac.uk/mod-team-project-2021/team22-21.git to clone it. Subsequently, you must enable CI in Gitlab for the repository.
+To fork our project , please use [https://git-teaching.cs.bham.ac.uk/mod-team-project-2021/team22-21.git]() to clone it. Subsequently, you must enable CI in Gitlab for the repository.
 
 ##### Running on local machine
 
@@ -176,7 +176,7 @@ Enable nodejs (for build) and selenium/standalone-chrome (for automated testing)
 
 You need to create following CI variables on Gitlab.
 
-* SERVER_IPADDRESS - the ip address of your server
+* SERVER_IPADDRESS - the IP address of your server
 * CLIENT_ID - the client id of google api
 * GEOCODE_KEY - google maps geocoding api key
 * JWT_KEY - jwt key for authentication
@@ -188,3 +188,5 @@ You need to create following CI variables on Gitlab.
 * EMAIL - your email
 * SSH_PRIVATE_KEY - ssh private key from server machine
 * DOMAIN - domain of your web application
+
+After following above instructions, you are good to go. Make some changes on our app !
