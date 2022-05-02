@@ -182,3 +182,4 @@ You need to create following CI variables on Gitlab.
 * DBPASSWORD - password of your database
 * DBDATABASE - database of your cluster (default is defaultdb)
 * EMAIL - your email
+* PRIVATE_KEY - your ssh key in which you log in to your server machine
