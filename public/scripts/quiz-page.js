@@ -148,10 +148,11 @@ function genQuizHtml(quiz) {
         html += '<div id="buttons">';
 
         //add each question
-        for (i = 0; i < 4; i++) {
+        for (i = 1; i < 5; i++) {
             if (i == rightPos) {
                 html += '<div class="answer" id="rightanswer"  onclick="nextQuestion(this, true)">'
                     + '<div class="answer-text" >'
+                    + i + ") "
                     + q.answer
                     + '<span class="tick">    ✔️</span>'
                     + '</div>'
@@ -160,6 +161,7 @@ function genQuizHtml(quiz) {
             else {
                 html += '<div class="answer" onclick="nextQuestion(this, false)">'
                     + '<div class="answer-text">'
+                    + i + ") "
                     + q.wrong[wi]
                     + '<span class="tick">    ❌</span>'
                     + '</div>'
