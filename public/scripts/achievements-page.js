@@ -25,7 +25,7 @@ function show(data)
     console.log("this is my total"  + total)
     console.log("perfect " +perfect_total)
 
-    let scores = [1,5,10,15,20,25,30,40,60,100]
+    let scores = [5,25,50,75,100]
     
     let container = document.getElementById("achievements")
     scores.forEach(data => {
@@ -47,7 +47,7 @@ function show(data)
     perfects.forEach(data => {
         let div= document.createElement("div")
         let text = document.createElement("p")
-        text.innerHTML = "Had "+ data + " perfect games"
+        text.innerHTML = "Complete "+ data + " games with no mistakes"
         div.appendChild(text)
         if (perfect_total >= data){
             div.className = "achieved"

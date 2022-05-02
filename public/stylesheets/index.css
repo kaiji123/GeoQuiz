@@ -142,3 +142,8 @@ cursor: pointer;
         display: none;
     }
 }
+.ball {
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.5;
+  }
