@@ -4,8 +4,8 @@ $(function () {
 })
 
 function showQuizQuestions(){
-    var quizHTML = localStorage.getItem('htmlArray')
-    //document.write(retrievedObject)
-    document.getElementById("quizQuestions").innerHTML=quizHTML;
+    var quizHTML = JSON.parse(localStorage.getItem('htmlArray'))
+    document.getElementById("quizQuestions").innerHTML=quizHTML
+
     localStorage.removeItem('htmlArray')
 }
