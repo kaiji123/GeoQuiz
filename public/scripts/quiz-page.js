@@ -14,7 +14,6 @@ var emojis = {
     'sad': '😭'
 }
 
-
 //constantly increasing timer
 var timer = 0
 var quizStarted = false
