@@ -44,22 +44,22 @@
 
 
 .grid-container {
+    margin-left: 2%;
     display: grid;
     height: 40%;
-    grid-template-columns: 80px 100px 80px 100px 80px 100px 80px 100px 80px 100px 80px 100px;
-    grid-template-rows: auto auto auto auto auto auto auto auto;
     gap: 10px;
+    grid-template-columns: 15% 20% 15% 20%;
+    grid-template-rows: auto auto auto;
     background-color: #78d895; 
     padding: 10px;
 
     
 }
-
-.div1 {
+figcaption{
     background-color: #78d895;
-    text-align:left;
-    padding: 20px 0;
-    font-size: 15px;
+
+    text-align: left;
+    font-size: 2vh;
 
 }
 
@@ -83,10 +83,7 @@
 }
 
 
-@media screen and (max-width: 800px) {
-    .page{
-      flex-direction: column;
-      padding: 0px 50px;
-    }
+@media screen and (max-width: 400px) {
+   
 
 }
