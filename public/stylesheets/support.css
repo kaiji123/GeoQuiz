@@ -6,7 +6,7 @@
 	border-radius: 5px;
 	border: var(--headerborder-color);
 	filter: drop-shadow(1.5px 1.5px 1.5px black);
-
+	z-index: 1;
 }
 
 input[type=text]{

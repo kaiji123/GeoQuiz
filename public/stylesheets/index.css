@@ -10,6 +10,7 @@
     width: 100%;
     text-align: center;
     font-size: large;
+    z-index: 1;
 }
 
 .lower{
@@ -61,6 +62,7 @@
 /*Leadboard table*/
 #leaderboard{
     width: 50%;
+    z-index: 1;
 }
 
 table{
@@ -79,6 +81,7 @@ tr{
     color: var(--text-color);
     transition: 0.1s;
     text-align: center;
+    z-index: 1;
 }
 
 th,td{
@@ -93,6 +96,7 @@ tr:hover{
 .start{
     width: 50%;
     text-align: center;
+    z-index: 1;
 }
 
 .scaling{
@@ -104,6 +108,7 @@ tr:hover{
     font-weight: bold;
     border-radius: 3px;
     transition: 0s;
+    z-index: 1;
 }
   
 .scale:hover{
@@ -146,4 +151,5 @@ cursor: pointer;
     position: absolute;
     border-radius: 100%;
     opacity: 0.5;
+    z-index: 0;
   }
