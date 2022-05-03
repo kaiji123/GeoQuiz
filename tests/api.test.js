@@ -47,13 +47,13 @@ describe('POST /api/v1/location', () => {
 
 
 // api/integration tests
-describe('POST /api/v1/save-score', () => {
+describe('POST /api/v1/scores', () => {
   it('Should save a score to the database', done => {
     const prev = database.getScores()
 
     chai
       .request(app)
-      .post('/api/v1/save-score')
+      .post('/api/v1/scores')
       .send({ score: 6, id: "1", percentage: 60 })
       .then((err, res) => {
         res.should.have.status(200);

@@ -53,6 +53,7 @@ function handleKey(event){
 $(function () {
     $('#mascot-sad img').hide();
     $('#mascot-happy img').hide();
+    $('#mascot-meh img').hide();
     //enable debug for jack's user account
     if (sessionStorage.id == '106017767078900462768') {
         console.log('DEBUG MODE ON ')
@@ -128,11 +129,11 @@ function genQuizHtml(quiz) {
     var htmlArray = [];
     
     quiz.forEach((q) => {
-        var html = '<h1>' + q.question + '</h1>';
+        var html = '<h1 class="question">' + q.question + '</h1>';
         
         //create content for special question types
         if (q.type == 'text') {
-            html += '<h3>"' + q.metadata + '"</h3>';
+            html += '<h3 class="review">"' + q.metadata + '"</h3>';
         }
         else if (q.type == 'img') {
             var bytearray = q.metadata;
@@ -147,10 +148,11 @@ function genQuizHtml(quiz) {
         html += '<div id="buttons">';
 
         //add each question
-        for (i = 0; i < 4; i++) {
+        for (i = 1; i < 5; i++) {
             if (i == rightPos) {
                 html += '<div class="answer" id="rightanswer"  onclick="nextQuestion(this, true)">'
                     + '<div class="answer-text" >'
+                    + i + ") "
                     + q.answer
                     + '<span class="tick">    ✔️</span>'
                     + '</div>'
@@ -159,6 +161,7 @@ function genQuizHtml(quiz) {
             else {
                 html += '<div class="answer" onclick="nextQuestion(this, false)">'
                     + '<div class="answer-text">'
+                    + i + ") "
                     + q.wrong[wi]
                     + '<span class="tick">    ❌</span>'
                     + '</div>'
@@ -192,7 +195,7 @@ function nextQuestion(el, right) {
         $(el).addClass('right')
         $(el).find('.tick').css('visibility', 'visible')
         $('#mascot-happy img').show();
-        
+       // $('#mascot-sad img').hide();
         rightFX.play()
         
 
@@ -204,7 +207,6 @@ function nextQuestion(el, right) {
         $('#rightanswer').addClass('right')
         $('#rightanswer').find('.tick').css('visibility', 'visible')
         $('#mascot-sad img').show();
-        //$('#mascot-sad img').hide();
         wrongFX.play()
         
 
@@ -240,7 +242,7 @@ function finish(score) {
     //save score
     if (sessionStorage.id != null) {
         //send score to db
-        fetch(API_VERSION + '/save-score', {
+        fetch(API_VERSION + '/scores', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem("token") },
             body: JSON.stringify({
@@ -252,13 +254,15 @@ function finish(score) {
         }).then((res) => {
             //redirect
             window.location.href = '/score?score=' + score
+            
         })
     } else {
+        
         window.location.href = '/score?score=' + score
+        
 
     }
 }
-
 //increases the width of the progress bar
 function advanceProgressBar() {
     var barWidth = $('#progress-bar').width()

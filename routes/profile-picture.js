@@ -77,5 +77,6 @@ function randomColour(){
 
 module.exports ={
     generateProfilePicture,
-    renderProfilePicture
+    renderProfilePicture, 
+    randomColour
 }

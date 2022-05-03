@@ -31,6 +31,88 @@ async function addScore(id, score, percentage) {
     }
 }
 
+
+//add a city
+async function addCity(city) {
+    var connection = makeConnection()
+
+    let sql = "INSERT INTO cities (cityId, city) VALUES (NULL, '" 
+        + city + "')"
+
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200;
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+//add a city
+async function getCity(city) {
+    var connection = makeConnection()
+
+
+    let sql = "SELECT * FROM cities WHERE city = '" + city+"'"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+//add a city
+async function getCities(name) {
+    var connection = makeConnection()
+
+
+    let sql = "SELECT * FROM cities"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+//add a city
+async function updateCity(id, city) {
+    var connection = makeConnection()
+
+
+    let sql =  "UPDATE cities SET city = '" + city + "' WHERE cityId = " + id
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
+
+async function deleteCity(city){
+    var connection = makeConnection()
+    let sql = "DELETE FROM cities WHERE city = '" + city+"'"
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return 200
+    } catch (err) {
+        console.log(err);
+        return 502;
+    }
+}
+
 //return an ordered list of users and their scores
 async function getLeaderboard(){
     var connection = makeConnection()
@@ -63,6 +145,7 @@ async function getLeaderboard(){
         connection.end();
         return leaderboard;
     } catch (err) {
+        console.log(err)
         return 502;
     }
 
@@ -87,7 +170,25 @@ async function addUser(userId, name) {
         console.log(err)
         return 502
     }
+}
 
+
+async function deleteProfilePic(id){
+    let pfp = JSON.stringify({'color': 'black', 'pixels': []})
+    var conn = makeConnection()
+
+    
+    let sql = "UPDATE users SET pfp = '" + pfp + "' WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
 }
 
 async function userExists(userId){
@@ -160,6 +261,23 @@ async function getGDPR(id){
     }
 }
 
+async function getGDPRs(){
+    var conn = makeConnection()
+    let sql = "SELECT userId, gdpr FROM users"
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        console.log(rows)
+        conn.end()
+
+        return rows
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
 async function setGDPR(id, val){
     var conn = makeConnection()
     let sql = "UPDATE users SET gdpr = " + val + " WHERE userId = " + id
@@ -175,6 +293,21 @@ async function setGDPR(id, val){
     }
 }
 
+
+async function setUsername(id, name){
+    var conn = makeConnection()
+    let sql = "UPDATE users SET name = '" + name + "' WHERE userId = " + id
+    try {
+        const [rows, fields] = await conn.promise().query(sql);
+        conn.end()
+        return 200
+
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
 async function getProfilePicture(id){
     var conn = makeConnection()
     let sql = "SELECT pfp FROM users WHERE userId = " + id
@@ -257,7 +390,24 @@ async function getUsers(){
     try{
         const [rows, fields] = await conn.promise().query(sql)
         console.log(rows)
-        connection.end()
+        conn.end()
+        
+        return rows
+    }
+    catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
+async function getAdmins(id){
+    var conn = makeConnection()
+
+    let sql = "SELECT * FROM admins WHERE userID = " + id
+    try{
+        const [rows, fields] = await conn.promise().query(sql)
+        console.log(rows)
+        conn.end()
         
         return rows
     }
@@ -268,6 +418,7 @@ async function getUsers(){
 }
 
 module.exports = {
+    getAdmins,
     getLeaderboard,
     addUser,
     deleteUser,
@@ -277,9 +428,17 @@ module.exports = {
     getScores,
     getGDPR,
     setGDPR,
+    getGDPRs,
     getProfilePicture,
     setProfilePicture,
     selectUsersPoints,
-    getUsers
+    getUsers,
+    deleteProfilePic,
+    setUsername,
+    addCity,
+    updateCity,
+    deleteCity,
+    getCity,
+    getCities
 }
 

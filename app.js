@@ -67,7 +67,7 @@ const swaggerOptions = {
       }]
   },
    
-  apis: ['./routes/**/**.js', './routes/**.js']
+  apis: ['./routes/**/**.js']
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -76,6 +76,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log(req)
   next(createError(404));
 });
 

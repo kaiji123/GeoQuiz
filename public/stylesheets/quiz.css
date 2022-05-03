@@ -52,7 +52,9 @@ circle{
     100%{transform:scale(1.0)}
     
 }
-
+.question{
+    font-size: 3vw;
+}
 .buffer-left{
     width: 10%;
     position:absolute;
@@ -74,7 +76,9 @@ circle{
     width: 90%;
     margin-left: 5%;
 }
- 
+.review{
+     font-size: 2vw;
+ }
 #buttons{
     width: 100%;
     display: grid;
@@ -103,6 +107,7 @@ circle{
     width: 90%;
     font-weight: bold;
     margin: 5px 0px;
+    font-size: 2vw;
 }
 
 .answer:hover{
@@ -126,11 +131,12 @@ circle{
 
 
 #google-image{
-    max-height: 30%;
-    max-width: 50%;
-    margin: 0px 40%;
-    height: auto;
-
+    margin-left: auto;
+    margin-right:auto;
+    height: 50%;
+    width:70%;
+    max-height: 150px;
+    max-width: 300px;
     border: 2px solid black;
 }
 
@@ -142,13 +148,14 @@ circle{
 }
 #mascot-happy img{
     margin-top: 30%;
-    margin-left: -150%;
-
-
+    margin-left: -170%;
 }
 #mascot-sad img{
-    margin-left: -150%;
+    margin-left: -240%;
     margin-bottom: 20%;
+    margin-top: 40%;
+}
+#mascot-meh img{
 }
 /*End of quiz stuff*/
 .quiz-end{
