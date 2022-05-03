@@ -126,6 +126,7 @@ async function fetchQuiz(coords) {
 
 //takes a JSON quiz and generates html
 function genQuizHtml(quiz) {
+    console.log(quiz)
     var htmlArray = [];
     
     quiz.forEach((q) => {
@@ -146,26 +147,26 @@ function genQuizHtml(quiz) {
         //keeps track of position in wrong answer array
         var wi = 0;
         html += '<div id="buttons">';
-
         //add each question
-        for (i = 1; i < 5; i++) {
+        for (i = 0; i < 4; i++) {
+            console.log(q.answer)
             if (i == rightPos) {
-                html += '<div class="answer" id="rightanswer"  onclick="nextQuestion(this, true)">'
-                    + '<div class="answer-text" >'
-                    + i + ") "
-                    + q.answer
-                    + '<span class="tick">    ✔️</span>'
-                    + '</div>'
-                    + '</div>'
+                html += `
+                    <div class="answer" id="rightanswer"  onclick="nextQuestion(this, true)">
+                        <div class="answer-text" >
+                            ${i+1}) ${q.answer}
+                            <span class="tick">    ✔️</span>
+                        </div>
+                    </div>`
             }
             else {
-                html += '<div class="answer" onclick="nextQuestion(this, false)">'
-                    + '<div class="answer-text">'
-                    + i + ") "
-                    + q.wrong[wi]
-                    + '<span class="tick">    ❌</span>'
-                    + '</div>'
-                    + '</div>'
+                html += `
+                <div class="answer" onclick="nextQuestion(this, false)">
+                        <div class="answer-text">
+                        ${i+1}) ${q.wrong[wi]}
+                        <span class="tick">    ❌</span>
+                    </div>
+                </div>`
                 wi++;
             }
         }
