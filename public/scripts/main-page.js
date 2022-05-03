@@ -85,6 +85,7 @@ function getTextSize(){
     document.body.style.fontSize = size + "%"; 
 }
 
+/*
 //Some random colors
 const colors = ["#FFFFFF", "#2AA7FF", "#9980FF", "#FCBC0F", "#F85F36"];
 
@@ -105,6 +106,8 @@ for (let i = 0; i < numBalls; i++) {
   balls.push(ball);
   document.body.append(ball);
 }
+
+*/
 
 // Keyframes
 balls.forEach((el, i, ra) => {
