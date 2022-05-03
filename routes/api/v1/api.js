@@ -450,7 +450,7 @@ router.post('/profile-picture', authenticateToken, async (req, res) => {
  *    delete:
  *      tags:
  *          - User
- *      summary: delete user's profile picture
+ *      summary: Delete user's profile picture
  *      security:
  *          - bearerAuth: []
  *      parameters:
