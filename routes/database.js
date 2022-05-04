@@ -366,6 +366,20 @@ async function getScores(){
     }
 }
 
+
+async function getScoresById(id){
+    var connection = makeConnection()
+    let sql = "SELECT * FROM scores WHERE userId = "+ id
+    try {
+        const [rows, fields] = await connection.promise().query(sql);
+        connection.end();
+        return rows
+    }catch(err){
+        console.log(err)
+        return 502
+    }
+}
+
 async function selectUsersPoints(id){
     var connection = makeConnection()
     let sql = "SELECT scores FROM scores WHERE userId =" + id
@@ -439,6 +453,7 @@ module.exports = {
     updateCity,
     deleteCity,
     getCity,
-    getCities
+    getCities,
+    getScoresById
 }
 

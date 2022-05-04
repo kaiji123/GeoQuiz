@@ -121,6 +121,64 @@ router.get('/gdpr', authenticateAdmin, async (req, res) => {
 })
 
 
+
+
+/**
+ * @swagger
+ * /users/{id}/scores:
+ *    get:
+ *      tags:
+ *          - User
+ *      summary: Get scores by user ID
+ *      security:
+ *          - bearerAuth: []
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Numeric ID of the user
+ *            schema:
+ *              type: integer
+ *              example: 102333127248222698957
+ *      responses:
+ *        200:
+ *         description: Successfully retrieved scores
+ *        404:
+ *         description: Requested resource does not exist
+ *        401: 
+ *         description: Unauthorized user
+ */
+router.get('/users/:id/scores', authenticateAdmin, async (req, res) => {
+    let id = req.params.id
+
+    let scores = await database.getScoresById(id);
+    
+    res.send(scores)
+})
+
+
+
+/**
+ * @swagger
+ * /users:
+ *    get:
+ *      tags:
+ *          - User
+ *      summary: Get users
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *        200:
+ *         description: Successfully retrieved users
+ *        401: 
+ *         description: Unauthorized user
+ */
+router.get('/users', authenticateAdmin, async (req, res) => {
+    let users = await database.getUsers();
+    res.send(users)
+})
+
+
 /**
  * @swagger
  * /get-gdpr:
