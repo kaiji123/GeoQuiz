@@ -177,7 +177,75 @@ router.get('/users', authenticateAdmin, async (req, res) => {
     let users = await database.getUsers();
     res.send(users)
 })
+//users
+/**
+ * @swagger
+ * /users:
+ *    post:
+ *      tags:
+ *          - User
+ *      summary: Add a user to the database if they don't already exist otherwise login
+ *      requestBody:
+ *          description: the user to add
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      required: 
+ *                          - id
+ *                          - name
+ *                      properties:
+ *                          id :
+ *                              description: user's google id 
+ *                              type: integer
+ *                          name:
+ *                              description: username
+ *                              type: string
+ *                      
+ *      responses:
+ *        200:
+ *         description: Successfully added user
+ *        400:
+ *          description: User already exists
+ */
+//adds a user to the database if they don't already exist
+router.post('/users', async (req, res) => {
+    let id = req.body.id
+    let name = req.body.name
 
+    let exists = await database.userExists(id)
+
+    console.log(exists)
+
+    if (!exists) {
+        var status = await database.addUser(id, name)
+
+        let user = { username: name, googleId: id }
+        const token = jwt.sign(user, process.env.JWT_KEY)
+        res.json(token)
+    }
+    else {
+        // check the user with correct credentials exists
+        let check = await database.userExist2(id, name);
+        let user = { username: name, googleId: id }
+
+        //if correct send success status
+        if (check) {
+
+            //jwt authentication
+            console.log("user exists")
+            const token = jwt.sign(user, process.env.JWT_KEY)
+
+
+            //send token response
+            res.json(token)
+
+        } else {
+            console.log("bad user")
+            res.sendStatus(403)
+        }
+
+    }
+})
 
 /**
  * @swagger
@@ -277,76 +345,6 @@ router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
 })
 
 
-
-//users
-/**
- * @swagger
- * /users:
- *    post:
- *      tags:
- *          - User
- *      summary: Add a user to the database if they don't already exist otherwise login
- *      requestBody:
- *          description: the user to add
- *          content: 
- *              application/json:
- *                  schema:  
- *                      required: 
- *                          - id
- *                          - name
- *                      properties:
- *                          id :
- *                              description: user's google id 
- *                              type: integer
- *                          name:
- *                              description: username
- *                              type: string
- *                      
- *      responses:
- *        200:
- *         description: Successfully added user
- *        400:
- *          description: User already exists
- */
-//adds a user to the database if they don't already exist
-router.post('/users', async (req, res) => {
-    let id = req.body.id
-    let name = req.body.name
-
-    let exists = await database.userExists(id)
-
-    console.log(exists)
-
-    if (!exists) {
-        var status = await database.addUser(id, name)
-
-        let user = { username: name, googleId: id }
-        const token = jwt.sign(user, process.env.JWT_KEY)
-        res.json(token)
-    }
-    else {
-        // check the user with correct credentials exists
-        let check = await database.userExist2(id, name);
-        let user = { username: name, googleId: id }
-
-        //if correct send success status
-        if (check) {
-
-            //jwt authentication
-            console.log("user exists")
-            const token = jwt.sign(user, process.env.JWT_KEY)
-
-
-            //send token response
-            res.json(token)
-
-        } else {
-            console.log("bad user")
-            res.sendStatus(403)
-        }
-
-    }
-})
 //PFPs
 /**
  * @swagger
@@ -605,7 +603,7 @@ router.delete('/users', authenticateToken, async function (req, res) {
  *    put:
  *      tags:
  *          - User
- *      summary: Update user' name 
+ *      summary: Update user's name 
  *      security:
  *          - bearerAuth: []
  *      requestBody:
