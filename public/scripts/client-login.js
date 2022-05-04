@@ -121,7 +121,7 @@ async function checkGDPR(id){
 
 //sends an id to the api to check if a user exists
 async function addUserIfNew(id, name){
-    const res = await fetch(API_VERSION +'/add-user', {
+    const res = await fetch(API_VERSION +'/users', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -281,7 +281,7 @@ router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
 //users
 /**
  * @swagger
- * /add-user:
+ * /users:
  *    post:
  *      tags:
  *          - User
@@ -309,7 +309,7 @@ router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
  *          description: User already exists
  */
 //adds a user to the database if they don't already exist
-router.post('/add-user', async (req, res) => {
+router.post('/users', async (req, res) => {
     let id = req.body.id
     let name = req.body.name
 
