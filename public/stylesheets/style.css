@@ -224,3 +224,9 @@ a:focus-visible{
     -webkit-filter: yellow;
     filter: yellow;
 }
+
+#profile:focus-visible{
+    outline-color: red;
+    outline-offset: 2px;
+    color:black;
+}
