@@ -1,8 +1,8 @@
 .gdpr{
-    background-color: var(--background-color);
+    background: var(--background-color);
 
 }
 
 .popup{
-    background-color: var(--header-color);
+    background: var(--background-color);
 }
