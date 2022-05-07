@@ -119,6 +119,102 @@ router.get('/gdpr', authenticateAdmin, async (req, res) => {
     console.log(gdpr)
     res.send(gdpr)
 })
+/**
+ * @swagger
+ * /gdpr:
+ *    post:
+ *      tags:
+ *          - User
+ *      summary: Check if user has signed the GDPR
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to get gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/User'  # <----------
+ *      responses:
+ *        200:
+ *         description: Successfully received GDPR status                 
+ *        400:
+ *          description: Invalid or missing user ID
+ *        404:
+ *          description: Requested resource not found
+ */
+//checks if users have signed the GDPR
+router.post('/gdpr', authenticateToken, async (req, res) => {
+    let id = req.body.id
+    console.log("hello")
+    console.log(req.body)
+    let gdpr = await database.getGDPR(id)
+    console.log(gdpr)
+    res.send(gdpr)
+})
+//GDPR
+/**
+ * @swagger
+ * /gdpr:
+ *    put:
+ *      tags:
+ *          - User
+ *      summary: Set user's GDPR status to 1
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          description: the user to set gdpr
+ *          content: 
+ *              application/json:
+ *                  schema:  
+ *                      $ref: '#/components/schemas/User'  # <----------
+ *      responses:
+ *        200:
+ *         description: Successfully set GDPR status to 1
+ *        400:
+ *          description: Invalid status value
+ *        404:
+ *          description: Requested resource not found
+ */
+//sets a user's gdpr status to 1
+router.put('/gdpr', authenticateToken, async (req, res) => {
+    let id = req.body.id
+    // let user choose gdpr status
+    let status = await database.setGDPR(id, 1)
+    res.sendStatus(status)
+
+})
+
+
+/**
+ * @swagger
+ * /gdpr/{id}:
+ *    delete:
+ *      tags:
+ *          - User
+ *      summary: Delete gdpr
+ *      security:
+ *          - bearerAuth: []
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Numeric ID of the user to retrieve
+ *            schema:
+ *              type: integer
+ *              example: 102333127248222698957
+ *      responses:
+ *        200:
+ *         description: Successfully deleted gdpr
+ *        404:
+ *         description: Requested resource does not exist
+ *        401: 
+ *         description: Unauthorized user
+ */
+router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
+    let deleteId = req.params.id
+    let status = await database.setGDPR(deleteId, 0)
+    res.send(status)
+})
 
 
 
@@ -247,102 +343,6 @@ router.post('/users', async (req, res) => {
     }
 })
 
-/**
- * @swagger
- * /get-gdpr:
- *    post:
- *      tags:
- *          - User
- *      summary: Check if user has signed the GDPR
- *      security:
- *          - bearerAuth: []
- *      requestBody:
- *          description: the user to get gdpr
- *          content: 
- *              application/json:
- *                  schema:  
- *                      $ref: '#/components/schemas/User'  # <----------
- *      responses:
- *        200:
- *         description: Successfully received GDPR status                 
- *        400:
- *          description: Invalid or missing user ID
- *        404:
- *          description: Requested resource not found
- */
-//checks if users have signed the GDPR
-router.post('/get-gdpr', authenticateToken, async (req, res) => {
-    let id = req.body.id
-    console.log("hello")
-    console.log(req.body)
-    let gdpr = await database.getGDPR(id)
-    console.log(gdpr)
-    res.send(gdpr)
-})
-//GDPR
-/**
- * @swagger
- * /gdpr:
- *    put:
- *      tags:
- *          - User
- *      summary: Set user's GDPR status to 1
- *      security:
- *          - bearerAuth: []
- *      requestBody:
- *          description: the user to set gdpr
- *          content: 
- *              application/json:
- *                  schema:  
- *                      $ref: '#/components/schemas/User'  # <----------
- *      responses:
- *        200:
- *         description: Successfully set GDPR status to 1
- *        400:
- *          description: Invalid status value
- *        404:
- *          description: Requested resource not found
- */
-//sets a user's gdpr status to 1
-router.put('/gdpr', authenticateToken, async (req, res) => {
-    let id = req.body.id
-    // let user choose gdpr status
-    let status = await database.setGDPR(id, 1)
-    res.sendStatus(status)
-
-})
-
-
-/**
- * @swagger
- * /gdpr/{id}:
- *    delete:
- *      tags:
- *          - User
- *      summary: Delete gdpr
- *      security:
- *          - bearerAuth: []
- *      parameters:
- *          - in: path
- *            name: id
- *            required: true
- *            description: Numeric ID of the user to retrieve
- *            schema:
- *              type: integer
- *              example: 102333127248222698957
- *      responses:
- *        200:
- *         description: Successfully deleted gdpr
- *        404:
- *         description: Requested resource does not exist
- *        401: 
- *         description: Unauthorized user
- */
-router.delete('/gdpr/:id', authenticateAdmin, async (req, res) => {
-    let deleteId = req.params.id
-    let status = await database.setGDPR(deleteId, 0)
-    res.send(status)
-})
 
 
 //PFPs
